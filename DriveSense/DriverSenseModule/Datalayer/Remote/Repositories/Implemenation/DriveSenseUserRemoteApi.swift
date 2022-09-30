@@ -12,8 +12,8 @@ class DriveSenseUserRemoteApi: UserRemoteApi {
     internal let session: Session
     private let networkSession: NetworkCall
     
-    init(session: Session) {
-        self.session = session
+    init(userSession: UserSession) {
+        self.session = userSession.session
         networkSession = NetworkCall()
     }
     
@@ -27,10 +27,11 @@ class DriveSenseUserRemoteApi: UserRemoteApi {
     }
     
     
-    func getCandidates() -> AnyPublisher<[CandidatesModel], NetworkError> {
+    func getCandidates(page: Int) -> AnyPublisher<[CandidatesModel], NetworkError> {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .candidates,
-                                                       auth: session.accessToken),
-                                     method: .get) else {
+                                                auth: session.accessToken),
+                                                method: .get,
+                                                query: ["page": "\(page)"]) else {
             return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)

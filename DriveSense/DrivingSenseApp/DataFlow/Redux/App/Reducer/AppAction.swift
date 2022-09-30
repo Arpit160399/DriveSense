@@ -19,7 +19,7 @@ struct AppAction {
              errorPresent: []))
             case .signedIn(let userSession): 
             return AppState
-                .running(.SignIn(.init(userSession: userSession, candidatesViewState: .presentCandidateList)))
+                .running(.SignIn(.init(userSession: userSession, candidatesViewState: .candidateList)))
         }
     }
     

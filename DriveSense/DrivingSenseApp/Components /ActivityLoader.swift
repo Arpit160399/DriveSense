@@ -9,11 +9,11 @@ import SwiftUI
 struct ActivityLoader: View {
     @State var angle: Int = 0
     var color = Color.black
-    var stroke: CGFloat = 8
+    var stroke: CGFloat = 3
     var body: some View {
         ZStack {
             Circle()
-                .stroke(color.opacity(0.5), lineWidth: 8)
+                .stroke(color.opacity(0.5), lineWidth: stroke)
             Circle()
                 .trim(from: 0, to: 0.2)
                 .stroke(color,style: .init(lineWidth: stroke, lineCap: .round))

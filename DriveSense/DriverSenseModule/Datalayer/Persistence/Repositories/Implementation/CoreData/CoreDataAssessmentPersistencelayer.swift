@@ -71,11 +71,24 @@ class CoreDataAssessmentPersistencelayer: AssessmentPersistenceLayer {
             .eraseToAnyPublisher()
     }
     
+    func find(predicated: NSPredicate) -> AnyPublisher<AssessmentModel?, Error> {
+        let context = contextManager.getBackgroundContext()
+        return repositories.fetch(type: AssessmentEntity.self, predicate: predicated,
+                                  sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                     ascending: true)],
+                                  relationshipKeysToFetch: nil,
+                                  managedObjectContext: context)
+        .map { objects in
+            objects.first?.toDomainModel()
+        }.eraseToAnyPublisher()
+    }
+    
     func fetch(page: Int, limit: Int, id: UUID?) -> AnyPublisher<[AssessmentModel], Error> {
         let context = contextManager.getBackgroundContext()
         if id != nil {
             let condition = NSPredicate(format: "id == %@", id?.uuidString ?? "")
-            return repositories.fetch(type: AssessmentEntity.self, predicate: condition, sortDescriptors: nil, relationshipKeysToFetch: nil, managedObjectContext: context).map { object in
+            return repositories.fetch(type: AssessmentEntity.self, predicate: condition, sortDescriptors: [NSSortDescriptor(key: "createdAt",ascending: true)],
+                relationshipKeysToFetch: nil, managedObjectContext: context).map { object in
                 object.map { $0.toDomainModel() }
             }.eraseToAnyPublisher()
         } else {
@@ -83,7 +96,8 @@ class CoreDataAssessmentPersistencelayer: AssessmentPersistenceLayer {
             let offset = limit * (page < 0 ? 0 : page - 1)
             return repositories.fetch(type: AssessmentEntity.self,
                                       predicate: fetchCondition,
-                                      sortDescriptors: nil,
+                                      sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                         ascending: true)],
                                       relationshipKeysToFetch: ["forCandidate","feedback"],
                                       managedObjectContext: context,
                                       limit: limit, offset: offset)

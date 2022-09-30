@@ -33,6 +33,12 @@ protocol AssessmentPersistenceLayer {
     /// with response value the collection of expected object.
     func fetch(page: Int,limit: Int,id: UUID?) -> AnyPublisher<[AssessmentModel],Error>
     
+    /// Finding a particular assessment model  into database.
+    /// - Parameter predicated: the query according to which the result will presented.
+    /// - Returns: a publisher which notifies once the fetch operation is completed with
+    ///  response value respected object model.
+    func find(predicated: NSPredicate) -> AnyPublisher<AssessmentModel?,Error>
+
     /// remove the particular assessment model from database.
     /// - Parameter assessment: assessment model that need to be removed from the database.
     /// - Returns: a publisher that notifies once remove operation is completed.

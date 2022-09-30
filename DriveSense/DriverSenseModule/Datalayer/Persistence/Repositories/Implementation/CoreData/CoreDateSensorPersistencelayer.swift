@@ -8,7 +8,7 @@ import Combine
 import Foundation
 import CoreData
 class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
- 
+  
     // MARK: - properties
     
     var assessment: AssessmentModel
@@ -43,6 +43,18 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
                        try context.save()
                        return object.toDomainModel()
                     }.eraseToAnyPublisher()
+    }
+    
+    func find(predicated: NSPredicate) -> AnyPublisher<SensorModel?, Error> {
+        let context = contextManager.getBackgroundContext()
+        return repositories.fetch(type: SensorEntity.self, predicate: predicated,
+                                  sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                     ascending: true)],
+                                  relationshipKeysToFetch: nil,
+                                  managedObjectContext: context)
+        .map { objects in
+            objects.first?.toDomainModel()
+        }.eraseToAnyPublisher()
     }
     
     func createBatch(sensors: [SensorModel]) -> AnyPublisher<[SensorModel], Error> {
@@ -122,7 +134,10 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
         let context = contextManager.getBackgroundContext()
         if id != nil {
             let condition = NSPredicate(format: "id == %@", id?.uuidString ?? "")
-            return repositories.fetch(type: SensorEntity.self, predicate: condition, sortDescriptors: nil, relationshipKeysToFetch: nil, managedObjectContext: context).map { object in
+            return repositories.fetch(type: SensorEntity.self, predicate: condition,
+                                      sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                         ascending: true)],
+                                      relationshipKeysToFetch: nil, managedObjectContext: context).map { object in
                   return object.map({ $0.toDomainModel() })
                  }.eraseToAnyPublisher()
         } else {
@@ -130,7 +145,8 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
             let offset = limit * (page < 0 ? 0 : page - 1)
             return repositories.fetch(type: SensorEntity.self,
                             predicate: fetchCondition,
-                            sortDescriptors: nil,
+                            sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                               ascending: true)],
                             relationshipKeysToFetch: ["assessment"],
                             managedObjectContext: context,
                             limit: limit, offset: offset)

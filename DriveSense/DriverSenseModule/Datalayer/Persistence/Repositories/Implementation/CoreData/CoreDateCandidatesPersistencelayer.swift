@@ -8,7 +8,7 @@ import Combine
 import CoreData
 import Foundation
 class CoreDataCandidatesPersistenceLayer: CandidatePersistenceLayer {
-    
+ 
     // MARK: - properties
     
     var instructor: InstructorModel
@@ -52,7 +52,8 @@ class CoreDataCandidatesPersistenceLayer: CandidatePersistenceLayer {
         
         return Publishers.Zip(repositories.fetch(type: InstructorEntity.self,
                                                  predicate: condition,
-                                                 sortDescriptors: nil, relationshipKeysToFetch: nil,
+                                                 sortDescriptors: nil,
+                                                 relationshipKeysToFetch: nil,
                                                  managedObjectContext: context),
                               repositories.batchCreate(type: CandidatesEntity.self,
                                                        size: candidates.count, mangedObjectContext: context))
@@ -72,6 +73,18 @@ class CoreDataCandidatesPersistenceLayer: CandidatePersistenceLayer {
             .eraseToAnyPublisher()
     }
     
+    func find(predicate: NSPredicate) -> AnyPublisher<CandidatesModel?, Error> {
+        let context = contextManager.getBackgroundContext()
+        return repositories.fetch(type: CandidatesEntity.self, predicate: predicate,
+                                  sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                     ascending: true)],
+                                  relationshipKeysToFetch: ["assessment"],
+                                  managedObjectContext: context)
+        .map { objects in
+            objects.first?.toDomainModel()
+        }.eraseToAnyPublisher()
+    }
+    
     func remove(candidate: CandidatesModel) -> AnyPublisher<Void, Error> {
         let context = contextManager.getBackgroundContext()
         let condition = NSPredicate(format: "id == %@", instructor.id.uuidString)
@@ -85,15 +98,20 @@ class CoreDataCandidatesPersistenceLayer: CandidatePersistenceLayer {
         let context = contextManager.getBackgroundContext()
         if id != nil {
             let condition = NSPredicate(format: "id == %@", id?.uuidString ?? "")
-            return repositories.fetch(type: CandidatesEntity.self, predicate: condition, sortDescriptors: nil, relationshipKeysToFetch: nil, managedObjectContext: context).map { object in
-                object.map { $0.toDomainModel() }
-            }.eraseToAnyPublisher()
+            return repositories.fetch(type: CandidatesEntity.self, predicate: condition,
+                                      sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                         ascending: true)],
+                                      relationshipKeysToFetch: nil,
+                                      managedObjectContext: context).map { object in
+                                            object.map { $0.toDomainModel() }
+                                    }.eraseToAnyPublisher()
         } else {
             let fetchCondition = NSPredicate(format: "instructor.id == %@", instructor.id.uuidString)
             let offset = limit * (page < 0 ? 0 : page - 1)
             return repositories.fetch(type: CandidatesEntity.self,
                                       predicate: fetchCondition,
-                                      sortDescriptors: nil,
+                                      sortDescriptors: [NSSortDescriptor(key: "createdAt",
+                                                                         ascending: true)],
                                       relationshipKeysToFetch: ["instructor"],
                                       managedObjectContext: context,
                                       limit: limit, offset: offset)

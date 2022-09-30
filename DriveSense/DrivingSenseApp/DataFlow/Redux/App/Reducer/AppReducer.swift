@@ -18,7 +18,7 @@ extension  ReducerCollection {
             if case .launching(var launchingState) = state {
                 launchingState.errorPresent.remove(action.error)
                 if launchingState.errorPresent.count == 0 {
-                    state = .running(.OnBoarding(.login))
+                    state = .running(.OnBoarding(.login(.init())))
                 } else {
                     state = .launching(launchingState)
                 }

@@ -10,11 +10,25 @@
 		830BF33128CBC4AA00918C21 /* OnBoardingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830BF33028CBC4AA00918C21 /* OnBoardingState.swift */; };
 		831A1B6928C0926500E8092C /* DriveSenseRemoteAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B6828C0926500E8092C /* DriveSenseRemoteAuth.swift */; };
 		831A1B6B28C093D600E8092C /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B6A28C093D600E8092C /* UserAuth.swift */; };
-		831A1B6D28C0976000E8092C /* DriveSenseSyncRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B6C28C0976000E8092C /* DriveSenseSyncRemote.swift */; };
+		831A1B6D28C0976000E8092C /* DriveSenseAssessmentRemote.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B6C28C0976000E8092C /* DriveSenseAssessmentRemote.swift */; };
 		831A1B6F28C09E2C00E8092C /* DataBinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B6E28C09E2C00E8092C /* DataBinder.swift */; };
 		831A1B7528C0FE4F00E8092C /* PersistentStoreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B7428C0FE4F00E8092C /* PersistentStoreCoordinator.swift */; };
 		831A1B7728C10FA800E8092C /* CoreDataRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B7628C10FA800E8092C /* CoreDataRepository.swift */; };
 		831A1B7928C121C100E8092C /* DomainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B7828C121C100E8092C /* DomainModel.swift */; };
+		834C6DE728D85D3E0078220D /* CacheInstructorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DE628D85D3E0078220D /* CacheInstructorModel.swift */; };
+		834C6DEA28D9AFA10078220D /* CacheCompletionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DE928D9AFA10078220D /* CacheCompletionHandler.swift */; };
+		834C6DED28D9B1580078220D /* CandidateCaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DEC28D9B1580078220D /* CandidateCaching.swift */; };
+		834C6DEF28D9B28F0078220D /* InstructorCaching .swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DEE28D9B28F0078220D /* InstructorCaching .swift */; };
+		834C6DF828DB92720078220D /* AddCandidateState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DF728DB92720078220D /* AddCandidateState.swift */; };
+		834C6DFA28DB94030078220D /* AddCandidateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DF928DB94030078220D /* AddCandidateReducer.swift */; };
+		834C6DFC28DBD1850078220D /* SignedInAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DFB28DBD1850078220D /* SignedInAction.swift */; };
+		834C6E0628DDE53B0078220D /* SignedInLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0528DDE53B0078220D /* SignedInLogic.swift */; };
+		834C6E0828DE10550078220D /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0728DE10550078220D /* Candidate.swift */; };
+		834C6E0A28DE13260078220D /* DriverSenseSignedInContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0928DE13260078220D /* DriverSenseSignedInContainer.swift */; };
+		834C6E0C28DE15D60078220D /* CandidateListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0B28DE15D60078220D /* CandidateListPresenter.swift */; };
+		834C6E0E28DE1D740078220D /* CandidateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0D28DE1D740078220D /* CandidateCardView.swift */; };
+		834C6E1128DE20460078220D /* FetchCandidateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E1028DE20460078220D /* FetchCandidateUseCase.swift */; };
+		834C6E1328DE2CD60078220D /* AddCandidateAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E1228DE2CD60078220D /* AddCandidateAction.swift */; };
 		835D8C1B286EE79F00961878 /* DriveSenseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835D8C1A286EE79F00961878 /* DriveSenseApp.swift */; };
 		835D8C1D286EE79F00961878 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835D8C1C286EE79F00961878 /* ContentView.swift */; };
 		835D8C1F286EE7A800961878 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 835D8C1E286EE7A800961878 /* Assets.xcassets */; };
@@ -138,10 +152,19 @@
 		83BF6E7228C777D0002BB627 /* InstructorPersistencelayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF6E7128C777D0002BB627 /* InstructorPersistencelayer.swift */; };
 		83BF6E7428C77858002BB627 /* CoreDataInstructorPersistencelayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF6E7328C77858002BB627 /* CoreDataInstructorPersistencelayer.swift */; };
 		83BF6E7728C7911B002BB627 /* CoreDataInstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF6E7628C7911B002BB627 /* CoreDataInstructor.swift */; };
-		83BF71112895525900ABBE57 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF71102895525900ABBE57 /* LoginViewModel.swift */; };
+		83BF71112895525900ABBE57 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF71102895525900ABBE57 /* LoginViewPresenter.swift */; };
 		83BF71132895529800ABBE57 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF71122895529800ABBE57 /* Login.swift */; };
 		83BF7115289552B400ABBE57 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7114289552B400ABBE57 /* Registration.swift */; };
+		83C01B3D28D272C90003A5A2 /* LoginLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B3C28D272C90003A5A2 /* LoginLogic.swift */; };
+		83C01B3F28D273030003A5A2 /* RegisterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B3E28D273030003A5A2 /* RegisterState.swift */; };
+		83C01B4328D273380003A5A2 /* RegisterReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4228D273380003A5A2 /* RegisterReducer.swift */; };
+		83C01B4528D274FE0003A5A2 /* RegisterAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4428D274FE0003A5A2 /* RegisterAction.swift */; };
+		83C01B4728D276E50003A5A2 /* RunningStateGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4628D276E50003A5A2 /* RunningStateGetter.swift */; };
+		83C01B4928D27BC30003A5A2 /* OnBoardingStateGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4828D27BC20003A5A2 /* OnBoardingStateGetter.swift */; };
+		83C01B4B28D2B08F0003A5A2 /* UserOnBoardingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4A28D2B08F0003A5A2 /* UserOnBoardingPresenter.swift */; };
+		83C01B4D28D329DD0003A5A2 /* SignedInReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4C28D329DD0003A5A2 /* SignedInReducer.swift */; };
 		83C1723C28B3C4DA00698C9B /* DriverSenseContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C1723B28B3C4DA00698C9B /* DriverSenseContainer.swift */; };
+		83C9C2F328D38E15000FB2CA /* EnrollNewCandidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C9C2F228D38E15000FB2CA /* EnrollNewCandidate.swift */; };
 		83CA74452886FA940024539F /* RoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA74442886FA940024539F /* RoadView.swift */; };
 		83CA7447288703C70024539F /* SpeedOMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA7446288703C70024539F /* SpeedOMeter.swift */; };
 		83DE541528902D7800ACF792 /* DrivingAssisgmentForme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE541428902D7800ACF792 /* DrivingAssisgmentForme.swift */; };
@@ -162,7 +185,7 @@
 		83ED45A928959C7800F57334 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45A828959C7800F57334 /* Color.swift */; };
 		83ED45AB28959C8400F57334 /* FontBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45AA28959C8400F57334 /* FontBook.swift */; };
 		83ED45AD2895A41600F57334 /* ActivityLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45AC2895A41600F57334 /* ActivityLoader.swift */; };
-		83ED45AF2896D40C00F57334 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45AE2896D40C00F57334 /* RegistrationViewModel.swift */; };
+		83ED45AF2896D40C00F57334 /* RegistrationPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45AE2896D40C00F57334 /* RegistrationPresenter.swift */; };
 		83ED45B12896D90400F57334 /* UserOnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45B02896D90400F57334 /* UserOnBoarding.swift */; };
 		83ED45B32896E23C00F57334 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45B22896E23C00F57334 /* NavigationModel.swift */; };
 		83ED45B62896E8FC00F57334 /* CandidateList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83ED45B52896E8FC00F57334 /* CandidateList.swift */; };
@@ -189,11 +212,25 @@
 		830BF33028CBC4AA00918C21 /* OnBoardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingState.swift; sourceTree = "<group>"; };
 		831A1B6828C0926500E8092C /* DriveSenseRemoteAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseRemoteAuth.swift; sourceTree = "<group>"; };
 		831A1B6A28C093D600E8092C /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
-		831A1B6C28C0976000E8092C /* DriveSenseSyncRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseSyncRemote.swift; sourceTree = "<group>"; };
+		831A1B6C28C0976000E8092C /* DriveSenseAssessmentRemote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseAssessmentRemote.swift; sourceTree = "<group>"; };
 		831A1B6E28C09E2C00E8092C /* DataBinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBinder.swift; sourceTree = "<group>"; };
 		831A1B7428C0FE4F00E8092C /* PersistentStoreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStoreCoordinator.swift; sourceTree = "<group>"; };
 		831A1B7628C10FA800E8092C /* CoreDataRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataRepository.swift; sourceTree = "<group>"; };
 		831A1B7828C121C100E8092C /* DomainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainModel.swift; sourceTree = "<group>"; };
+		834C6DE628D85D3E0078220D /* CacheInstructorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheInstructorModel.swift; sourceTree = "<group>"; };
+		834C6DE928D9AFA10078220D /* CacheCompletionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheCompletionHandler.swift; sourceTree = "<group>"; };
+		834C6DEC28D9B1580078220D /* CandidateCaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateCaching.swift; sourceTree = "<group>"; };
+		834C6DEE28D9B28F0078220D /* InstructorCaching .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InstructorCaching .swift"; sourceTree = "<group>"; };
+		834C6DF728DB92720078220D /* AddCandidateState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCandidateState.swift; sourceTree = "<group>"; };
+		834C6DF928DB94030078220D /* AddCandidateReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCandidateReducer.swift; sourceTree = "<group>"; };
+		834C6DFB28DBD1850078220D /* SignedInAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInAction.swift; sourceTree = "<group>"; };
+		834C6E0528DDE53B0078220D /* SignedInLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInLogic.swift; sourceTree = "<group>"; };
+		834C6E0728DE10550078220D /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
+		834C6E0928DE13260078220D /* DriverSenseSignedInContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSenseSignedInContainer.swift; sourceTree = "<group>"; };
+		834C6E0B28DE15D60078220D /* CandidateListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListPresenter.swift; sourceTree = "<group>"; };
+		834C6E0D28DE1D740078220D /* CandidateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateCardView.swift; sourceTree = "<group>"; };
+		834C6E1028DE20460078220D /* FetchCandidateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchCandidateUseCase.swift; sourceTree = "<group>"; };
+		834C6E1228DE2CD60078220D /* AddCandidateAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCandidateAction.swift; sourceTree = "<group>"; };
 		835D8C17286EE79F00961878 /* DriveSense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DriveSense.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		835D8C1A286EE79F00961878 /* DriveSenseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseApp.swift; sourceTree = "<group>"; };
 		835D8C1C286EE79F00961878 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -321,10 +358,19 @@
 		83BF6E7128C777D0002BB627 /* InstructorPersistencelayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructorPersistencelayer.swift; sourceTree = "<group>"; };
 		83BF6E7328C77858002BB627 /* CoreDataInstructorPersistencelayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataInstructorPersistencelayer.swift; sourceTree = "<group>"; };
 		83BF6E7628C7911B002BB627 /* CoreDataInstructor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataInstructor.swift; sourceTree = "<group>"; };
-		83BF71102895525900ABBE57 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		83BF71102895525900ABBE57 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
 		83BF71122895529800ABBE57 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		83BF7114289552B400ABBE57 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		83C01B3C28D272C90003A5A2 /* LoginLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLogic.swift; sourceTree = "<group>"; };
+		83C01B3E28D273030003A5A2 /* RegisterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterState.swift; sourceTree = "<group>"; };
+		83C01B4228D273380003A5A2 /* RegisterReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReducer.swift; sourceTree = "<group>"; };
+		83C01B4428D274FE0003A5A2 /* RegisterAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterAction.swift; sourceTree = "<group>"; };
+		83C01B4628D276E50003A5A2 /* RunningStateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunningStateGetter.swift; sourceTree = "<group>"; };
+		83C01B4828D27BC20003A5A2 /* OnBoardingStateGetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingStateGetter.swift; sourceTree = "<group>"; };
+		83C01B4A28D2B08F0003A5A2 /* UserOnBoardingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnBoardingPresenter.swift; sourceTree = "<group>"; };
+		83C01B4C28D329DD0003A5A2 /* SignedInReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInReducer.swift; sourceTree = "<group>"; };
 		83C1723B28B3C4DA00698C9B /* DriverSenseContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSenseContainer.swift; sourceTree = "<group>"; };
+		83C9C2F228D38E15000FB2CA /* EnrollNewCandidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollNewCandidate.swift; sourceTree = "<group>"; };
 		83CA74442886FA940024539F /* RoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadView.swift; sourceTree = "<group>"; };
 		83CA7446288703C70024539F /* SpeedOMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOMeter.swift; sourceTree = "<group>"; };
 		83DE541428902D7800ACF792 /* DrivingAssisgmentForme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingAssisgmentForme.swift; sourceTree = "<group>"; };
@@ -345,7 +391,7 @@
 		83ED45A828959C7800F57334 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		83ED45AA28959C8400F57334 /* FontBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontBook.swift; sourceTree = "<group>"; };
 		83ED45AC2895A41600F57334 /* ActivityLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityLoader.swift; sourceTree = "<group>"; };
-		83ED45AE2896D40C00F57334 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		83ED45AE2896D40C00F57334 /* RegistrationPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationPresenter.swift; sourceTree = "<group>"; };
 		83ED45B02896D90400F57334 /* UserOnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOnBoarding.swift; sourceTree = "<group>"; };
 		83ED45B22896E23C00F57334 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
 		83ED45B52896E8FC00F57334 /* CandidateList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateList.swift; sourceTree = "<group>"; };
@@ -390,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				8395B80828CBCF610044C6B3 /* RuninngState.swift */,
+				83C01B4628D276E50003A5A2 /* RunningStateGetter.swift */,
 			);
 			path = state;
 			sourceTree = "<group>";
@@ -442,6 +489,89 @@
 			path = Repositories;
 			sourceTree = "<group>";
 		};
+		834C6DE828D860F10078220D /* common */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DF028D9B35D0078220D /* implementation */,
+				834C6DEE28D9B28F0078220D /* InstructorCaching .swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		834C6DEB28D9AFC90078220D /* common */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DEC28D9B1580078220D /* CandidateCaching.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		834C6DF028D9B35D0078220D /* implementation */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DE628D85D3E0078220D /* CacheInstructorModel.swift */,
+			);
+			path = implementation;
+			sourceTree = "<group>";
+		};
+		834C6DF128DB90A30078220D /* branch */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DF428DB91B50078220D /* NewCandidate */,
+				834C6DF328DB919E0078220D /* AssessmentList */,
+				834C6DF228DB91790078220D /* CandidateList */,
+			);
+			path = branch;
+			sourceTree = "<group>";
+		};
+		834C6DF228DB91790078220D /* CandidateList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CandidateList;
+			sourceTree = "<group>";
+		};
+		834C6DF328DB919E0078220D /* AssessmentList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AssessmentList;
+			sourceTree = "<group>";
+		};
+		834C6DF428DB91B50078220D /* NewCandidate */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DF628DB91D20078220D /* state */,
+				834C6DF528DB91C70078220D /* reducer */,
+			);
+			path = NewCandidate;
+			sourceTree = "<group>";
+		};
+		834C6DF528DB91C70078220D /* reducer */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DF928DB94030078220D /* AddCandidateReducer.swift */,
+				834C6E1228DE2CD60078220D /* AddCandidateAction.swift */,
+			);
+			path = reducer;
+			sourceTree = "<group>";
+		};
+		834C6DF628DB91D20078220D /* state */ = {
+			isa = PBXGroup;
+			children = (
+				834C6DF728DB92720078220D /* AddCandidateState.swift */,
+			);
+			path = state;
+			sourceTree = "<group>";
+		};
+		834C6E0F28DE20050078220D /* addCandidate */ = {
+			isa = PBXGroup;
+			children = (
+				83C9C2F228D38E15000FB2CA /* EnrollNewCandidate.swift */,
+			);
+			path = addCandidate;
+			sourceTree = "<group>";
+		};
 		835D8C0E286EE79F00961878 = {
 			isa = PBXGroup;
 			children = (
@@ -470,7 +600,6 @@
 				83E8FEF028A5805B00E9B458 /* SensorFramework */,
 				83DE541628905FAB00ACF792 /* DrivingSenseApp */,
 				835D8C1A286EE79F00961878 /* DriveSenseApp.swift */,
-				83E98B0428D0FFCA007583A1 /* DriverSenseOnBoardingContainer.swift */,
 				83C1723B28B3C4DA00698C9B /* DriverSenseContainer.swift */,
 				835D8C1C286EE79F00961878 /* ContentView.swift */,
 				835D8C1E286EE7A800961878 /* Assets.xcassets */,
@@ -606,7 +735,7 @@
 			isa = PBXGroup;
 			children = (
 				831A1B6828C0926500E8092C /* DriveSenseRemoteAuth.swift */,
-				831A1B6C28C0976000E8092C /* DriveSenseSyncRemote.swift */,
+				831A1B6C28C0976000E8092C /* DriveSenseAssessmentRemote.swift */,
 				8395B82028CF5EC60044C6B3 /* DriveSenseUserRemoteApi.swift */,
 			);
 			path = Implemenation;
@@ -729,6 +858,7 @@
 		8395B80F28CF3BCD0044C6B3 /* SignedIn */ = {
 			isa = PBXGroup;
 			children = (
+				834C6DF128DB90A30078220D /* branch */,
 				8395B81128CF3CC90044C6B3 /* reducer */,
 				8395B81028CF3CBF0044C6B3 /* state */,
 			);
@@ -747,6 +877,9 @@
 		8395B81128CF3CC90044C6B3 /* reducer */ = {
 			isa = PBXGroup;
 			children = (
+				83C01B4C28D329DD0003A5A2 /* SignedInReducer.swift */,
+				834C6DFB28DBD1850078220D /* SignedInAction.swift */,
+				834C6E0528DDE53B0078220D /* SignedInLogic.swift */,
 			);
 			path = reducer;
 			sourceTree = "<group>";
@@ -754,6 +887,7 @@
 		8395B82228CFF3CB0044C6B3 /* Running */ = {
 			isa = PBXGroup;
 			children = (
+				83C9C2F428D3A701000FB2CA /* SignedIn */,
 				8395B82328CFF3E00044C6B3 /* OnBoarding */,
 			);
 			path = Running;
@@ -762,6 +896,7 @@
 		8395B82328CFF3E00044C6B3 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				834C6DE828D860F10078220D /* common */,
 				8395B82428CFF3F90044C6B3 /* SignUpUseCase.swift */,
 				8395B82628CFF40B0044C6B3 /* SignInUseCase.swift */,
 			);
@@ -809,6 +944,7 @@
 		83B32B8528CBA43E004517CF /* UserCase */ = {
 			isa = PBXGroup;
 			children = (
+				834C6DE928D9AFA10078220D /* CacheCompletionHandler.swift */,
 				83B32B9228CBB617004517CF /* UserCase.swift */,
 				83B32B9128CBB607004517CF /* launch */,
 				8395B82228CFF3CB0044C6B3 /* Running */,
@@ -830,6 +966,7 @@
 			isa = PBXGroup;
 			children = (
 				830BF33028CBC4AA00918C21 /* OnBoardingState.swift */,
+				83C01B4828D27BC20003A5A2 /* OnBoardingStateGetter.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -940,6 +1077,7 @@
 		83BF710D2895520800ABBE57 /* UserOnBoarding */ = {
 			isa = PBXGroup;
 			children = (
+				83E98B0428D0FFCA007583A1 /* DriverSenseOnBoardingContainer.swift */,
 				83BF710F2895522C00ABBE57 /* ViewModel */,
 				83BF710E2895522200ABBE57 /* Views */,
 			);
@@ -959,10 +1097,37 @@
 		83BF710F2895522C00ABBE57 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				83BF71102895525900ABBE57 /* LoginViewModel.swift */,
-				83ED45AE2896D40C00F57334 /* RegistrationViewModel.swift */,
+				83BF71102895525900ABBE57 /* LoginViewPresenter.swift */,
+				83ED45AE2896D40C00F57334 /* RegistrationPresenter.swift */,
+				83C01B4A28D2B08F0003A5A2 /* UserOnBoardingPresenter.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		83C01B3B28D272070003A5A2 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				83C01B4128D273190003A5A2 /* Reducer */,
+				83C01B4028D273070003A5A2 /* State */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		83C01B4028D273070003A5A2 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				83C01B3E28D273030003A5A2 /* RegisterState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		83C01B4128D273190003A5A2 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				83C01B4228D273380003A5A2 /* RegisterReducer.swift */,
+				83C01B4428D274FE0003A5A2 /* RegisterAction.swift */,
+			);
+			path = Reducer;
 			sourceTree = "<group>";
 		};
 		83C1723A28B3B5F300698C9B /* DriverSenseModule */ = {
@@ -972,6 +1137,16 @@
 				837BAEFE28B91A7100760799 /* UserSession */,
 			);
 			path = DriverSenseModule;
+			sourceTree = "<group>";
+		};
+		83C9C2F428D3A701000FB2CA /* SignedIn */ = {
+			isa = PBXGroup;
+			children = (
+				834C6E0F28DE20050078220D /* addCandidate */,
+				834C6DEB28D9AFC90078220D /* common */,
+				834C6E1028DE20460078220D /* FetchCandidateUseCase.swift */,
+			);
+			path = SignedIn;
 			sourceTree = "<group>";
 		};
 		83DE541628905FAB00ACF792 /* DrivingSenseApp */ = {
@@ -992,6 +1167,8 @@
 				83ED45B52896E8FC00F57334 /* CandidateList.swift */,
 				83DE541428902D7800ACF792 /* DrivingAssisgmentForme.swift */,
 				837E7B55289ACC43009D9079 /* TestBoardView.swift */,
+				834C6E0728DE10550078220D /* Candidate.swift */,
+				834C6E0D28DE1D740078220D /* CandidateCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -999,6 +1176,7 @@
 		83DE54182890602000ACF792 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				834C6E0B28DE15D60078220D /* CandidateListPresenter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1056,6 +1234,7 @@
 		83E98AFA28D0E494007583A1 /* Branch */ = {
 			isa = PBXGroup;
 			children = (
+				83C01B3B28D272070003A5A2 /* Register */,
 				83E98AFD28D0E5E8007583A1 /* login */,
 			);
 			path = Branch;
@@ -1075,6 +1254,7 @@
 			children = (
 				83E98AFE28D0E621007583A1 /* LoginReducer.swift */,
 				83E98B0228D0EB21007583A1 /* LoginAction.swift */,
+				83C01B3C28D272C90003A5A2 /* LoginLogic.swift */,
 			);
 			path = Reducer;
 			sourceTree = "<group>";
@@ -1114,6 +1294,7 @@
 		83ED45B82896E92200F57334 /* CandiateTestConduction */ = {
 			isa = PBXGroup;
 			children = (
+				834C6E0928DE13260078220D /* DriverSenseSignedInContainer.swift */,
 				83DE54172890600900ACF792 /* View */,
 				83DE54182890602000ACF792 /* ViewModel */,
 				837E7B57289C45E8009D9079 /* Model */,
@@ -1254,16 +1435,20 @@
 				83BF6E7028C77742002BB627 /* CoreDataAssessmentPersistencelayer.swift in Sources */,
 				83BF6E6628C37C57002BB627 /* FeedbackEntity+CoreDataClass.swift in Sources */,
 				83E98AF628D0D762007583A1 /* OnboardingReducer.swift in Sources */,
+				834C6DEA28D9AFA10078220D /* CacheCompletionHandler.swift in Sources */,
 				835F433C28C000C800F66C36 /* JunctionsModel.swift in Sources */,
 				835F430428BFE6E800F66C36 /* Path.swift in Sources */,
+				83C01B4B28D2B08F0003A5A2 /* UserOnBoardingPresenter.swift in Sources */,
 				8395B80628CBCAA80044C6B3 /* LauchingReducer.swift in Sources */,
 				83B32B9328CBB617004517CF /* UserCase.swift in Sources */,
 				83E98B0328D0EB21007583A1 /* LoginAction.swift in Sources */,
 				83BF6DBE28C2290B002BB627 /* GPSEntity+CoreDataClass.swift in Sources */,
 				83ED45A6289581E600F57334 /* ButtonStyle.swift in Sources */,
+				834C6E1128DE20460078220D /* FetchCandidateUseCase.swift in Sources */,
+				834C6DFA28DB94030078220D /* AddCandidateReducer.swift in Sources */,
 				835F432828C000C800F66C36 /* JudgementModel.swift in Sources */,
 				835F42FC28BFD62F00F66C36 /* Route.swift in Sources */,
-				83ED45AF2896D40C00F57334 /* RegistrationViewModel.swift in Sources */,
+				83ED45AF2896D40C00F57334 /* RegistrationPresenter.swift in Sources */,
 				83BF6DC028C2290B002BB627 /* SensorEntity+CoreDataClass.swift in Sources */,
 				83BF6E6828C37C57002BB627 /* AssessmentEntity+CoreDataClass.swift in Sources */,
 				8395B80928CBCF610044C6B3 /* RuninngState.swift in Sources */,
@@ -1278,23 +1463,28 @@
 				83DE541A2890607900ACF792 /* Conculsion .swift in Sources */,
 				837E7B63289C4774009D9079 /* Control.swift in Sources */,
 				83E8BCC228AFAA430089491C /* Sensor.swift in Sources */,
+				834C6DEF28D9B28F0078220D /* InstructorCaching .swift in Sources */,
 				835F433A28C000C800F66C36 /* GPSModel.swift in Sources */,
 				83E98AFC28D0E5DF007583A1 /* LoginState.swift in Sources */,
 				8381882728AACF1E00017978 /* SensorHandler.swift in Sources */,
 				83BF6DC428C2290B002BB627 /* ADIEntity+CoreDataClass.swift in Sources */,
 				83E98AFF28D0E621007583A1 /* LoginReducer.swift in Sources */,
 				8395B80E28CBE0A90044C6B3 /* AppStateGetter.swift in Sources */,
+				83C9C2F328D38E15000FB2CA /* EnrollNewCandidate.swift in Sources */,
 				83ED45AD2895A41600F57334 /* ActivityLoader.swift in Sources */,
 				83BF6DBC28C2290B002BB627 /* AxisValueEntity+CoreDataClass.swift in Sources */,
 				83B32B8428CBA164004517CF /* AppReducer.swift in Sources */,
 				83A9DA91288EE9E000D1485A /* RollingMeter.swift in Sources */,
+				834C6DFC28DBD1850078220D /* SignedInAction.swift in Sources */,
 				83BF6E6C28C3B9A7002BB627 /* CoreData + NSExpression .swift in Sources */,
 				83E8BCBC28AF0D150089491C /* AxisValue.swift in Sources */,
+				83C01B3F28D273030003A5A2 /* RegisterState.swift in Sources */,
 				83E98B0528D0FFCA007583A1 /* DriverSenseOnBoardingContainer.swift in Sources */,
 				8395B81D28CF5D360044C6B3 /* UserVerification.swift in Sources */,
 				835D8C1B286EE79F00961878 /* DriveSenseApp.swift in Sources */,
 				831A1B6B28C093D600E8092C /* UserAuth.swift in Sources */,
 				83BF6D9328C2235C002BB627 /* SensorPersistencelayer.swift in Sources */,
+				83C01B3D28D272C90003A5A2 /* LoginLogic.swift in Sources */,
 				83E8BCBE28AF0D520089491C /* GPS.swift in Sources */,
 				835F42E128BEAEC700F66C36 /* NetworkRequest.swift in Sources */,
 				83B32B8928CBAE35004517CF /* AuthenticationState.swift in Sources */,
@@ -1305,7 +1495,8 @@
 				83C1723C28B3C4DA00698C9B /* DriverSenseContainer.swift in Sources */,
 				837BAF0C28B91BCC00760799 /* UserSessionCoding.swift in Sources */,
 				837E7B61289C4738009D9079 /* Progress.swift in Sources */,
-				831A1B6D28C0976000E8092C /* DriveSenseSyncRemote.swift in Sources */,
+				831A1B6D28C0976000E8092C /* DriveSenseAssessmentRemote.swift in Sources */,
+				83C01B4528D274FE0003A5A2 /* RegisterAction.swift in Sources */,
 				83BF6DB228C2290B002BB627 /* ControlEntity+CoreDataClass.swift in Sources */,
 				835F432428C000C800F66C36 /* InstructorModel.swift in Sources */,
 				83BF6DB528C2290B002BB627 /* JudgementEntity+CoreDataProperties.swift in Sources */,
@@ -1334,6 +1525,9 @@
 				83722C192881F69800EC399D /* WaveIcon.swift in Sources */,
 				83B32B9528CBBD87004517CF /* ErrorMessage.swift in Sources */,
 				837E7B5F289C46CB009D9079 /* Junctions.swift in Sources */,
+				83C01B4D28D329DD0003A5A2 /* SignedInReducer.swift in Sources */,
+				834C6DED28D9B1580078220D /* CandidateCaching.swift in Sources */,
+				834C6E0E28DE1D740078220D /* CandidateCardView.swift in Sources */,
 				83ED45B62896E8FC00F57334 /* CandidateList.swift in Sources */,
 				8395B81928CF58CE0044C6B3 /* OnBoardingActions.swift in Sources */,
 				83BF6DBB28C2290B002BB627 /* JunctionsEntity+CoreDataProperties.swift in Sources */,
@@ -1347,22 +1541,27 @@
 				8395B81F28CF5E540044C6B3 /* UserRemoteApi.swift in Sources */,
 				83ED45A928959C7800F57334 /* Color.swift in Sources */,
 				83DE541C2890609400ACF792 /* TestMark.swift in Sources */,
-				83BF71112895525900ABBE57 /* LoginViewModel.swift in Sources */,
+				83BF71112895525900ABBE57 /* LoginViewPresenter.swift in Sources */,
 				83BF6DC528C2290B002BB627 /* ADIEntity+CoreDataProperties.swift in Sources */,
 				831A1B7928C121C100E8092C /* DomainModel.swift in Sources */,
+				834C6DE728D85D3E0078220D /* CacheInstructorModel.swift in Sources */,
+				83C01B4928D27BC30003A5A2 /* OnBoardingStateGetter.swift in Sources */,
 				835F430628BFF3F800F66C36 /* AssessmentRemoteApi.swift in Sources */,
 				837E7B56289ACC43009D9079 /* TestBoardView.swift in Sources */,
 				837E7B5B289C4674009D9079 /* Judgement.swift in Sources */,
 				83BF6DB728C2290B002BB627 /* InstructorEntity+CoreDataProperties.swift in Sources */,
 				83BF71132895529800ABBE57 /* Login.swift in Sources */,
 				835F433028C000C800F66C36 /* ProgressModel.swift in Sources */,
+				83C01B4728D276E50003A5A2 /* RunningStateGetter.swift in Sources */,
 				83CA7447288703C70024539F /* SpeedOMeter.swift in Sources */,
 				83BF6DCA28C2290B002BB627 /* ProgressEntity+CoreDataClass.swift in Sources */,
 				83BF6DBA28C2290B002BB627 /* JunctionsEntity+CoreDataClass.swift in Sources */,
 				837BAF0428B91B0200760799 /* UserSessionManager.swift in Sources */,
+				83C01B4328D273380003A5A2 /* RegisterReducer.swift in Sources */,
 				83B32B7E28CBA12B004517CF /* AppState.swift in Sources */,
 				83BF6DC328C2290B002BB627 /* CandidatesEntity+CoreDataProperties.swift in Sources */,
 				83B32B9028CBB5FA004517CF /* LoadUserAuthenictication.swift in Sources */,
+				834C6E0A28DE13260078220D /* DriverSenseSignedInContainer.swift in Sources */,
 				83BF6DC128C2290B002BB627 /* SensorEntity+CoreDataProperties.swift in Sources */,
 				837BAF1328B9366700760799 /* KeyChain.swift in Sources */,
 				83BF6DC228C2290B002BB627 /* CandidatesEntity+CoreDataClass.swift in Sources */,
@@ -1379,12 +1578,16 @@
 				83BF6E7228C777D0002BB627 /* InstructorPersistencelayer.swift in Sources */,
 				835F433628C000C800F66C36 /* PositioningModel.swift in Sources */,
 				83BF6E7428C77858002BB627 /* CoreDataInstructorPersistencelayer.swift in Sources */,
+				834C6E0628DDE53B0078220D /* SignedInLogic.swift in Sources */,
+				834C6E1328DE2CD60078220D /* AddCandidateAction.swift in Sources */,
 				8395B81B28CF5A720044C6B3 /* AppRunningAction.swift in Sources */,
 				83BF6DBD28C2290B002BB627 /* AxisValueEntity+CoreDataProperties.swift in Sources */,
 				8395B82528CFF3F90044C6B3 /* SignUpUseCase.swift in Sources */,
 				83E8BCC428AFABFA0089491C /* Direction .swift in Sources */,
 				83BF6DBF28C2290B002BB627 /* GPSEntity+CoreDataProperties.swift in Sources */,
+				834C6E0C28DE15D60078220D /* CandidateListPresenter.swift in Sources */,
 				831A1B6F28C09E2C00E8092C /* DataBinder.swift in Sources */,
+				834C6DF828DB92720078220D /* AddCandidateState.swift in Sources */,
 				837BAF1128B91E9D00760799 /* UserSessionPropertyListCoding.swift in Sources */,
 				8381882528A972B900017978 /* GyroscopeSensor.swift in Sources */,
 				83BF6D9128C22341002BB627 /* CandidatePersistenceLayer.swift in Sources */,
@@ -1392,6 +1595,7 @@
 				835F42FA28BFD62200F66C36 /* SecuredRoute.swift in Sources */,
 				83BF6DC628C2290B002BB627 /* PositioningEntity+CoreDataClass.swift in Sources */,
 				8395B81328CF3CF30044C6B3 /* SignedInState.swift in Sources */,
+				834C6E0828DE10550078220D /* Candidate.swift in Sources */,
 				83BF6DC928C2290B002BB627 /* MoveOffEntity+CoreDataProperties.swift in Sources */,
 				831A1B7528C0FE4F00E8092C /* PersistentStoreCoordinator.swift in Sources */,
 				83BF6E6928C37C57002BB627 /* AssessmentEntity+CoreDataProperties.swift in Sources */,

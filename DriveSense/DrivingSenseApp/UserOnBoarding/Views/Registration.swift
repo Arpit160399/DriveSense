@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct Registration: View {
-    @Binding var stateCurrent: UserOnBoarding.UserOnBoardingState
-    @ObservedObject var viewModel: RegistrationViewModel
+    @ObservedObject var store: RegistrationPresenter
+    var state: RegisterState {
+        store.state
+    }
     @State var animation: Bool = false
     var body: some View {
         ZStack(alignment: .topTrailing) {
-            NavigationLink(isActive: $viewModel.navigation.isDisplayed) {
-                viewModel.navigation.destination
-            } label: {}
             Color.appOrangeLevel.edgesIgnoringSafeArea(.all)
             backGroungAnimation
          VStack {
              HStack {
                  Button {
-                     stateCurrent = .Login
+                     let action = OnBoardingActions.goToSignIn()
+                     store.send(action: action)
                  } label: {
                     Image(systemName: "chevron.left")
                          .resizable()
@@ -49,22 +49,32 @@ struct Registration: View {
                         Spacer()
                     }
                     formInputSection.offset(y: -50)
-                    if viewModel.type != .none {
-                        Text("\(viewModel.error)")
-                            .foregroundColor(.red)
-                            .font(.systemTitle2)
-                    }
+
                     Spacer()
                     
                     Button {
-                        viewModel.RegisterNewUser()
+                        store.RegisterNewUser()
                     } label: {
                         Text("Register")
-                    }.buttonStyle(PrimaryButton(loading: $viewModel.loading,image: "lock.doc.fill"))
+                    }.buttonStyle(PrimaryButton(loading: $store.state.isLoading,
+                                                image: "lock.doc.fill"))
                         .frame(width: 150)
                 }
             }
           }
+        }
+        .alert(isPresented: $store.showError) {
+            let error = state.errorToPresent.first
+            return Alert(title: Text(error?.title ?? ""),
+                         message: Text(error?.message ?? ""),
+                         dismissButton: .cancel(Text("ok"),
+                         action: {
+                if let error = error {
+                    let action = RegisterAction
+                        .RegistrationErrorPresented(error: error)
+                    store.send(action: action)
+                }
+            }))
         }
     }
     var backGroungAnimation: some View {
@@ -98,39 +108,38 @@ struct Registration: View {
     var formInputSection: some View {
         VStack {
             InputField(placeHolder: "Name",example: "harry",
-                       value: $viewModel.instructor.name).padding(.top)
+                       value: $store.instructor.name).padding(.top)
             Divider()
-            .background(viewModel.type != .invalidName ? .clear : .red)
             .padding(.leading,20)
             InputField(placeHolder: "Email",example: "harry@gamil.com",
-            value: $viewModel.instructor.email)
+                       value: $store.instructor.email)
             Divider()
-            .background(viewModel.type != .invalidEmail ? .clear : .red)
             .padding(.leading,20)
-            InputField(placeHolder: "Adddress",example: "12 aven street blue park flat 5",
-            value: $viewModel.instructor.address)
+            InputField(placeHolder: "Address",example: "12 avenue street blue park flat 5",
+                       value: $store.instructor.address)
             Divider()
-                .background(viewModel.type != .invalidAddress ? .clear : .red)
             .padding(.leading,20)
             Section {
-            InputField(placeHolder: "Post Code",example: "RH1 233",
-                       value: $viewModel.instructor.postCode)
+            InputField(placeHolder: "Password",example: "******",
+                       value: $store.password)
             Divider()
-                    .background(viewModel.type != .invalidPostCode ? .clear : .red)
+            .padding(.leading,20)
+            InputField(placeHolder: "Post Code",example: "RH1 233",
+                       value: $store.instructor.postCode)
+            Divider()
             .padding(.leading,20)
             InputField(placeHolder: "ADI No",example: "435127",
-                       value: $viewModel.instructor.ADI.no)
+                       value: $store.instructor.ADI.no)
             }
             Divider()
-            .background(viewModel.type != .invalidADINo ? .clear : .red)
             .padding(.leading,20)
                 DatePicker("Expires",
-            selection: $viewModel.instructor.ADI.expiryDate,
+            selection: $store.instructor.ADI.expiryDate,
                 in: Date.now...,
                            displayedComponents:[.date])
                 .datePickerStyle(.automatic)
                     .colorInvert()
-                    .colorMultiply( viewModel.type != .invalidexprie ? .white : .red)
+                    .colorMultiply(.white)
                     .font(.systemSubTitle)
                     .foregroundColor(.white)
                     .padding(.horizontal,20)
@@ -156,19 +165,18 @@ struct InputField: View {
 //                    .font(.subheadline)
 //                    .foregroundColor(.white)
 //            }
-            TextField("\(placeHolder ?? "")", text: $value)
-                .font(.systemSubTitle)
-                .foregroundColor(.white)
+            VStack {
+                if let placeHolder = placeHolder, placeHolder.lowercased().contains("password") {
+                    SecureField(placeHolder, text: $value)
+                        .font(.systemSubTitle)
+                } else {
+                    TextField("\(placeHolder ?? "")", text: $value)
+                        .font(.systemSubTitle)
+                }
+            } .foregroundColor(.white)
                 .padding(.horizontal,20)
                 .padding(.vertical,5)
         }
     
-    }
-}
-
-struct Registration_Previews: PreviewProvider {
-    static var previews: some View {
-        Registration(stateCurrent: .constant(.Login),
-            viewModel: .init())
     }
 }

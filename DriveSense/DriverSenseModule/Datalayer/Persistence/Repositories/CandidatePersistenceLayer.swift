@@ -12,7 +12,6 @@ protocol CandidatePersistenceLayer {
     /// The reference of parent Model under which different Candidate Model resides
     var instructor: InstructorModel { get }
     
-    
     /// Create an Candidate  Object inside the database
     /// - Parameter candidate: model that is need to created  and stored with they're value.
     /// - Returns: a publisher of that notifies once the object created in database and that object as it's response value.
@@ -39,6 +38,11 @@ protocol CandidatePersistenceLayer {
     /// - Returns: a publisher which notifies once the operation is completed with response value as collection of
     /// candidate model object
     func fetch(page: Int,limit: Int,id: UUID?) -> AnyPublisher<[CandidatesModel],Error>
+    
+     /// Finding a particular candidates model into database.
+    /// - Parameter Predicated: the query according to which the result will presented.
+    /// - Returns: a publisher which notifies once the fetch operation is completed with response value respected object model.
+    func find(predicate: NSPredicate) -> AnyPublisher<CandidatesModel?,Error>
     
     /// To get total candidate model object present in database for the particular parent model
     /// - Returns: Publishers with response as Integer value representing total count of object

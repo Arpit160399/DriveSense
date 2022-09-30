@@ -13,8 +13,8 @@ class DriveSenseAssessmentRemoteApi: AssessmentRemoteApi {
     internal let session: Session
     private let networkSession: NetworkCall
     
-    init(session: Session) {
-        self.session = session
+    init(userSession: UserSession) {
+        self.session = userSession.session
         networkSession = NetworkCall()
     }
     

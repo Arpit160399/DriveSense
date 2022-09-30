@@ -6,23 +6,6 @@
 //
 
 import Foundation
-struct LoginLogic {
-    
-    static func signInOnProgress(for state: inout LoginStateView) {
-        state.isEmailInputEnable = false
-        state.isLoginButtonEnable = false
-        state.isPasswordEnable = false
-        state.isLoading = true
-    }
-    
-    static func finishedWithAnError(for state: inout LoginStateView) {
-        state.isLoading = false
-        state.isEmailInputEnable = true
-        state.isLoginButtonEnable = true
-        state.isPasswordEnable = true
-    }
-    
-}
 
 extension ReducerCollection {
     
@@ -32,7 +15,8 @@ extension ReducerCollection {
                case let action as LoginAction.SignInOnProgress:
                LoginLogic.signInOnProgress(for: &state.viewState)
                case let action as LoginAction.SignInErrorPresented:
-               LoginLogic.signInOnProgress(for: &state.viewState)
+               LoginLogic.finishedWithAnError(for: &state.viewState)
+               state.errorsToShow.remove(action.error)
                case let action as LoginAction.SignInFailedWithError:
                 state.errorsToShow.insert(action.error)
               default:

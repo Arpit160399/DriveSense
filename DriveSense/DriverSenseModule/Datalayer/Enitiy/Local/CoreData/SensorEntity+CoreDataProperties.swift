@@ -27,6 +27,7 @@ extension SensorEntity {
     @NSManaged public var gps: GPSEntity?
     @NSManaged public var gyro: AxisValueEntity?
     @NSManaged public var linearAccelerometer: AxisValueEntity?
+    @NSManaged public var createdAt: Double
 
 }
 
@@ -43,6 +44,8 @@ extension SensorEntity : DomainModel {
         direction = from.direction ?? ""
         time = from.time ?? 0
         distance = from.distance ?? 0
+        createdAt = from.createdAt ?? Date().timeIntervalSince1970
+        
         if let gpsSet = from.gps {
         gps = setGps(context: context, value: gpsSet)
         }
@@ -71,7 +74,9 @@ extension SensorEntity : DomainModel {
     }
     
     func toDomainModel() -> SensorModel {
-        return .init(id: id, verdict: verdict, speed: speed, time: time,distance: distance,
+        return .init(id: id, verdict: verdict, speed: speed, time: time,
+            distance: distance,
+            createdAt: createdAt,
             accelerometer: accelerometer?.toDomainModel(),
             gps: gps?.toDomainModel(),
             gyro: gyro?.toDomainModel(),

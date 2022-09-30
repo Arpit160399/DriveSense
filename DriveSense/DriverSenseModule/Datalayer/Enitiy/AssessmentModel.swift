@@ -17,6 +17,6 @@ struct AssessmentModel: Codable,Identifiable {
     var ofCandidate: CandidatesModel?
     var feedback: FeedbackModel?
     var sensor: [SensorModel]?
-    var timeStamp: Double
+    var createdAt: Double?
 }
 

@@ -14,12 +14,13 @@ struct PrimaryButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         HStack {
         if loading {
-            ActivityLoader(color: .white)
+            ActivityLoader(color:.white)
+                .frame(width: 120,height: 50)
         } else {
-   
         configuration.label
                 .font(.systemTitle2)
                 .foregroundColor(.white)
+                .padding(.vertical)
             if let name = image {
                 Image(systemName: name)
                     .resizable()
@@ -30,7 +31,6 @@ struct PrimaryButton: ButtonStyle {
             }
        }
       }
-      .padding(.vertical)
       .frame(maxWidth: .infinity, alignment: .center)
       .background(color)
       .cornerRadius(25)

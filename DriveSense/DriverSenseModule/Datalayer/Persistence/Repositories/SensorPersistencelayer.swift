@@ -50,6 +50,12 @@ protocol SensorPersistenceLayer {
     /// with response value the collection of expected object.
     func fetch(page: Int,limit: Int,id: UUID?) -> AnyPublisher<[SensorModel],Error>
     
+    /// Finding a particular sensor model into database.
+    /// - Parameter predicated: the query according to which the result will presented.
+    /// - Returns: a publisher which notifies once the fetch operation is
+    /// completed with response value respected object model.
+    func find(predicated: NSPredicate) -> AnyPublisher<SensorModel?,Error>
+    
     /// to get count of sensor object under it's  parent object in database
     /// - Returns: a publisher that notifies once the operation is completed with
     /// response value the integer which represents object model count.

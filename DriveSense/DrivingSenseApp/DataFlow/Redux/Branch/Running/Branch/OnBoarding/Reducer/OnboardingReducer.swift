@@ -15,10 +15,16 @@ extension ReducerCollection {
           case _ as OnBoardingActions.goToSignIn:
             state = .login(LoginState())
           case _ as OnBoardingActions.goToSignUp:
-            state = .register
+            state = .register(RegisterState())
          default:
             break
        }
+        switch state {
+        case .login(let loginState):
+            state = .login(ReducerCollection.LoginReducer(loginState,action))
+        case .register(let registerState):
+            state = .register(ReducerCollection.RegisterReducer(registerState,action))
+        }
         return state
     }
     

@@ -22,7 +22,8 @@ class DriveSenseRemoteAuth: AuthRemoteAPI {
     func signInRequest(for user: UserAuth) -> AnyPublisher<UserSession, NetworkError> {
        let sessionManager = KeychainUserSessionDataStore(coder: sessionCoder)
        guard let request = try? NetworkRequest(url: Route(.login),
-                                               method: .post, payload: user) else {
+                                               method: .post,
+                                               payload: user) else {
            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
        }
         return networkSession.fetch(request).flatMap { session in

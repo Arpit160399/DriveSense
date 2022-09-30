@@ -17,6 +17,7 @@ public struct InstructorModel: Identifiable, Codable, Equatable {
     var adi: ADIModel?
     var students: [CandidatesModel]?
     var password: String?
+    var createdAt: Double?
     
     public static func == (lhs: InstructorModel, rhs: InstructorModel) -> Bool {
         return lhs.id == rhs.id

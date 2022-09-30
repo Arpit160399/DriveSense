@@ -14,13 +14,11 @@ struct LoginState: Equatable {
     
 }
 
-
-
 struct LoginStateView: Equatable {
     
-    var isEmailInputEnable = true
-    var isPasswordEnable = true
-    var isLoginButtonEnable = true
+    var isEmailInputDisable = false
+    var isPasswordDisable = false
+    var isLoginButtonDisable = false
     var isLoading = false
     
     

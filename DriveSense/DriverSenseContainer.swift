@@ -20,7 +20,8 @@ class DriverSenseContainer {
     init() {
         let userSessionCoder = UserSessionPropertyListCoding()
         userSessionManager = KeychainUserSessionDataStore(coder: userSessionCoder)
-        self.store = Store(initial: .launching(LaunchingState()),
+        let initialState = AppState.launching(.init())
+        self.store = Store(initial: initialState,
                            reducer: ReducerCollection.appReducer,
                            middlewares: [])
         stateGetter = AppStateGetter()
@@ -29,13 +30,14 @@ class DriverSenseContainer {
     
     // Main Screen
     public func makeMainView() -> MainView {
-        
-        let onBoardingFactory = {
-            return self.makeOnBoardingView()
+        let onBoardingFactory = { (state: OnBoardingState) in
+            return self.makeOnBoardingContainer()
+                .makeOnBoarding(state: state)
         }
         
-        let signedInFactory = { (userSession: UserSession) in
-            return self.makeCandiateView()
+        let signedInFactory = { (state: SignedInState) in
+            return self.makeSignedInContainer(userSession: state.userSession)
+                .makeCandidateListView(state: state)
         }
         
         let presenter = MainViewPresenter(store: store,
@@ -48,15 +50,18 @@ class DriverSenseContainer {
         return mainView
     }
     
-    // OnBoarding Screens
-    public func makeOnBoardingView() -> UserOnBoarding {
-        return UserOnBoarding(currentUserNeedTo: .Login, loginViewModel: LoginViewModel(), registrationViewModel: RegistrationViewModel())
+    // OnBoarding Container Factory
+    public func makeOnBoardingContainer() -> DriverSenseOnBoardingContainer {
+        let container = DriverSenseOnBoardingContainer(mainContainer: self, runningStateGetter: RunningStateGetter(stateGetter.getAppRunningState(appState:)))
+        return container
     }
     
     
-    // Candiate Screen
-    public func makeCandiateView() -> CandidateList {
-       return CandidateList()
+    // SignedIn Container Factory
+    public func makeSignedInContainer(userSession: UserSession) -> DriverSenseSignedInContainer {
+       let container = DriverSenseSignedInContainer(mainContainer: self,
+                                                    session: userSession)
+        return container
     }
     
 }
@@ -72,7 +77,7 @@ extension DriverSenseContainer: LoadUserAuthenticationFactory {
 extension DriverSenseContainer: UserVerificationCaseFactory {
     
     func makeUserVerificationUseCase(user: UserSession) -> UseCase {
-        let userRemoteApi = DriveSenseUserRemoteApi(session: user.session)
+        let userRemoteApi = DriveSenseUserRemoteApi(userSession: user)
         let useCase = UserVerification(remoteApi: userRemoteApi
                                        , userSession: user,
                                        dispatcher: store)

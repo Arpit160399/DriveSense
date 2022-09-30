@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct CandidateList: View {
+    @ObservedObject var store: CandidateListPresenter
+    var state: SignedInState {
+        return store.state
+    }
     @State var name: String = ""
+    @State var showPopUp: Bool = false
     var body: some View {
       ZStack {
         VStack {
@@ -19,7 +24,7 @@ struct CandidateList: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
                 Button {
-                    
+                    showPopUp.toggle()
                 } label: {
                     Image(systemName: "plus.circle.fill")
                         .resizable()
@@ -56,72 +61,49 @@ struct CandidateList: View {
             .cornerRadius(22)
             .shadow(color: Color.black.opacity(0.15), radius: 15, x: 0.0, y: 1.0)
             .padding(.horizontal)
-            ScrollView {
-                LazyVStack {
-                    card
-                }
+            ScrollViewReader { proxy in
+                ScrollView {
+                    LazyVStack {
+                        ForEach(state.candidates.indices,id: \.self) { index in
+                            let candidate = state.candidates[index]
+                            CandidateCardView(model: candidate)
+                                .onAppear {
+                                    if index == state.candidates.count - 1 {
+                                        store.getCandidatesList(fromPage:
+                                                                    state.currentPage + 1)
+                                    }
+                                }
+                        }
+                        if state.isLoading {
+                            ActivityLoader(color: .white)
+                                .frame(width: 55,height: 55)
+                        }
+                    }}
+//                    }.onAppear(perform: {
+//                        proxy.scrollTo((state.currentPage * 20) - 1)
+//                    })
             }
+            NavigationLink(destination: store.navigationMode.destination,
+                           isActive: $store.navigationMode.isDisplayed ,
+                           label: {}).hidden()
         }.background(Color.appOrangeLevel.ignoresSafeArea())
-         popUp
+        if showPopUp {
+              popUp
+        }
+      }.onAppear {
+          if state.currentPage == 0 {
+              store.getCandidatesList(fromPage: 0)
+        }
       }
     }
     
-    var card: some View {
-        ZStack(alignment: .bottomTrailing) {
-        VStack {
-            HStack {
-                Circle()
-                    .fill(Color.appOrange)
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 0)
-                    .frame(width: 50,
-                           height: 50,
-                           alignment: .center)
-                    .overlay(Image(systemName:  "person.fill").resizable()
-                        .foregroundColor(.white)
-                        .aspectRatio(contentMode: .fit)
-                        .padding(12))
-                
-                Spacer()
-                VStack(spacing: 7) {
-                    Text("Prev Test")
-                        .font(.systemCaption)
-                        .foregroundColor(.gray.opacity(0.8))
-                    Text("Not Yet Taken")
-                        .font(.systemTitle2)
-                }
-            }.padding([.horizontal,.top])
-            VStack(spacing: 10)  {
-                 Text("Rick Astley")
-                    .foregroundColor(.white)
-                    .font(.systemTitle)
-                    .frame(maxWidth: .infinity,alignment: .leading)
-                 Text("29 Year Old")
-                    .foregroundColor(.white)
-                    .font(.systemTitle)
-                    .frame(maxWidth: .infinity,alignment: .leading)
-
-            }.padding()
-          
-        }
-        .background(Color.appOrange)
-        .cornerRadius(20)
- 
-            .shadow(color: .black.opacity(0.1), radius: 20, x: 0, y: 2)
-         
-         Circle()
-                .fill(Color.appOrange)
-                .shadow(color: .black.opacity(0.2), radius: 20, x: 0, y: 2)
-                .frame(width: 55, height: 55, alignment: .center)
-                .overlay(Image(systemName: "chevron.right.circle")
-                    .resizable().foregroundColor(.Peach).padding(9)).padding()
-            
-//                .offset(x: -10 ,y: 15)
-        }       .padding(.horizontal)
-            .padding(.top)
-    }
+    
     var popUp: some View {
         ZStack {
             Color.black.opacity(0.5).edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    showPopUp.toggle()
+                }
             VStack(alignment: .leading) {
                 Text("Add Canditates")
                     .foregroundColor(.white)
@@ -131,7 +113,15 @@ struct CandidateList: View {
                 InputField(placeHolder: "Name", value: .constant(""))
                 Divider()
                     .padding(.horizontal)
-                InputField(placeHolder: "Date Of Birth", value: .constant(""))
+                DatePicker("Date Of Birth",selection: .constant(Date())
+                           ,in:Date(timeIntervalSince1970: 9911223)...Date.init(timeIntervalSince1970: Date().timeIntervalSince1970 - 568080000),displayedComponents:[.date])
+                    .datePickerStyle(.automatic)
+                    .colorInvert()
+                    .colorMultiply(.white)
+                    .font(.systemSubTitle)
+                    .foregroundColor(.white)
+                    .padding(.horizontal,20)
+//                InputField(placeHolder: "Date Of Birth", value: .constant(""))
                 Divider()
                     .padding(.horizontal)
                 InputField(placeHolder: "Postcode", value: .constant(""))
@@ -158,12 +148,5 @@ struct CandidateList: View {
             .cornerRadius(8)
             .padding(.horizontal)
         }
-    }
-}
-struct CandidateList_Previews: PreviewProvider {
-    static var previews: some View {
-        CandidateList()
-            
-            
     }
 }

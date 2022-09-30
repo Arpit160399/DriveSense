@@ -6,25 +6,33 @@
 //
 
 import Foundation
+
+enum Optional <T: Equatable>: Equatable {
+    case value(T)
+    case none
+}
+
 struct AppStateGetter {
     
    
-    public func getLaunchViewState(appState: AppState) -> LaunchingState {
+    public func getLaunchViewState(appState: AppState) -> Optional<LaunchingState> {
       switch appState {
       case .launching(let launchState):
-        return launchState
+          return .value(launchState)
       default:
-          return LaunchingState()
+          return .none
       }
     }
 
-    public func getAppRunningState(appState: AppState) -> RunningState {
+    public func getAppRunningState(appState: AppState) -> Optional<RunningState> {
       switch appState {
       case .running(let appRunningState):
-          return appRunningState
+          return .value(appRunningState)
       default:
-          return RunningState.OnBoarding(.login(LoginState()))
+          return .none
       }
     }
     
 }
+
+// S

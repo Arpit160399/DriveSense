@@ -15,6 +15,7 @@ struct SensorModel:Identifiable , Codable {
     var time: Double?
     var direction: String?
     var distance: Double?
+    var createdAt: Double?
     var accelerometer: AxisValueModel?
     var gps: GPSModel?
     var gyro: AxisValueModel?

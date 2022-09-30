@@ -20,6 +20,7 @@ extension CandidatesEntity {
     @NSManaged public var dateOfBirth: Double
     @NSManaged public var id: UUID
     @NSManaged public var name: String
+    @NSManaged public var createdAt: Double
     @NSManaged public var assessment: NSSet
     @NSManaged public var instructor: InstructorEntity
 
@@ -53,9 +54,14 @@ extension CandidatesEntity : DomainModel {
         name = from.name ?? ""
         dateOfBirth = from.dateOfBirth ?? 0
         address = from.address ?? ""
+        createdAt = from.createdAt ?? Date().timeIntervalSince1970
     }
     
     func toDomainModel() -> CandidatesModel {
-        return CandidatesModel(id: id, name: name, dateOfBirth: dateOfBirth, address: address, instructor: instructor.toDomainModel())
+        return CandidatesModel(id: id, name: name,
+                               dateOfBirth: dateOfBirth,
+                               address: address,
+                               createdAt: createdAt,
+                               instructor: instructor.toDomainModel())
     }
 }

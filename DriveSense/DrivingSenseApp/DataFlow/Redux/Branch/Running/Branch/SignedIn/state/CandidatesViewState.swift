@@ -7,7 +7,7 @@
 
 import Foundation
 enum CandidatesViewState: Equatable {
-    case presentCandidateList
     case detailCandidateView
-    case addNewCandidate
+    case candidateList
+    case addCandidate(AddCandidateState)
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ADIEntity" representedClassName="ADIEntity" syncable="YES">
         <attribute name="expiryDate" attributeType="String"/>
         <attribute name="no" attributeType="String"/>
@@ -7,8 +7,8 @@
     </entity>
     <entity name="AssessmentEntity" representedClassName="AssessmentEntity" syncable="YES">
         <attribute name="avgSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="createdAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="timeStamp" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="totalDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="byInstuctor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstructorEntity" inverseName="assessment" inverseEntity="InstructorEntity"/>
         <relationship name="feedback" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedbackEntity" inverseName="assessment" inverseEntity="FeedbackEntity"/>
@@ -25,6 +25,7 @@
     </entity>
     <entity name="CandidatesEntity" representedClassName="CandidatesEntity" syncable="YES">
         <attribute name="address" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="dateOfBirth" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -63,6 +64,7 @@
     </entity>
     <entity name="InstructorEntity" representedClassName="InstructorEntity" syncable="YES">
         <attribute name="address" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="email" attributeType="String"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
@@ -101,6 +103,7 @@
         <relationship name="assessment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedbackEntity" inverseName="progress" inverseEntity="FeedbackEntity"/>
     </entity>
     <entity name="SensorEntity" representedClassName="SensorEntity" syncable="YES">
+        <attribute name="createdAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="direction" attributeType="String"/>
         <attribute name="distance" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
@@ -113,20 +116,4 @@
         <relationship name="gyro" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="AxisValueEntity" inverseName="gyro" inverseEntity="AxisValueEntity"/>
         <relationship name="linearAccelerometer" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="AxisValueEntity" inverseName="linearAccelrometer" inverseEntity="AxisValueEntity"/>
     </entity>
-    <elements>
-        <element name="ADIEntity" positionX="-50.9921875" positionY="-155.2890625" width="128" height="74"/>
-        <element name="FeedbackEntity" positionX="487.4609375" positionY="-52.08984375" width="128" height="239"/>
-        <element name="AxisValueEntity" positionX="321.1875" positionY="-385.078125" width="128" height="119"/>
-        <element name="CandidatesEntity" positionX="227.15625" positionY="-184.3984375" width="128" height="119"/>
-        <element name="ControlEntity" positionX="659.37109375" positionY="216.046875" width="128" height="134"/>
-        <element name="GPSEntity" positionX="675.234375" positionY="-195.4375" width="128" height="74"/>
-        <element name="InstructorEntity" positionX="-13.1953125" positionY="-410.39453125" width="128" height="149"/>
-        <element name="JudgementEntity" positionX="99.20703125" positionY="106.74609375" width="128" height="89"/>
-        <element name="JunctionsEntity" positionX="676.8984375" positionY="-83.6171875" width="128" height="119"/>
-        <element name="MoveOffEntity" positionX="705.76953125" positionY="97.15625" width="128" height="74"/>
-        <element name="PositioningEntity" positionX="58.671875" positionY="-33.7421875" width="128" height="74"/>
-        <element name="ProgressEntity" positionX="239.96484375" positionY="208.67578125" width="128" height="74"/>
-        <element name="SensorEntity" positionX="500.78515625" positionY="-314.09765625" width="128" height="194"/>
-        <element name="AssessmentEntity" positionX="153" positionY="-252" width="128" height="149"/>
-    </elements>
 </model>

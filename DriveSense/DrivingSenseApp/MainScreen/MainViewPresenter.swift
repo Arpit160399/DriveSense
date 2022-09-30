@@ -22,16 +22,16 @@ class MainViewPresenter: ObservableObject {
     var stateGetter: AppStateGetter
    
     // Child Views
-    var onBoardingFactory: () -> UserOnBoarding
-    var signedInFactory: (UserSession) -> CandidateList
+    var onBoardingFactory: (OnBoardingState) -> UserOnBoarding
+    var signedInFactory: (SignedInState) -> CandidateList
 
     // UserCase Factory
     var loadUsersSessionFactoryUserCase: LoadUserAuthenticationFactory
     var verifyUserUseCaseFactory: UserVerificationCaseFactory
 
    init(store:  Store<AppState>,
-        onBoardingFactory: @escaping () -> UserOnBoarding,
-        signedInFactory: @escaping (UserSession) -> CandidateList,
+        onBoardingFactory: @escaping (OnBoardingState) -> UserOnBoarding,
+        signedInFactory: @escaping (SignedInState) -> CandidateList,
         loadUsersSessionFactory: LoadUserAuthenticationFactory,
         verifyUserUseCaseFactory: UserVerificationCaseFactory,
         stateGetter: AppStateGetter) {
@@ -61,9 +61,12 @@ class MainViewPresenter: ObservableObject {
         userCase.start()
     }
 
-    func getState() -> LaunchingState {
+    func getState() -> LaunchingState? {
         let lauchingState = stateGetter.getLaunchViewState(appState: store.state)
-        return lauchingState
+        guard case .value(let state) = lauchingState else {
+            return nil
+        }
+        return state
     }
     
     func send(action: Action) {
@@ -78,12 +81,12 @@ class MainViewPresenter: ObservableObject {
         switch store.state {
           case .running(let runningState):
             switch runningState {
-                case .OnBoarding( _):
+                case .OnBoarding(let state):
                 navigation = .init(isDisplayed: true,
-                                   destination: AnyView(onBoardingFactory()))
+                                   destination: AnyView(onBoardingFactory(state)))
                 case .SignIn(let state):
                 navigation = .init(isDisplayed: true,
-                                   destination: AnyView(signedInFactory(state.userSession)))
+                                   destination: AnyView(signedInFactory(state)))
              }
           case .launching(let launchState):
             if case .notVerified(let session) = launchState.currentSessionState {

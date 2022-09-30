@@ -10,7 +10,7 @@ struct LoginAction: Action {
     
     struct SignInOnProgress: Action {}
     
-    struct SignInCompleted: Action {
+    struct SignInCompleted: OnBoardingCompeted {
         var user: UserSession
     }
     

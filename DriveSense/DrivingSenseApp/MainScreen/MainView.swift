@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MainView: View {
     @ObservedObject var dispatcher: MainViewPresenter
-    var state: LaunchingState { dispatcher.getState() }
+    var state: LaunchingState? { dispatcher.getState() }
     var body: some View {
 //        NavigationView {
             ContentView()
@@ -25,10 +25,10 @@ struct MainView: View {
             })
 //        }
         .alert(isPresented: $dispatcher.showError) {
-            Alert(title: Text(state.errorPresent.first?.title ?? ""),
-                  message: Text(state.errorPresent.first?.message ?? "")
+            Alert(title: Text(state?.errorPresent.first?.title ?? ""),
+                  message: Text(state?.errorPresent.first?.message ?? "")
                   ,dismissButton: .cancel({
-                let error = state.errorPresent.first
+                let error = state?.errorPresent.first
                 if let error = error {
                   dispatcher.finishedPresenting(error: error)
                 }

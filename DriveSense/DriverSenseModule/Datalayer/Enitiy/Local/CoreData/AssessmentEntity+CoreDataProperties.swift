@@ -18,8 +18,8 @@ extension AssessmentEntity {
 
     @NSManaged public var id: UUID?
     @NSManaged public var avgSpeed: Double
-    @NSManaged public var timeStamp: Double
     @NSManaged public var totalDistance: Double
+    @NSManaged public var createdAt: Double
     @NSManaged public var forCandidate: CandidatesEntity?
     @NSManaged public var byInstuctor: InstructorEntity?
     @NSManaged public var sensor: NSSet?
@@ -55,8 +55,8 @@ extension AssessmentEntity : DomainModel {
         id = from.id
         totalDistance = from.totalDistance ?? 0
         avgSpeed = from.avgSpeed ?? 0
-        timeStamp = from.timeStamp
         totalDistance = from.totalDistance ?? 0
+        createdAt = from.createdAt ?? Date().timeIntervalSince1970
         if let testResult = from.feedback {
             let object = feedback != nil ? feedback : FeedbackEntity(context: context)
             object?.intoObject(from: testResult, context: context)
@@ -69,7 +69,9 @@ extension AssessmentEntity : DomainModel {
                      totalDistance: totalDistance, avgSpeed: avgSpeed,
                      conductedBy: byInstuctor?.toDomainModel(),
                      ofCandidate: forCandidate?.toDomainModel(),
-                     feedback: feedback?.toDomainModel(), timeStamp: timeStamp)
+                     feedback: feedback?.toDomainModel(),
+                     createdAt: createdAt
+                    )
     }
     
 }

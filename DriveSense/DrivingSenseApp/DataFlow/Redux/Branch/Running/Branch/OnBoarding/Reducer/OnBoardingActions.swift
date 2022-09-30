@@ -12,3 +12,7 @@ struct OnBoardingActions: Action {
     
     struct goToSignUp: Action {}
 }
+
+protocol OnBoardingCompeted: Action {
+    var user: UserSession { get }
+}

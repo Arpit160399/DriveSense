@@ -8,5 +8,5 @@
 import Foundation
 enum OnBoardingState: Equatable {
     case login(LoginState)
-    case register
+    case register(RegisterState)
 }
