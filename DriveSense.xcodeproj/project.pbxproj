@@ -447,6 +447,7 @@
 		83DEEC6728F9DBC6005DFCBA /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
 		83DEEC6928FA0D36005DFCBA /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		83DEEC6C28FA1233005DFCBA /* SignoutUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignoutUseCase.swift; sourceTree = "<group>"; };
+		83E26091294195CB00ADB52F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		83E8BCBB28AF0D150089491C /* AxisValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxisValue.swift; sourceTree = "<group>"; };
 		83E8BCBD28AF0D520089491C /* GPS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPS.swift; sourceTree = "<group>"; };
 		83E8BCC128AFAA430089491C /* Sensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sensor.swift; sourceTree = "<group>"; };
@@ -806,6 +807,7 @@
 		835D8C0E286EE79F00961878 = {
 			isa = PBXGroup;
 			children = (
+				83E26091294195CB00ADB52F /* README.md */,
 				835D8C19286EE79F00961878 /* DriveSense */,
 				835D8C2A286EE7A800961878 /* DriveSenseTests */,
 				835D8C34286EE7A800961878 /* DriveSenseUITests */,
