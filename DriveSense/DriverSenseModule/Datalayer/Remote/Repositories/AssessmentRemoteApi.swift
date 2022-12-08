@@ -13,10 +13,12 @@ protocol AssessmentRemoteApi {
     var session: Session { get }
         
     /// To get all feedback of driving on given candidate provided by current user.
-    /// - Parameter candidate: candidate model for which all feedback needed to fetch.
+    /// - Parameters:
+    ///    - candidate: candidate model for which all feedback needed to fetch.
+    ///    - page: indicated the page number of list to show
     /// - Returns: a publisher notifies once the operation is completed with either
     ///  a assessment model or an error if any occurred.
-    func getAssessmentFor(candidate: CandidatesModel) -> AnyPublisher<[AssessmentModel],NetworkError>
+    func getAssessmentFor(candidate: CandidatesModel,page: Int) -> AnyPublisher<[AssessmentModel],NetworkError>
    
     /// To sync the given driving feedback into the cloud.
     /// - Parameter assessment: the assessment that is to be uploaded to server.

@@ -14,4 +14,5 @@ struct SignedInState: Equatable {
     var currentPage: Int  = 0
     var errorToPresent = Set<ErrorMessage>()
     var candidatesViewState: CandidatesViewState
+    var searchText: String = ""
 }

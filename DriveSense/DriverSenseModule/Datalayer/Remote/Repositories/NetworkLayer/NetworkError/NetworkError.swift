@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Error Cases
+/// Error Cases
 enum NetworkError: Error {
     case NetworkFailure
     case ServerWith(ErrorResponse)

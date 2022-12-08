@@ -7,11 +7,14 @@
 
 import Foundation
 struct Junctions {
- var approachingSpeed: Conculsion
- var observation: Conculsion
- var turningRight: Conculsion
- var turningLeft: Conculsion
- var cutingCorner: Conculsion
+ var approachingSpeed: Conclusion
+ var observation: Conclusion
+ var turningRight: Conclusion
+ var turningLeft: Conclusion
+ var cutingCorner: Conclusion
+   
+}
+extension Junctions {
     init() {
         approachingSpeed = .Perfect
         observation = .Perfect

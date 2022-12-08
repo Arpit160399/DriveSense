@@ -10,7 +10,7 @@ import SwiftUI
 struct PrimaryButton: ButtonStyle {
     @Binding var loading: Bool
     var image: String?
-    var color = Color.Cyan
+    var color = Color.appCyan
     func makeBody(configuration: Configuration) -> some View {
         HStack {
         if loading {

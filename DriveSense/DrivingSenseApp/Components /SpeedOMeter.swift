@@ -47,11 +47,12 @@ struct SpeedOMeter: View {
 //            .padding(.bottom,20)
             .offset(x: -20)
             .rotationEffect(Angle(degrees: Double(currentSpeed + 10)), anchor: .center)
-            .onTapGesture {
-                withAnimation(.spring()) {
-                    currentSpeed = Int.random(in: 0...160)
-                }
-            }
+            .animation(.spring(), value: currentSpeed)
+//            .onTapGesture {
+//                withAnimation(.spring()) {
+//                    currentSpeed = Int.random(in: 0...160)
+//                }
+//            }
        }
     }
     

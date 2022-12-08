@@ -22,10 +22,16 @@ protocol AssessmentPersistenceLayer {
     ///  with the response value that object collection.
     func createBatch(assessments: [AssessmentModel]) -> AnyPublisher<[AssessmentModel],Error>
     
+    /// To update assessment model object value in the database.
+    /// - Parameter Assessment: the  Assessment model with respected to which value needed to updated.
+    /// - Returns: a publisher which notifies once the update operation is completed with new updated response object
+    /// as response value.
+    func update(assessment: AssessmentModel) -> AnyPublisher<AssessmentModel,Error>
+    
     /// fetch a collection assessment model object from database
     /// - Parameters:
     ///   - page: indicates from which page number does the result are need to be put forward from. if incase
-    ///   the expected results are more than the limit given.
+    ///   the expected results are more than the limit given.the indexing of page starts from 1. 
     ///   - limit: indicates number of result need to served in single page
     ///     incase if input limit is passed as zero this will indicate that no limit needs to imply
     ///   - id: This optional parameter if implied return candidate models with same Id

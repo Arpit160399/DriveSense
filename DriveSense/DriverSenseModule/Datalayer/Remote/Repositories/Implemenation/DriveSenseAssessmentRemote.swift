@@ -20,11 +20,12 @@ class DriveSenseAssessmentRemoteApi: AssessmentRemoteApi {
     
     // MARK: - methods
 
-    func getAssessmentFor(candidate: CandidatesModel) -> AnyPublisher<[AssessmentModel], NetworkError> {
+    func getAssessmentFor(candidate: CandidatesModel,page: Int) -> AnyPublisher<[AssessmentModel], NetworkError> {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .assessment,
                                                       auth: session.accessToken,
                                                        id: candidate.id.uuidString),
-                                     method: .get) else {
+                                                       method: .get,
+                                                       query: ["page": "\(page)"]) else {
             return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)

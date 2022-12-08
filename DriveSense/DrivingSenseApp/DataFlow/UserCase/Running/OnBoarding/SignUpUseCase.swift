@@ -9,31 +9,24 @@ import Foundation
 class SignUpUseCase: UseCase {
 
     private var task = Set<AnyCancellable>()
-    var remoteApi: AuthRemoteAPI
+    var userDataLayer: UserDataLayer
     var newInstructor: InstructorModel
     let actionDispatcher: ActionDispatcher
-    private var instuctorCaching: CacheInstructorModel?
     
-    init(remoteApi: AuthRemoteAPI,
+    init(userDataLayer: UserDataLayer,
          dispatcher: ActionDispatcher,
          newInstructor: InstructorModel) {
-        self.remoteApi = remoteApi
+        self.userDataLayer = userDataLayer
         self.newInstructor = newInstructor
         self.actionDispatcher = dispatcher
-        let localStore = CoreDataInstructorPersistencelayer()
-        self.instuctorCaching = CacheInstructorModel(localStore: localStore,
-                                                     delegate: self)
     }
 
     
     func start() {
         let action = RegisterAction.RegisterInProgress()
         actionDispatcher.dispatch(action)
-            remoteApi.registration(as: newInstructor)
-            .map({ session in
-                self.instuctorCaching?.saveInstructor(model: session.user)
-                return session
-            })
+             userDataLayer
+            .register(asInstructor: newInstructor)
             .sink { completion in
                 if case .failure(let error) = completion {
                     var errorMessage = ErrorMessage(title: "Failed to Register",
@@ -57,19 +50,6 @@ class SignUpUseCase: UseCase {
     }
     
 }
-
-extension SignUpUseCase: CachingCompletionHandler {
-    func cachingFinished<T>(res: T?) where T : Equatable {
-    }
-    
-   
-    func cachingFinished(WithError: Error) {
-        present(error: ErrorMessage(title: "Error happpend in caching", message: "unable to \nsave into local db"))
-    }
-    
-}
-
-
 
 struct SignInUser {
     var email = ""

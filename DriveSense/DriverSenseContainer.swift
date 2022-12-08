@@ -15,6 +15,7 @@ class DriverSenseContainer {
     let userSessionManager: UserSessionManager
     let store : Store<AppState>
     let stateGetter: AppStateGetter
+    let sensorDataProvider: SensorHandler
 
     // MARK: - Methods
     init() {
@@ -23,8 +24,9 @@ class DriverSenseContainer {
         let initialState = AppState.launching(.init())
         self.store = Store(initial: initialState,
                            reducer: ReducerCollection.appReducer,
-                           middlewares: [])
+                           middleware: [])
         stateGetter = AppStateGetter()
+        sensorDataProvider = SensorHandler()
     }
     
     

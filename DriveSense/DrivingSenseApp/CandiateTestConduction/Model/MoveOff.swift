@@ -7,8 +7,11 @@
 
 import Foundation
 struct MoveOff {
-var safety: Conculsion
-var control: Conculsion
+var safety: Conclusion
+var control: Conclusion
+}
+
+extension MoveOff {
     init() {
         safety = .Perfect
         control = .Perfect

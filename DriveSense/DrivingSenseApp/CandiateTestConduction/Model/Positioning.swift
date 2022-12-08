@@ -7,8 +7,11 @@
 
 import Foundation
 struct Positioning {
-var normalDriving: Conculsion
-var laneDiscipline: Conculsion
+var normalDriving: Conclusion
+var laneDiscipline: Conclusion
+   
+}
+extension Positioning {
     init() {
         normalDriving = .Perfect
         laneDiscipline = .Perfect

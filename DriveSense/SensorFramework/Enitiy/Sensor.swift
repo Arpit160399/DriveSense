@@ -12,7 +12,7 @@ public struct Sensor {
     var gyro: AxisValue
     var gps: GPS
     var verdict: String
-    var Speed: Double
+    var speed: Double
     var time: TimeInterval
     var distance: Double
     var direction: Direction

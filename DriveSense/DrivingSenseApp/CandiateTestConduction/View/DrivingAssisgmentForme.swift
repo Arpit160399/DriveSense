@@ -8,8 +8,11 @@
 import SwiftUI
 
 
-struct DrivingAssisgmentForme: View {
-    @State var testMark: TestMark = .init()
+struct DrivingAssessmentForm: View {
+    
+    @Binding var testMark: TestMark
+    var saveAction: (TestMark) -> Void
+    
     var body: some View {
         ZStack(alignment: .top) {
         Color.appOrangeLevel.ignoresSafeArea(.all)
@@ -86,7 +89,9 @@ struct DrivingAssisgmentForme: View {
         .foregroundColor(.white)
         .frame(width: 60, height: 5, alignment: .center)
         .padding(.vertical)
-      }
+        }.onDisappear {
+            saveAction(testMark)
+        }
     }
     
     var FirstSection: some View {
@@ -112,7 +117,7 @@ struct DrivingAssisgmentForme: View {
 
 struct FormSection: View {
     var title: String
-    var fields: [(String,Binding<Conculsion>)]
+    var fields: [(String,Binding<Conclusion>)]
     var body: some View {
         VStack(alignment: .leading) {
            Text("\(title)")
@@ -139,7 +144,7 @@ struct FormSection: View {
 
 struct FormInputSection: View {
     var title: String
-    @Binding var checkState: Conculsion
+    @Binding var checkState: Conclusion
     var body : some View {
      HStack(alignment: .center) {
             Text("\(title)")
@@ -188,7 +193,7 @@ struct FormInputSection: View {
         }.frame(width: 50,height: 50, alignment: .center)
     }
     
-    fileprivate func updateValue(_ current: Conculsion) {
+    fileprivate func updateValue(_ current: Conclusion) {
         if checkState == current {
             checkState = .Perfect
         } else {
@@ -198,8 +203,3 @@ struct FormInputSection: View {
     }
 }
 
-struct DrivingAssisgmentForme_Previews: PreviewProvider {
-    static var previews: some View {
-        DrivingAssisgmentForme()
-    }
-}

@@ -10,10 +10,26 @@ struct SignedInAction: Action {
     
     struct AddNewCandidate: Action {}
     
-    struct FetchingCandidateList: Action {}
+    struct searchForCandidateBy: Action {
+        var name: String
+        var candidates: [CandidatesModel]
+        var pageNumber: Int
+    }
     
-    struct PresentCandidateDetail: Action {
+    struct FetchingCandidateList: Action {
+        var forQuery: String? = nil
+    }
+    
+    struct PresentAssessmentDetail: Action {
         let forCandidate: CandidatesModel
+    }
+    
+    struct PresentMockTest:Action {
+        let forCandidate: CandidatesModel
+    }
+    
+    struct PresentSettings: Action {
+        var toggleState: Bool
     }
     
     struct FinishedCandidateFetchingWithError: Action {
@@ -28,4 +44,6 @@ struct SignedInAction: Action {
         let list: [CandidatesModel]
         let forPage: Int
     }
+    
+    struct DismissCurrentView: Action {}
 }

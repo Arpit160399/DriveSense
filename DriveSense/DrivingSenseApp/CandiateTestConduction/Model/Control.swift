@@ -7,12 +7,16 @@
 
 import Foundation
 struct Control {
- var acceleation:Conculsion
- var footBreak: Conculsion
- var steering: Conculsion
- var parkingBreak: Conculsion
- var clutch: Conculsion
- var gear: Conculsion
+ var acceleation:Conclusion
+ var footBreak: Conclusion
+ var steering: Conclusion
+ var parkingBreak: Conclusion
+ var clutch: Conclusion
+ var gear: Conclusion
+
+}
+
+extension Control {
     init() {
         acceleation = .Perfect
         footBreak = .Perfect

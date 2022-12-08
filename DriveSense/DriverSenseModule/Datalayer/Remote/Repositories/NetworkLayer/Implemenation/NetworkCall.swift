@@ -7,8 +7,8 @@
 import Combine
 import Foundation
 
-class NetworkCall {
-    // default session
+class NetworkCall: NetworkManager {
+    /// default session
     var session: URLSession
     
     init(session:URLSession = URLSession.shared) {

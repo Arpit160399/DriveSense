@@ -10,20 +10,20 @@ class EnrollNewCandidates: UseCase {
     
     private var task = Set<AnyCancellable>()
     
-    private let remoteApi: UserRemoteApi
+    private let remoteApi: InstructorRemoteApi
     private let candidate: CandidatesModel
     private let actionDispatcher: ActionDispatcher
     
     init(actionDispatcher: ActionDispatcher,
          candidate: CandidatesModel,
-         remoteApi: UserRemoteApi) {
+         remoteApi: InstructorRemoteApi) {
         self.actionDispatcher = actionDispatcher
         self.remoteApi = remoteApi
         self.candidate = candidate
     }
 
     func start() {
-        let action = AddCandidateAction.EnrollInProgress()
+        let action = AddCandidateAction.EnrollInProgress(candidate: candidate)
         actionDispatcher.dispatch(action)
         remoteApi.addNew(candidate: candidate)
             .sink { completion in

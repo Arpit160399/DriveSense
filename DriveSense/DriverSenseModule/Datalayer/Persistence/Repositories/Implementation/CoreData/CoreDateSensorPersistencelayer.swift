@@ -8,7 +8,6 @@ import Combine
 import Foundation
 import CoreData
 class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
-  
     // MARK: - properties
     
     var assessment: AssessmentModel
@@ -168,5 +167,24 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
         }
         return repositories.fetchCount(type: SensorEntity.self, predicate: condition, relationshipKeysToFetch: ["assessment"],
             attribute: attribute, managedObjectContext: context)
+    }
+    
+    func remove(sensor: [SensorModel]) -> AnyPublisher<Void, Error> {
+        let context = contextManager.getBackgroundContext()
+        func createRemovePublisher(forSensor: SensorModel) -> AnyPublisher<Void,Error> {
+            let condition = NSPredicate(format: "id == %@", forSensor.id.uuidString)
+            let task = repositories.delete(type: SensorEntity.self,
+                                             predicate: condition,
+                                             managedObjectContext: context)
+            return task
+        }
+        let startTask = createRemovePublisher(forSensor: sensor[0])
+        let sensors = Array(sensor.dropFirst())
+        let task = sensors.reduce(startTask) { partialResult, model in
+            return partialResult
+                .merge(with: createRemovePublisher(forSensor: model))
+                .eraseToAnyPublisher()
+        }
+        return task
     }
 }

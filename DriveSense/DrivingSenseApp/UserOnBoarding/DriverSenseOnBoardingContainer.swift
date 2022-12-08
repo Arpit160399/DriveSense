@@ -48,8 +48,8 @@ extension DriverSenseOnBoardingContainer: SignInUseCaseFactory {
 extension DriverSenseOnBoardingContainer: SignUpUseCaseFactory {
     
     func makeSignUpUseCase(newInstructor: InstructorModel) -> UseCase {
-        let remoteApi = DriveSenseRemoteAuth()
-        let userCase = SignUpUseCase(remoteApi: remoteApi,
+        let dataLayer = DataManager().getUserDataLayer()
+        let userCase = SignUpUseCase(userDataLayer: dataLayer,
                                      dispatcher: store,
                                      newInstructor: newInstructor)
         return userCase

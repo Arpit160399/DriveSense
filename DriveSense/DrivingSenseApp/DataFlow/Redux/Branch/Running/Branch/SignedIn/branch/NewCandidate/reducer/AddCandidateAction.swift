@@ -8,7 +8,9 @@
 import Foundation
 struct AddCandidateAction: Action {
     
-    struct EnrollInProgress: Action {}
+    struct EnrollInProgress: Action {
+        var candidate: CandidatesModel
+    }
     
     struct successFullEnrolled: Action {
         var candidateList: [CandidatesModel]
@@ -21,5 +23,4 @@ struct AddCandidateAction: Action {
     struct PresentedError: Action {
         let error: ErrorMessage
     }
-    
 }

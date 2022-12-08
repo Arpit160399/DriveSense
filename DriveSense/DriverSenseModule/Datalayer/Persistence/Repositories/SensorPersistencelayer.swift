@@ -42,7 +42,7 @@ protocol SensorPersistenceLayer {
     /// fetch a collection sensor model object from database
     /// - Parameters:
     ///   - page: indicates from which page number does the result are need to be put forward from. if incase
-    ///   the expected results are more than the limit given.
+    ///   the expected results are more than the limit given.the indexing of page starts from 1. 
     ///   - limit: indicates number of result need to served in single page
     ///     incase if input limit is passed as zero this will indicate that no limit needs to imply
     ///   - id: This optional parameter if implied return candidate models with same Id
@@ -60,4 +60,9 @@ protocol SensorPersistenceLayer {
     /// - Returns: a publisher that notifies once the operation is completed with
     /// response value the integer which represents object model count.
     func count() -> AnyPublisher<Int,Error>
+    
+    /// remove the particular sensor model from database.
+    /// - Parameter sensor: sensor model that need to be removed from the database.
+    /// - Returns: a publisher that notifies once remove operation is completed.
+    func remove(sensor: [SensorModel]) -> AnyPublisher<Void,Error>
 }

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-// Modelling server error response into Entity
+/// Modelling server error response into Entity
 struct ErrorResponse: Codable {
     var message: String
     var error: String

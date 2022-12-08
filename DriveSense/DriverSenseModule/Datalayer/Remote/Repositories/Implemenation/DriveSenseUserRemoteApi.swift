@@ -6,7 +6,7 @@
 //
 import Combine
 import Foundation
-class DriveSenseUserRemoteApi: UserRemoteApi {
+class DriveSenseUserRemoteApi: InstructorRemoteApi {
     
     //MARK: - properties
     internal let session: Session
@@ -17,6 +17,7 @@ class DriveSenseUserRemoteApi: UserRemoteApi {
         networkSession = NetworkCall()
     }
     
+    // MARK: - methods
     func getUser() -> AnyPublisher<InstructorModel, NetworkError> {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .user,
                                                        auth: session.accessToken),
@@ -36,6 +37,18 @@ class DriveSenseUserRemoteApi: UserRemoteApi {
         }
         return networkSession.fetch(request)
     }
+    
+    func searchCandidateBy(name: String, page: Int) -> AnyPublisher<[CandidatesModel], NetworkError> {
+        guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .candidates,
+                                                auth: session.accessToken),
+                                                method: .get,
+                                                query: ["page": "\(page)",
+                                                        "query": "\(name)"]) else {
+            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+        }
+        return networkSession.fetch(request)
+    }
+    
     
     func addNew(candidate: CandidatesModel) -> AnyPublisher<[CandidatesModel], NetworkError> {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .candidates,

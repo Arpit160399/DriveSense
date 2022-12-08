@@ -23,18 +23,18 @@ final class Store<State>: ObservableObject,ActionDispatcher {
     @Published private(set) var state: State
     
     private var subscription = [UUID : AnyCancellable]()
-    private var queue = DispatchQueue(label: "drivesense.dispatch.event", qos: .userInitiated)
+    private var queue = DispatchQueue(label: "driveSense.dispatch.event", qos: .userInitiated)
     private let reducer: Reducer<State>
-    private let middlewares: [Middleware<State>]
+    private let middleware: [Middleware<State>]
     
     
     init(initial: State,
          reducer: @escaping Reducer<State>,
-         middlewares: [Middleware<State>]
+         middleware: [Middleware<State>]
     ) {
         self.state = initial
         self.reducer = reducer
-        self.middlewares = middlewares
+        self.middleware = middleware
     }
     
     
@@ -52,7 +52,7 @@ final class Store<State>: ObservableObject,ActionDispatcher {
     
     fileprivate func dispatch(_ current: State,_ action: Action) {
         let newState = reducer(current,action)
-        middlewares.forEach { middleware in
+        middleware.forEach { middleware in
             let key = UUID()
             middleware(newState,action)
                 .receive(on: RunLoop.main)

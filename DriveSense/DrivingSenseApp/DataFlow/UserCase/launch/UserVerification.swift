@@ -10,11 +10,11 @@ import Combine
 class UserVerification: UseCase {
 
     private var task = Set<AnyCancellable>()
-    let remoteApi: UserRemoteApi
+    let remoteApi: InstructorRemoteApi
     let session: UserSession
     let actionDispatcher: ActionDispatcher
     
-    init(remoteApi: UserRemoteApi,
+    init(remoteApi: InstructorRemoteApi,
          userSession: UserSession,
          dispatcher: ActionDispatcher) {
         self.remoteApi = remoteApi

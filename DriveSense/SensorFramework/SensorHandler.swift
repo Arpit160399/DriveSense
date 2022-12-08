@@ -9,22 +9,26 @@ import CoreMotion
 import Foundation
 class SensorHandler {
     
+    //MARK: - Property
+    
     private let motion: CMMotionManager
     private let gps: GPSSensor
-    private let accelerometer: AccelerometerSensor
-    private let gyro: GyroscopeSensor
+    private let accelerometer: AccelerometerSensor?
+    private let gyro: GyroscopeSensor?
     private let serialQueue: DispatchQueue
     private var schedule: Cancellable
     private var prevSpeed: Double = 0
     private var prevDirection: Double = 0
     private var isInReverse: Bool = false
-
-
-    init() throws {
+        
+    
+    // MARK: - Method
+    
+    init() {
         motion = CMMotionManager()
         gps = GPSSensor()
-        accelerometer = try AccelerometerSensor(motion)
-        gyro = try GyroscopeSensor(motion)
+        accelerometer = try? AccelerometerSensor(motion)
+        gyro = try? GyroscopeSensor(motion)
         serialQueue = DispatchQueue(label: "sensor")
         schedule = AnyCancellable({})
     }
@@ -33,16 +37,28 @@ class SensorHandler {
         schedule.cancel()
     }
     
-    func collectSensorData() -> AnyPublisher<Sensor,Never> {
-         let subject = PassthroughSubject<Sensor,Never>()
+    /// send aggregated sensor value collect from phone according given driving state.
+    /// - Parameter interval: the seconds of interval in which sensor data need to fetched
+    /// - Returns: An continues publisher with sensor as completion value.
+    func collectSensorData(_ interval: TimeInterval) -> AnyPublisher<Sensor,Error> {
+         let subject = PassthroughSubject<Sensor,Error>()
          schedule.cancel()
          schedule = serialQueue.schedule(after: serialQueue.now,
-                                        interval: .seconds(10), {
-             if let sensor = try? self.collectData() {
+                                        interval: .seconds(interval), {
+            do {
+                 let sensor = try self.collectData()
                  subject.send(sensor)
-             }
+            } catch {
+                 subject.send(completion: .failure(error))
+            }
          })
         return subject.subscribe(on: serialQueue).eraseToAnyPublisher()
+    }
+    
+    
+    /// To cancel the sensor data passing scheduler.
+    func stopCollection() {
+        schedule.cancel()
     }
     
     fileprivate func getTheDrivingState(direction: Double,speed: Double) -> (direction: Direction,verdict: String) {
@@ -51,6 +67,7 @@ class SensorHandler {
             prevDirection = direction
         }
         var currentDirection = Direction.movingForward
+       
         //TODO: Add Direction Resolution Function
         
         if !isInReverse , isConstant(direction: direction) {
@@ -135,21 +152,24 @@ class SensorHandler {
     
     
     fileprivate func collectData() throws -> Sensor {
+        
         let speed = try gps.getSpeed()
         let direction = try gps.getDirection()
         let distance = try gps.getDistance()
         let gpsValue = try gps.getLocation()
-        let accelerate =  accelerometer.getAccelerometer()
-        let gyro = try gyro.getGyro()
-        let linear = accelerometer.getLinearAccelerometer()
+        let accelerate =  accelerometer?.getAccelerometer() ?? .none
+        let gyro = try gyro?.getGyro() ?? .none
+        let linear = accelerometer?.getLinearAccelerometer() ?? .none
         let driverState = getTheDrivingState(direction: direction, speed: speed)
+        
         // converting (meter/second) to (miles/hours)
         let milesPerHourSpeed = speed * 2.236936
         // converting meter to miles
         let distanceInMiles = distance *  0.0006213712
+        
         return Sensor(accelerometer: accelerate, linearAccelerometer: linear,
                       gyro: gyro, gps: gpsValue,
-                      verdict: driverState.verdict, Speed: milesPerHourSpeed,
+                      verdict: driverState.verdict, speed: milesPerHourSpeed,
                       time: Date().timeIntervalSince1970,
                       distance: distanceInMiles,
                       direction: driverState.direction)

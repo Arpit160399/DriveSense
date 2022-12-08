@@ -7,9 +7,12 @@
 
 import Foundation
 struct Judgement {
-var overtaking: Conculsion
-var meeting: Conculsion
-var crossing: Conculsion
+var overtaking: Conclusion
+var meeting: Conclusion
+var crossing: Conclusion
+ 
+}
+extension Judgement {
     init () {
         overtaking = .Perfect
         meeting = .Perfect

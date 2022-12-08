@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RollingMeter: View {
-    @Binding var value: String 
+    var value: String 
     @State var range: [NSString] = []
     var font: Font = Font.system(size: 25, weight: .heavy, design: .default)
     var color: Color = .black
@@ -77,6 +77,6 @@ struct RollingMeter: View {
 
 struct RollingMeter_Previews: PreviewProvider {
     static var previews: some View {
-        RollingMeter(value: .constant("42"))
+        RollingMeter(value: "42")
     }
 }

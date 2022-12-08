@@ -7,8 +7,12 @@
 
 import Foundation
 struct Progress {
- var appropriatedSpeed: Conculsion
- var undueHesitation: Conculsion
+ var appropriatedSpeed: Conclusion
+ var undueHesitation: Conclusion
+   
+}
+
+extension Progress {
     init() {
         appropriatedSpeed = .Perfect
         undueHesitation = .Perfect

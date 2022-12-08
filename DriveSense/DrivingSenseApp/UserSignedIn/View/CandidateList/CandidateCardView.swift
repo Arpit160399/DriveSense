@@ -64,8 +64,8 @@ struct CandidateCardView: View {
         .shadow(color: .black.opacity(0.18), radius: 5, x: 0, y: 0.5)
          
          Circle()
-                .fill(Color.Cyan)
-                .shadow(color:  Color.Cyan.opacity(0.5), radius: 7, x: 0, y: 0.5)
+                .fill(Color.appCyan)
+                .shadow(color:  Color.appCyan.opacity(0.5), radius: 7, x: 0, y: 0.5)
                 .frame(width: 45, height: 45, alignment: .center)
                 .overlay(Image(systemName: "chevron.right")
 //                    .imageScale(.medium)
@@ -77,7 +77,8 @@ struct CandidateCardView: View {
                 .padding()
             
 //                .offset(x: -10 ,y: 15)
-        }       .padding(.horizontal)
+        }
+            .padding(.horizontal)
             .padding(.top)
     }
     

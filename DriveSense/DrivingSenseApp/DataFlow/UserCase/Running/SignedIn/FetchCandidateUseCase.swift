@@ -10,11 +10,11 @@ class FetchCandidateUseCase: UseCase {
     
     private var task = Set<AnyCancellable>()
     
-    private var remoteApi: UserRemoteApi
+    private var remoteApi: InstructorRemoteApi
     private var actionDispatcher: ActionDispatcher
     private var forPageNumber: Int
     
-    init(remoteApi: UserRemoteApi,
+    init(remoteApi: InstructorRemoteApi,
          actionDispatcher: ActionDispatcher,
          page: Int) {
         self.actionDispatcher = actionDispatcher

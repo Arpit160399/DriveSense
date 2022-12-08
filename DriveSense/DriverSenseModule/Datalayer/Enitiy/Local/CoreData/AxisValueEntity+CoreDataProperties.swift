@@ -31,12 +31,12 @@ extension AxisValueEntity : Identifiable {
 extension AxisValueEntity : DomainModel {
     
     func intoObject(from: AxisValueModel,context: NSManagedObjectContext) {
-        x = from.x ?? 0
-        y = from.y ?? 0
-        z = from.z ?? 0
+        x = Double(from.x ?? 0)
+        y = Double(from.y ?? 0) 
+        z = Double(from.z ?? 0) 
     }
     
     func toDomainModel() -> AxisValueModel {
-        return AxisValueModel(x: x, y: y, z: z)
+        return AxisValueModel(x: Float(x), y: Float(y), z: Float(z))
     }
 }

@@ -8,7 +8,7 @@ import Combine
 import Foundation
 import CoreData
 class CoreDataAssessmentPersistencelayer: AssessmentPersistenceLayer {
-    
+
     // MARK: - properties
     
     var candidate: CandidatesModel
@@ -69,6 +69,19 @@ class CoreDataAssessmentPersistencelayer: AssessmentPersistenceLayer {
                 return objects.map { $0.toDomainModel() }
             }
             .eraseToAnyPublisher()
+    }
+    
+    func update(assessment: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> {
+        let context = contextManager.getBackgroundContext()
+        let condition = NSPredicate(format: "id == %@",assessment.id.uuidString)
+        return repositories.update(type: AssessmentEntity.self,
+                                   predicate: condition,
+                                   managedObjectContext: context)
+        .tryMap({ object in
+            object.intoObject(from: assessment, context: context)
+            try context.save()
+            return object.toDomainModel()
+        }).eraseToAnyPublisher()
     }
     
     func find(predicated: NSPredicate) -> AnyPublisher<AssessmentModel?, Error> {
