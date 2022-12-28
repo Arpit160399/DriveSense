@@ -7,16 +7,15 @@
 
 import SwiftUI
 
-
 struct DrivingAssessmentForm: View {
     
     @Binding var testMark: TestMark
     var saveAction: (TestMark) -> Void
+    var onChange: (TestMark) -> Void
     
     var body: some View {
         ZStack(alignment: .top) {
         Color.appOrangeLevel.ignoresSafeArea(.all)
-
         VStack {
             Text("Driving Assessment")
                 .font(.system(size: 20,
@@ -25,7 +24,7 @@ struct DrivingAssessmentForm: View {
                 .padding(.top,50)
             ScrollView {
              VStack(spacing: 0) {
-              FirstSection
+              firstSection
               FormSection(title: "Progress", fields: [
               ("Appropriated Speed",
                $testMark.progress.appropriatedSpeed),
@@ -89,12 +88,14 @@ struct DrivingAssessmentForm: View {
         .foregroundColor(.white)
         .frame(width: 60, height: 5, alignment: .center)
         .padding(.vertical)
-        }.onDisappear {
+        }.onChange(of: testMark, perform: { newValue in
+            onChange(newValue)
+        }).onDisappear {
             saveAction(testMark)
         }
     }
     
-    var FirstSection: some View {
+    var firstSection: some View {
         Section {
         FormInputSection(title: "Use Of Speed",
                          checkState: $testMark.useofSpeed)
@@ -161,9 +162,9 @@ struct FormInputSection: View {
                                       weight: .regular,
                                       design: .default))
                    Button {
-                       updateValue(.Minor)
+                       updateValue(.minor)
                    } label: {
-                       checkBox(isChecked: checkState == .Minor)
+                       checkBox(isChecked: checkState == .minor)
                    }
                }
                 VStack(spacing: 1) {
@@ -171,9 +172,9 @@ struct FormInputSection: View {
                   .font(.system(size: 12,weight: .regular,
                                 design: .default))
                    Button {
-                       updateValue(.Major)
+                       updateValue(.major)
                     } label: {
-                       checkBox(isChecked: checkState == .Major)
+                       checkBox(isChecked: checkState == .major)
                    }
                }
             }
@@ -195,11 +196,10 @@ struct FormInputSection: View {
     
     fileprivate func updateValue(_ current: Conclusion) {
         if checkState == current {
-            checkState = .Perfect
+            checkState = .perfect
         } else {
        
-                checkState = current
+            checkState = current
         }
     }
 }
-

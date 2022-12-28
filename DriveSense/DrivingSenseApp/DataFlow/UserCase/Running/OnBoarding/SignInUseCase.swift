@@ -13,13 +13,13 @@ class SignInUseCase: UseCase {
     let email: String
     private let password: Secret
     
-    private let remoteApi: AuthRemoteAPI
+    private let remoteApi: UserDataLayer
     private let dispatcher: ActionDispatcher
     
     init(email: String,
          password: Secret,
          dispatcher: ActionDispatcher,
-         remoteApi: AuthRemoteAPI) {
+         remoteApi: UserDataLayer) {
         self.email = email
         self.password = password
         self.dispatcher = dispatcher
@@ -29,11 +29,11 @@ class SignInUseCase: UseCase {
     func start() {
         let action = LoginAction.SignInOnProgress()
         dispatcher.dispatch(action)
-        remoteApi.signInRequest(for: .init(email: email, password: password))
+        remoteApi.signIn(user: .init(email: email, password: password))
             .sink { completion in
                 if case .failure(let error) = completion {
                     var errorMessage = ErrorMessage(title: "Failed to SignIn", message: "Please check that you have enter a correct email / password.")
-                    if case NetworkError.ServerWith(let response) = error {
+                    if case NetworkError.serverWith(let response) = error {
                         errorMessage.message = response.message
                     }
                     let action = LoginAction.SignInFailedWithError(error: errorMessage)

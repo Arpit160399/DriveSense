@@ -32,7 +32,7 @@ class DriverSenseSignedInContainer {
         
         let assessmentDetailFactory = { (state: AssessmentListState,candidate: CandidatesModel) in
             return self.makeDriverSenseCandidateContainerFor(candidate: candidate)
-                .makeAssessmentDetailView(state: state)
+                .makeAssessmentListView(state: state)
         }
         
         let presenter = CandidateListPresenter(state: state,
@@ -72,7 +72,7 @@ class DriverSenseSignedInContainer {
 extension DriverSenseSignedInContainer: FetchCandidateUseCaseFactory {
     
     func makeFetchCandidateUseCase(pageNumber: Int) -> UseCase {
-        let remoteApi = DriveSenseUserRemoteApi(userSession: useSession)
+        let remoteApi = DataManager().getInstructorDataLayer(session: useSession)
         let useCase = FetchCandidateUseCase(remoteApi: remoteApi, actionDispatcher: store, page: pageNumber)
         return useCase
     }
@@ -82,7 +82,7 @@ extension DriverSenseSignedInContainer: FetchCandidateUseCaseFactory {
 extension DriverSenseSignedInContainer: SearchForCandidateUseCaseFactory {
     
     func makeSearchForCandidateUserCase(query: String, page: Int) -> UseCase {
-        let remoteApi = DriveSenseUserRemoteApi(userSession: useSession)
+        let remoteApi = DataManager().getInstructorDataLayer(session: useSession)
         let useCase = SearchForCandidateUseCase(query: query,
                       actionDispatcher: store, page: page,
                       remoteAPi: remoteApi)
@@ -94,7 +94,7 @@ extension DriverSenseSignedInContainer: SearchForCandidateUseCaseFactory {
 extension DriverSenseSignedInContainer: EnrollNewCandidateFactory {
 
     func makeEnrollNewCandidateUseCase(candidate: CandidatesModel) -> UseCase {
-        let remoteApi = DriveSenseUserRemoteApi(userSession: useSession)
+        let remoteApi = DataManager().getInstructorDataLayer(session: useSession)
         let useCase = EnrollNewCandidates(actionDispatcher: store,
                       candidate: candidate, remoteApi: remoteApi)
         return useCase
@@ -104,7 +104,9 @@ extension DriverSenseSignedInContainer: EnrollNewCandidateFactory {
 extension DriverSenseSignedInContainer: SignoutUsecaseFactory {
     
     func makeSignoutUseCase() -> UseCase {
+        let userDataLayer = DataManager().getUserDataLayer()
         let useCase = SignoutUsecase(userSessionManager: userSessionManager,
+                                     userDataLayer: userDataLayer,
                                      actionDispatcher: store)
         return useCase
     }

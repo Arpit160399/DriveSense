@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Judgement {
+struct Judgement: Equatable {
 var overtaking: Conclusion
 var meeting: Conclusion
 var crossing: Conclusion
@@ -14,8 +14,16 @@ var crossing: Conclusion
 }
 extension Judgement {
     init () {
-        overtaking = .Perfect
-        meeting = .Perfect
-        crossing = .Perfect
+        overtaking = .perfect
+        meeting = .perfect
+        crossing = .perfect
+    }
+}
+
+extension Judgement: faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int {
+        return [overtaking,meeting,crossing].reduce(0) { partialResult, current in
+            return partialResult + current.getValue(type)
+        }
     }
 }

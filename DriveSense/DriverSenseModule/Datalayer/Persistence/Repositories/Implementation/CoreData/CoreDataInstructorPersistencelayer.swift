@@ -8,18 +8,16 @@ import Combine
 import Foundation
 class CoreDataInstructorPersistencelayer: InstructorPersistenceLayer {
  
-    //MARK: - properties
+    // MARK: - properties
     
     private var repositories: DataHelperProtocol
     private let contextManager: PersistentStoreCoordinator
     
-    //MARK: - methods 
+    // MARK: - methods
     
     init() {
         repositories = CoreDataRepository()
-        contextManager = PersistentStoreCoordinator(completion: { error in
-            
-        })
+        contextManager = PersistentStoreCoordinator(completion: { error in })
     }
     
     func create(instructor: InstructorModel) -> AnyPublisher<InstructorModel, Error> {
@@ -52,7 +50,7 @@ class CoreDataInstructorPersistencelayer: InstructorPersistenceLayer {
         }.eraseToAnyPublisher()
     }
     
-    func find(predicated: NSPredicate) -> AnyPublisher<InstructorModel?, Error> {
+    func find(predicated: NSPredicate?) -> AnyPublisher<[InstructorModel], Error> {
         let context = contextManager.getBackgroundContext()
         return repositories.fetch(type: InstructorEntity.self, predicate: predicated,
                                   sortDescriptors: [NSSortDescriptor(key: "createdAt",
@@ -60,7 +58,7 @@ class CoreDataInstructorPersistencelayer: InstructorPersistenceLayer {
                                   relationshipKeysToFetch: ["adi"],
                                   managedObjectContext: context)
         .map { objects in
-            objects.first?.toDomainModel()
+            objects.map({ $0.toDomainModel() })
         }.eraseToAnyPublisher()
     }
     

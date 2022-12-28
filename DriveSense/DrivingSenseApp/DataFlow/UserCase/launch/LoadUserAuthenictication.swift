@@ -18,7 +18,6 @@ class LoadUserAuthentication: UseCase {
         self.userSessionManager = sessionManager
     }
     
-    
     func start() {
         userSessionManager.getUser()
             .sink(receiveCompletion: {  completed in
@@ -30,8 +29,6 @@ class LoadUserAuthentication: UseCase {
     }
     
     func finishedLaunching(with session: UserSession?) {
-        var session = session
-        session = .init(user: .init(id: UUID()), session: Session(auth: "adad", refresh: "adad"))
         let auth = AuthenticationState(session: session)
         let action = LaunchingAction.FinishedLaunching(authenticationState: auth)
         actionDispatcher.dispatch(action)

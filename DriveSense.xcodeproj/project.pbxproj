@@ -40,7 +40,6 @@
 		834C6DFA28DB94030078220D /* AddCandidateReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DF928DB94030078220D /* AddCandidateReducer.swift */; };
 		834C6DFC28DBD1850078220D /* SignedInAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6DFB28DBD1850078220D /* SignedInAction.swift */; };
 		834C6E0628DDE53B0078220D /* SignedInLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0528DDE53B0078220D /* SignedInLogic.swift */; };
-		834C6E0828DE10550078220D /* Candidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0728DE10550078220D /* Candidate.swift */; };
 		834C6E0A28DE13260078220D /* DriverSenseSignedInContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0928DE13260078220D /* DriverSenseSignedInContainer.swift */; };
 		834C6E0C28DE15D60078220D /* CandidateListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0B28DE15D60078220D /* CandidateListPresenter.swift */; };
 		834C6E0E28DE1D740078220D /* CandidateCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834C6E0D28DE1D740078220D /* CandidateCardView.swift */; };
@@ -178,6 +177,9 @@
 		83BF71112895525900ABBE57 /* LoginViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF71102895525900ABBE57 /* LoginViewPresenter.swift */; };
 		83BF71132895529800ABBE57 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF71122895529800ABBE57 /* Login.swift */; };
 		83BF7115289552B400ABBE57 /* Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF7114289552B400ABBE57 /* Registration.swift */; };
+		83BF76BC2954778600063A5F /* AssessmentDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF76BB2954778600063A5F /* AssessmentDetailView.swift */; };
+		83BF76BE2954792500063A5F /* AssessmentCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF76BD2954792500063A5F /* AssessmentCard.swift */; };
+		83BF76C12955C56700063A5F /* ConsentForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83BF76C02955C56700063A5F /* ConsentForm.swift */; };
 		83C01B3D28D272C90003A5A2 /* LoginLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B3C28D272C90003A5A2 /* LoginLogic.swift */; };
 		83C01B3F28D273030003A5A2 /* RegisterState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B3E28D273030003A5A2 /* RegisterState.swift */; };
 		83C01B4328D273380003A5A2 /* RegisterReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83C01B4228D273380003A5A2 /* RegisterReducer.swift */; };
@@ -191,7 +193,7 @@
 		83CA74452886FA940024539F /* RoadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA74442886FA940024539F /* RoadView.swift */; };
 		83CA7447288703C70024539F /* SpeedOMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CA7446288703C70024539F /* SpeedOMeter.swift */; };
 		83CBE76229049D220031C531 /* TestViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE76129049D220031C531 /* TestViewPresenter.swift */; };
-		83CBE76429049D600031C531 /* AssessmentDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE76329049D600031C531 /* AssessmentDetailPresenter.swift */; };
+		83CBE76429049D600031C531 /* AssessmentListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE76329049D600031C531 /* AssessmentListPresenter.swift */; };
 		83CBE7662905F87B0031C531 /* FetchAssessmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE7652905F87B0031C531 /* FetchAssessmentUseCase.swift */; };
 		83CBE7682906AB090031C531 /* AssessmentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE7672906AB090031C531 /* AssessmentListView.swift */; };
 		83CBE76A290F0C800031C531 /* CreateAssessementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE769290F0C800031C531 /* CreateAssessementUseCase.swift */; };
@@ -278,7 +280,6 @@
 		834C6DF928DB94030078220D /* AddCandidateReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCandidateReducer.swift; sourceTree = "<group>"; };
 		834C6DFB28DBD1850078220D /* SignedInAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInAction.swift; sourceTree = "<group>"; };
 		834C6E0528DDE53B0078220D /* SignedInLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignedInLogic.swift; sourceTree = "<group>"; };
-		834C6E0728DE10550078220D /* Candidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Candidate.swift; sourceTree = "<group>"; };
 		834C6E0928DE13260078220D /* DriverSenseSignedInContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriverSenseSignedInContainer.swift; sourceTree = "<group>"; };
 		834C6E0B28DE15D60078220D /* CandidateListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateListPresenter.swift; sourceTree = "<group>"; };
 		834C6E0D28DE1D740078220D /* CandidateCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CandidateCardView.swift; sourceTree = "<group>"; };
@@ -420,6 +421,9 @@
 		83BF71102895525900ABBE57 /* LoginViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewPresenter.swift; sourceTree = "<group>"; };
 		83BF71122895529800ABBE57 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		83BF7114289552B400ABBE57 /* Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Registration.swift; sourceTree = "<group>"; };
+		83BF76BB2954778600063A5F /* AssessmentDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentDetailView.swift; sourceTree = "<group>"; };
+		83BF76BD2954792500063A5F /* AssessmentCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentCard.swift; sourceTree = "<group>"; };
+		83BF76C02955C56700063A5F /* ConsentForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsentForm.swift; sourceTree = "<group>"; };
 		83C01B3C28D272C90003A5A2 /* LoginLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginLogic.swift; sourceTree = "<group>"; };
 		83C01B3E28D273030003A5A2 /* RegisterState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterState.swift; sourceTree = "<group>"; };
 		83C01B4228D273380003A5A2 /* RegisterReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterReducer.swift; sourceTree = "<group>"; };
@@ -433,7 +437,7 @@
 		83CA74442886FA940024539F /* RoadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoadView.swift; sourceTree = "<group>"; };
 		83CA7446288703C70024539F /* SpeedOMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedOMeter.swift; sourceTree = "<group>"; };
 		83CBE76129049D220031C531 /* TestViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewPresenter.swift; sourceTree = "<group>"; };
-		83CBE76329049D600031C531 /* AssessmentDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentDetailPresenter.swift; sourceTree = "<group>"; };
+		83CBE76329049D600031C531 /* AssessmentListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListPresenter.swift; sourceTree = "<group>"; };
 		83CBE7652905F87B0031C531 /* FetchAssessmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAssessmentUseCase.swift; sourceTree = "<group>"; };
 		83CBE7672906AB090031C531 /* AssessmentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListView.swift; sourceTree = "<group>"; };
 		83CBE769290F0C800031C531 /* CreateAssessementUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAssessementUseCase.swift; sourceTree = "<group>"; };
@@ -870,10 +874,10 @@
 		835F42DB28BE929A00F66C36 /* Datalayer */ = {
 			isa = PBXGroup;
 			children = (
-				834BC76E29169CDF002E4767 /* Repositories */,
 				835F42DC28BE92A400F66C36 /* Enitiy */,
 				835F433D28C02EB800F66C36 /* Persistence */,
 				835F42E628BFC67B00F66C36 /* Remote */,
+				834BC76E29169CDF002E4767 /* Repositories */,
 				834BC76F29169D1B002E4767 /* DataManager.swift */,
 			);
 			path = Datalayer;
@@ -1352,6 +1356,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		83BF76BF2955243700063A5F /* AssessmentList */ = {
+			isa = PBXGroup;
+			children = (
+				83CBE7672906AB090031C531 /* AssessmentListView.swift */,
+				83BF76BD2954792500063A5F /* AssessmentCard.swift */,
+			);
+			path = AssessmentList;
+			sourceTree = "<group>";
+		};
 		83C01B3B28D272070003A5A2 /* Register */ = {
 			isa = PBXGroup;
 			children = (
@@ -1418,9 +1431,10 @@
 			isa = PBXGroup;
 			children = (
 				83DE541428902D7800ACF792 /* DrivingAssisgmentForme.swift */,
+				83BF76C02955C56700063A5F /* ConsentForm.swift */,
 				837E7B55289ACC43009D9079 /* TestBoardView.swift */,
-				834C6E0728DE10550078220D /* Candidate.swift */,
-				83CBE7672906AB090031C531 /* AssessmentListView.swift */,
+				83BF76BB2954778600063A5F /* AssessmentDetailView.swift */,
+				83BF76BF2955243700063A5F /* AssessmentList */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1429,7 +1443,7 @@
 			isa = PBXGroup;
 			children = (
 				83CBE76129049D220031C531 /* TestViewPresenter.swift */,
-				83CBE76329049D600031C531 /* AssessmentDetailPresenter.swift */,
+				83CBE76329049D600031C531 /* AssessmentListPresenter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1793,7 +1807,7 @@
 				835F42EC28BFC6C900F66C36 /* RequestBuilder.swift in Sources */,
 				837BAF0928B91B7000760799 /* UserSession.swift in Sources */,
 				835D8C1D286EE79F00961878 /* ContentView.swift in Sources */,
-				83CBE76429049D600031C531 /* AssessmentDetailPresenter.swift in Sources */,
+				83CBE76429049D600031C531 /* AssessmentListPresenter.swift in Sources */,
 				83B32B8728CBA540004517CF /* AppAction.swift in Sources */,
 				835F430228BFE6B200F66C36 /* SecurePath.swift in Sources */,
 				83DE541A2890607900ACF792 /* Conclusion.swift in Sources */,
@@ -1926,6 +1940,7 @@
 				831724D328F8CA5500A88B7B /* SensorListAction.swift in Sources */,
 				83BF6DC828C2290B002BB627 /* MoveOffEntity+CoreDataClass.swift in Sources */,
 				837BAF0E28B91C1D00760799 /* KeychainDataStore.swift in Sources */,
+				83BF76BC2954778600063A5F /* AssessmentDetailView.swift in Sources */,
 				837BAF0228B91A9B00760799 /* Store.swift in Sources */,
 				837BAF1528B94BA200760799 /* KeyChainManager.swift in Sources */,
 				83DEEC6A28FA0D37005DFCBA /* SettingsView.swift in Sources */,
@@ -1946,12 +1961,14 @@
 				83BF6DBD28C2290B002BB627 /* AxisValueEntity+CoreDataProperties.swift in Sources */,
 				8395B82528CFF3F90044C6B3 /* SignUpUseCase.swift in Sources */,
 				83E8BCC428AFABFA0089491C /* Direction .swift in Sources */,
+				83BF76BE2954792500063A5F /* AssessmentCard.swift in Sources */,
 				8372E1E0291A762F00B91740 /* MockTestLogic.swift in Sources */,
 				83CBE7662905F87B0031C531 /* FetchAssessmentUseCase.swift in Sources */,
 				831724C728F80FFB00A88B7B /* SettingsReducer.swift in Sources */,
 				83BF6DBF28C2290B002BB627 /* GPSEntity+CoreDataProperties.swift in Sources */,
 				834C6E0C28DE15D60078220D /* CandidateListPresenter.swift in Sources */,
 				831A1B6F28C09E2C00E8092C /* DataBinder.swift in Sources */,
+				83BF76C12955C56700063A5F /* ConsentForm.swift in Sources */,
 				831724C928F8101000A88B7B /* SettingsState.swift in Sources */,
 				834C6DF828DB92720078220D /* AddCandidateState.swift in Sources */,
 				837BAF1128B91E9D00760799 /* UserSessionPropertyListCoding.swift in Sources */,
@@ -1962,7 +1979,6 @@
 				835F42FA28BFD62200F66C36 /* SecuredRoute.swift in Sources */,
 				83BF6DC628C2290B002BB627 /* PositioningEntity+CoreDataClass.swift in Sources */,
 				8395B81328CF3CF30044C6B3 /* SignedInState.swift in Sources */,
-				834C6E0828DE10550078220D /* Candidate.swift in Sources */,
 				83BF6DC928C2290B002BB627 /* MoveOffEntity+CoreDataProperties.swift in Sources */,
 				83DEEC6028F9C467005DFCBA /* DriverSenseCandidateContainer.swift in Sources */,
 				831A1B7528C0FE4F00E8092C /* PersistentStoreCoordinator.swift in Sources */,

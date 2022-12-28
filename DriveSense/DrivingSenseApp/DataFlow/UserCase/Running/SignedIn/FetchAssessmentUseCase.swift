@@ -16,12 +16,11 @@ class FetchAssessmentUseCase: UseCase {
     private let page: Int
     private let actionDispatcher: ActionDispatcher
     
-    
     // MARK: - method
     init(assessmentDataLayer: AssessmentDataLayer,
          candidate: CandidatesModel,
          page: Int,
-         actionDispatcher: ActionDispatcher){
+         actionDispatcher: ActionDispatcher) {
         self.task = Set<AnyCancellable>()
         self.assessmentDataLayer = assessmentDataLayer
         self.candidate = candidate
@@ -34,10 +33,12 @@ class FetchAssessmentUseCase: UseCase {
         actionDispatcher.dispatch(action)
         let page = page
         assessmentDataLayer.getAssessment(page: page)
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     var errorMg = ErrorMessage(title: "Error Occurred", message: "unable fetch the assessment list at current moment.")
-                    if case NetworkError.ServerWith(let error) = error {
+                    if case NetworkError.serverWith(let error) = error {
                         errorMg.message = error.message
                     }
                     let action = AssessmentListAction.PresentedError(error: errorMg)

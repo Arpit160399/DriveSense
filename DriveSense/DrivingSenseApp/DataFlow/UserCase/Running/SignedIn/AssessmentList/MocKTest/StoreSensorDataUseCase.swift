@@ -31,36 +31,39 @@ class StoreSensorDataUseCase: UseCase {
         self.interval = interval
     }
     
-    
-    func start() {
+  func start() {
          sensorDataProvider
         .collectSensorData(interval)
         .map({ $0.toSensorModel() })
-        .collect(size)
         .sink { completion in
             if case .failure(let error) = completion {
                 let error = ErrorMessage(title: "Error Occurred", message: error.localizedDescription)
                 let action = MockTestAction.MockTestError(error: error)
                 self.actionDispatcher.dispatch(action)
             }
-        } receiveValue: { sensors in
-            self.uploadDataFor(sensors: sensors)
+        } receiveValue: { sensor in
+            let action = MockTestAction.UpdatedDrivingState(speed: sensor.speed ?? 0,
+                                                            distance: sensor.distance ?? 0,
+                                                            direction: sensor.direction ?? "")
+            self.actionDispatcher.dispatch(action)
+            self.uploadDataFor(sensors: sensor)
         }.store(in: &task)
     }
 
-
-   fileprivate func uploadDataFor(sensors: [SensorModel]) {
-        assessmentDataLayer.collect(sensor: sensors,
-                                    forAssessment: forAssessment)
+ fileprivate func uploadDataFor(sensors: SensorModel) {
+        assessmentDataLayer
+        .collect(sensor: sensors,forAssessment: forAssessment)
+        .subscribe(on: DispatchQueue.global())
+        .receive(on: DispatchQueue.main)
         .sink { completion in
-            if case .failure(_ ) = completion {
-                let error = ErrorMessage(title: "Error Occurred", message: "Unable to Gather data from sensor at the moment.")
-                let action = MockTestAction.MockTestError(error: error)
+            if case .failure(let error) = completion {
+                let errorMg = ErrorMessage(title: "Error Occurred", message: "Unable to Gather data from sensor at the moment.")
+                let action = MockTestAction.MockTestError(error: errorMg)
                 self.actionDispatcher.dispatch(action)
             }
-        } receiveValue: { model in
-            let action = MockTestAction.updateAssessment(assessment: model)
-            self.actionDispatcher.dispatch(action)
+        } receiveValue: { _ in
+//            let action = MockTestAction.UpdateAssessment(assessment: model)
+//            self.actionDispatcher.dispatch(action)
         }.store(in: &task)
     }
     
@@ -69,7 +72,6 @@ class StoreSensorDataUseCase: UseCase {
 protocol StoreSensorDataUseCaseFactory {
     func makeStoreSensorDateUseCase(forAssessment: AssessmentModel) -> UseCase
 }
-
 
 extension Sensor {
     // Converting Sensor Data To Sensor Model
@@ -84,7 +86,9 @@ extension Sensor {
          
           return SensorModel(id: UUID(),verdict: self.verdict,speed: self.speed,
                              time: self.time,direction: self.direction.rawValue,
-                             distance: self.distance,accelerometer: accelerometerModel,gps: gpsModel,
+                             distance: self.distance,
+                             pressure: self.pressure,course: self.course,compass: self.compass,
+                             accelerometer: accelerometerModel,gps: gpsModel,
                              gyro: gyroModel,linearAccelerometer: linearAccelerometerModel)
     }
 }

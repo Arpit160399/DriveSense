@@ -14,6 +14,7 @@ class DriverSenseCandidateContainer {
     private let userSession: UserSession
     private let candidate: CandidatesModel
     private let sensorDataProvider: SensorHandler
+    private let dataLayer: AssessmentDataLayer
     
     // MARK: - Methods
     
@@ -22,11 +23,11 @@ class DriverSenseCandidateContainer {
         self.userSession = container.useSession
         self.candidate = candidate
         self.sensorDataProvider = container.sensorHandler
+        self.dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
+                                                             candidate: candidate)
     }
-    
+     
     func makeMockTestView(state: MockTestState) -> TestBoardView {
-        
-        
         let presenter = TestViewPresenter(state: state,
             actionDispatcher: store, storeSensorCollectionUseCaseFactory: self,
             createAssessmentUseCaseFactory: self,
@@ -39,12 +40,12 @@ class DriverSenseCandidateContainer {
         
     }
     
-    func makeAssessmentDetailView(state: AssessmentListState) -> AssessmentListView {
+    func makeAssessmentListView(state: AssessmentListState) -> AssessmentListView {
         let testBoardFactory = { state in
             return self.makeMockTestView(state: state)
         }
         
-        let presenter = AssessmentDetailPresenter(state: state,
+        let presenter = AssessmentListPresenter(state: state,
                                                   candidate: candidate,
                                                   actionDispatcher: store,
                                                   testBoardViewFactory: testBoardFactory,
@@ -59,8 +60,7 @@ class DriverSenseCandidateContainer {
 extension DriverSenseCandidateContainer: FetchAssessmentUseCaseFactory {
     
     func makeFetchAssessmentUseCase(candidate: CandidatesModel, page: Int) -> UseCase {
-         let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
-                                                             candidate: candidate)
+
          let useCase = FetchAssessmentUseCase(assessmentDataLayer: dataLayer,
                                               candidate: candidate, page: page,
                                               actionDispatcher: store)
@@ -72,9 +72,7 @@ extension DriverSenseCandidateContainer: FetchAssessmentUseCaseFactory {
 extension DriverSenseCandidateContainer: StoreSensorDataUseCaseFactory {
     
     func makeStoreSensorDateUseCase(forAssessment: AssessmentModel) -> UseCase {
-        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
-                                                             candidate: candidate)
-        
+       
         let useCase = StoreSensorDataUseCase(assessmentDataLayer: dataLayer,
                                              forAssessment: forAssessment,
                                              actionDispatcher: store,
@@ -84,32 +82,24 @@ extension DriverSenseCandidateContainer: StoreSensorDataUseCaseFactory {
     
 }
 
-extension DriverSenseCandidateContainer: CreateAssessmentUserCaseFactory {
-    
-    func makeCreateAssessmentUseCase(forAssessment: AssessmentModel) -> UseCase {
-        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
-                                                             candidate: candidate)
-        let useCase = CreateAssessmentUseCase(assessmentDataLayer: dataLayer,
-                                              assessment: forAssessment,
-                                              actionDispatcher: store)
-        return useCase
-    }
-    
-}
-
-
 extension DriverSenseCandidateContainer: UpdateFeedbackUseCaseFactory {
     
     func makeUpdateFeedbackUseCase(feedback: FeedbackModel,
                                    forAssessment: AssessmentModel) -> UseCase {
-        
-        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
-                                                             candidate: candidate)
-        
-        let userCase = CreateAssessmentUseCase(assessmentDataLayer: dataLayer,
-                                               assessment: forAssessment,
-                                               actionDispatcher: store)
+        let userCase =  UpdateFeedBackUseCase(assessmentDataLayer: dataLayer, feedback: feedback,
+                                              assessment: forAssessment, actionDispatcher: store)
         return userCase
+    }
+    
+}
+
+extension DriverSenseCandidateContainer: CreateAssessmentUserCaseFactory {
+    
+    func makeCreateAssessmentUseCase(forAssessment: AssessmentModel) -> UseCase {
+        let useCase = CreateAssessmentUseCase(assessmentDataLayer: dataLayer,
+                                              assessment: forAssessment,
+                                              actionDispatcher: store)
+        return useCase
     }
     
 }

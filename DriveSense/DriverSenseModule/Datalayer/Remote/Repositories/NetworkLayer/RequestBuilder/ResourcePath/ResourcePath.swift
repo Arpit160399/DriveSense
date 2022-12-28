@@ -16,7 +16,7 @@ protocol ResourcePath {
 extension ResourcePath {
     // Default Environment
     var env: Environment {
-        return .development
+        return .production
     }
     // Default auth token as None
     var auth: String {
@@ -24,7 +24,7 @@ extension ResourcePath {
     }
 }
 
-//MARK: - Environment Condition for Remote URL
+// MARK: - Environment Condition for Remote URL
 
 enum Environment: CaseIterable {
     case development

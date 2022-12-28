@@ -8,13 +8,13 @@
 import Foundation
 class KeyChainManager {
     
-    //MARK: - Custom Error
+    // MARK: - Custom Error
     enum KeyChainErrors: Error {
       case undefined
       case typeMismatch
     }
     
-    //MARK: - Methods
+    // MARK: - Methods
     
     /// finding element from Keychain
    static func findItem(query: KeyChainQuery) throws -> Data? {
@@ -25,7 +25,7 @@ class KeyChainManager {
         if status == errSecItemNotFound {
             return nil
         }
-        if status != noErr  {
+        if status != noErr {
             throw KeyChainErrors.undefined
         }
         guard let item = result as? Data else {
@@ -49,8 +49,7 @@ class KeyChainManager {
             throw KeyChainErrors.undefined
         }
     }
-    
-    
+
     /// Saving Data into Keychain
     static func save(value: KeyChainForData) throws {
         let status = SecItemAdd(value.map(), nil)

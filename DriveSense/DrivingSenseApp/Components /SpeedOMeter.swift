@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct SpeedOMeter: View {
-    @State var currentSpeed = 0
+    
+    @Binding var speed: Double
+    
     var body: some View {
     ZStack {
         Circle()
@@ -46,25 +48,16 @@ struct SpeedOMeter: View {
             .frame(width: 60, height: 20, alignment: .center)
 //            .padding(.bottom,20)
             .offset(x: -20)
-            .rotationEffect(Angle(degrees: Double(currentSpeed + 10)), anchor: .center)
-            .animation(.spring(), value: currentSpeed)
-//            .onTapGesture {
-//                withAnimation(.spring()) {
-//                    currentSpeed = Int.random(in: 0...160)
-//                }
-//            }
+            .rotationEffect(Angle(degrees: speed + 10), anchor: .center)
+            .animation(.spring(), value: speed)
        }
     }
-    
-    
+
   func createDrivion() -> [Int] {
       var collection = [Int]()
-      for i in 0...160 {
-          if i % 5 == 0 {
-              collection.append(i)
-          }
+      for i in 0...160 where i % 5 == 0 {
+          collection.append(i)
       }
-      print(collection.count)
       return collection
   }
 }
@@ -88,6 +81,6 @@ struct SpeedNiddel: Shape {
 
 struct SpeedOMeter_Previews: PreviewProvider {
     static var previews: some View {
-        SpeedOMeter()
+        SpeedOMeter(speed: .constant(0))
     }
 }

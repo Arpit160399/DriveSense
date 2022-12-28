@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Junctions {
+struct Junctions: Equatable {
  var approachingSpeed: Conclusion
  var observation: Conclusion
  var turningRight: Conclusion
@@ -16,10 +16,19 @@ struct Junctions {
 }
 extension Junctions {
     init() {
-        approachingSpeed = .Perfect
-        observation = .Perfect
-        turningRight = .Perfect
-        turningLeft = .Perfect
-        cutingCorner = .Perfect
+        approachingSpeed = .perfect
+        observation = .perfect
+        turningRight = .perfect
+        turningLeft = .perfect
+        cutingCorner = .perfect
+    }
+}
+
+extension Junctions: faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int {
+        return [approachingSpeed,observation,turningLeft,turningRight,cutingCorner]
+            .reduce(0) { partialResult, current in
+                return partialResult + current.getValue(type)
+            }
     }
 }

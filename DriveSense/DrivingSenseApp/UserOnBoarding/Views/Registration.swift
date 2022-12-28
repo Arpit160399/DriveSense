@@ -20,7 +20,7 @@ struct Registration: View {
          VStack {
              HStack {
                  Button {
-                     let action = OnBoardingActions.goToSignIn()
+                     let action = OnBoardingActions.GoToSignIn()
                      store.send(action: action)
                  } label: {
                     Image(systemName: "chevron.left")
@@ -53,7 +53,7 @@ struct Registration: View {
                     Spacer()
                     
                     Button {
-                        store.RegisterNewUser()
+                        store.registerNewUser()
                     } label: {
                         Text("Register")
                     }.buttonStyle(PrimaryButton(loading: $store.state.isLoading,

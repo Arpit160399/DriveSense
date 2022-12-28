@@ -48,7 +48,6 @@ class CoredataCandidates: XCTestCase {
                 exp.fulfill()
             }
         } receiveValue: { models in
-            print(models)
              XCTAssertTrue(models.first?.id == id ,"failed to map object to model")
              exp.fulfill()
         }
@@ -79,13 +78,11 @@ class CoredataCandidates: XCTestCase {
        candidatesTestResource.repo.count()
         .sink { completion in
             if case .failure(let error) = completion {
-                print(error)
                 XCTFail("Failed to count candidate from core data")
                 exp.fulfill()
             }
-        } receiveValue: { count in
-             print("number of candidates",count)
-             XCTAssertTrue(count > 0 ,"incorrect count result")
+        } receiveValue: { number in
+             XCTAssertTrue(number > 0 ,"incorrect count result")
              exp.fulfill()
         }
         .store(in: &task)

@@ -33,8 +33,16 @@ struct PrimaryButton: ButtonStyle {
       }
       .frame(maxWidth: .infinity, alignment: .center)
       .background(color)
+      .overlay {
+          if configuration.isPressed {
+              Color.white.opacity(0.2)
+          } else {
+              Color.clear
+          }
+      }
       .cornerRadius(25)
       .frame(height: 50)
       .shadow(color: color.opacity(0.4), radius: 5, x: 0.0, y: 2)
+
     }
 }

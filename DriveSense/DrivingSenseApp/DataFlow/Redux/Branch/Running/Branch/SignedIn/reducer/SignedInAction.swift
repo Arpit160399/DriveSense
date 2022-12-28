@@ -10,14 +10,14 @@ struct SignedInAction: Action {
     
     struct AddNewCandidate: Action {}
     
-    struct searchForCandidateBy: Action {
+    struct SearchForCandidateBy: Action {
         var name: String
         var candidates: [CandidatesModel]
         var pageNumber: Int
     }
     
     struct FetchingCandidateList: Action {
-        var forQuery: String? = nil
+        var forQuery: String? 
     }
     
     struct PresentAssessmentDetail: Action {

@@ -8,7 +8,12 @@
 import Foundation
 import CoreMotion
 class GyroscopeSensor {
+    
     private let motion: CMMotionManager
+    private let barometer: CMAltimeter
+    private var currentPressure :Double = 0
+    private let operationQueue = DispatchQueue(label: "pressure.sensor")
+    private let lock = NSLock()
     
     enum GyroError: Swift.Error {
         case noGyroSensor
@@ -20,19 +25,23 @@ class GyroscopeSensor {
             }
         }
     }
-    
-
-    
-    init(_ manager: CMMotionManager = CMMotionManager()) throws {
-        guard manager.isGyroAvailable else {
-            throw GyroError.noGyroSensor
+        
+    init(_ manager: CMMotionManager = CMMotionManager()) {
+        //        guard manager.isGyroAvailable else {
+        //            throw GyroError.noGyroSensor
+        //        }
+        motion = manager
+        motion.startGyroUpdates()
+        barometer = CMAltimeter()
+        barometer.startRelativeAltitudeUpdates(to: .main) { [weak self] (data, error) in
+            guard let self = self else { return }
+            guard let data = data else { print(error!); return }
+            self.currentPressure = Double(exactly: data.pressure) ?? 0
         }
-            motion = manager
-            motion.startAccelerometerUpdates()
     }
-    
     deinit {
-        motion.stopAccelerometerUpdates()
+        motion.stopGyroUpdates()
+        barometer.stopRelativeAltitudeUpdates()
     }
  
     func getGyro() throws ->  AxisValue {
@@ -43,6 +52,10 @@ class GyroscopeSensor {
             return AxisValue(x: Float(data.x), y: Float(data.y), z: Float(data.z))
         }
         return .none
+    }
+    
+    func getPressure() -> Double {
+        return currentPressure
     }
     
 }

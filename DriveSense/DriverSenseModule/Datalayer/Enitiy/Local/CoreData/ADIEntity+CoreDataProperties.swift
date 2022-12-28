@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension ADIEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ADIEntity> {
@@ -25,7 +24,6 @@ extension ADIEntity {
 extension ADIEntity : Identifiable {
 
 }
-
 
 extension ADIEntity : DomainModel {
     

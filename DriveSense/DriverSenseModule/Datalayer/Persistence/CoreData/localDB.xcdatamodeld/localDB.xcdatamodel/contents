@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ADIEntity" representedClassName="ADIEntity" syncable="YES">
         <attribute name="expiryDate" attributeType="String"/>
         <attribute name="no" attributeType="String"/>
@@ -8,6 +8,7 @@
     <entity name="AssessmentEntity" representedClassName="AssessmentEntity" syncable="YES">
         <attribute name="avgSpeed" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="endedAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="totalDistance" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="byInstuctor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstructorEntity" inverseName="assessment" inverseEntity="InstructorEntity"/>
@@ -30,7 +31,7 @@
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <relationship name="assessment" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AssessmentEntity" inverseName="forCandidate" inverseEntity="AssessmentEntity"/>
-        <relationship name="instructor" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InstructorEntity" inverseName="students" inverseEntity="InstructorEntity"/>
+        <relationship name="instructor" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="InstructorEntity" inverseName="students" inverseEntity="InstructorEntity"/>
     </entity>
     <entity name="ControlEntity" representedClassName="ControlEntity" syncable="YES">
         <attribute name="acceleration" attributeType="String"/>
@@ -103,10 +104,13 @@
         <relationship name="assessment" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FeedbackEntity" inverseName="progress" inverseEntity="FeedbackEntity"/>
     </entity>
     <entity name="SensorEntity" representedClassName="SensorEntity" syncable="YES">
+        <attribute name="compass" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="course" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="createdAt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="direction" attributeType="String"/>
         <attribute name="distance" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="pressure" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="speed" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="time" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="verdict" attributeType="String"/>

@@ -20,7 +20,7 @@ struct RunningStateGetter {
         guard case .value(let running) = runningState else {
             return .none
         }
-        guard case .SignIn(let signedInState) = running else {
+        guard case .signIn(let signedInState) = running else {
             return .none
         }
         return .value(signedInState)
@@ -31,7 +31,7 @@ struct RunningStateGetter {
         guard case .value(let runningState) = runningOptional else {
             return .none
         }
-        guard case .OnBoarding(let onBoardingState) = runningState else {
+        guard case .onBoarding(let onBoardingState) = runningState else {
             return .none
         }
         return .value(onBoardingState)

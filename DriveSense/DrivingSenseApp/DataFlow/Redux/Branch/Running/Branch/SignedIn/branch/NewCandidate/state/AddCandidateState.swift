@@ -29,7 +29,7 @@ struct Candidate: Equatable {
     init(model: CandidatesModel) {
         self.name = model.name ?? ""
         self.dob = Date(timeIntervalSince1970: model.dateOfBirth ?? Date().timeIntervalSince1970)
-        if let address = model.address?.split(separator: " ") {
+        if let address = model.address?.split(separator: "\n") {
         self.postcode = String(address[address.count - 1])
         self.address1 = String(address[0])
         if address.count > 2 {
@@ -52,12 +52,13 @@ struct Candidate: Equatable {
         self.address2 = address2
     }
     
-    
     func convertToModel() -> CandidatesModel {
         var model = CandidatesModel(id: UUID())
         model.address = address1
         if address2 != "" {
-            model.address = " \(address2) \(postcode)"
+            model.address = "\(address1)\n\(address2)\n\(postcode)"
+        } else {
+            model.address = "\(address1)\n\(postcode)"
         }
         model.createdAt = Date.now.timeIntervalSince1970
         model.dateOfBirth = dob.timeIntervalSince1970

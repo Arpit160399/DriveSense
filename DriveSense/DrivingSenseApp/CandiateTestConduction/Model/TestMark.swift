@@ -6,7 +6,13 @@
 //
 
 import Foundation
-struct TestMark {
+
+protocol faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int
+}
+
+struct TestMark: Equatable {
+    
  var id: UUID
  var totalMinorFault: Int
  var totalMajorFault: Int
@@ -23,9 +29,9 @@ struct TestMark {
         id = UUID()
         totalMajorFault = 0
         totalMinorFault = 0
-        useofSpeed = .Perfect
-        followingDistance = .Perfect
-        reversePark = .Perfect
+        useofSpeed = .perfect
+        followingDistance = .perfect
+        reversePark = .perfect
         progress = .init()
         control = .init()
         moveOff = .init()
@@ -33,6 +39,25 @@ struct TestMark {
         positioning = .init()
         judgement = .init()
     }
+    
+    private func getProperty() -> [Conclusion] {
+        return [useofSpeed,followingDistance,reversePark]
+    }
+    
+    private func calculatingProperty() -> [faultNum] {
+        return [progress,control,moveOff,junctions,positioning,judgement]
+    }
+    
+    fileprivate func getTotalFaultBy(_ conclusion: Conclusion) -> Int {
+        var sum = getProperty().reduce(0) { partialResult, current in
+            return partialResult + (current == conclusion ? 1 : 0)
+        }
+        sum = calculatingProperty().reduce(sum, { partialResult, current in
+            return partialResult + current.totalFaultby(conclusion)
+        })
+        return sum
+    }
+    
 }
 
 extension TestMark {
@@ -63,6 +88,8 @@ extension TestMark {
                                             meeting: self.judgement.meeting.rawValue,
                                             crossing: self.judgement.crossing.rawValue)
         
+        let minor = Double(getTotalFaultBy(.minor))
+        let major = Double(getTotalFaultBy(.major))
         return .init(id: id,
                      control: controlModel,judgement: judgementModel,
                      junctions: junctionsModel,positioning: positioningModel,
@@ -71,9 +98,9 @@ extension TestMark {
                      followingDistance: self.followingDistance.rawValue,
                      reversePark: self.reversePark.rawValue,
                      moveOff: moveOffModel,
-                     totalFaults: Double(self.totalMajorFault) + Double(self.totalMinorFault),
-                     totalMajorFault: Double(self.totalMajorFault),
-                     totalMinorFault: Double(self.totalMinorFault))
+                     totalFaults: minor + major,
+                     totalMajorFault: major,
+                     totalMinorFault: minor)
     }
 }
 

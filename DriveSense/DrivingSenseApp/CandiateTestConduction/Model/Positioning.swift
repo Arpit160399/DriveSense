@@ -6,14 +6,20 @@
 //
 
 import Foundation
-struct Positioning {
-var normalDriving: Conclusion
-var laneDiscipline: Conclusion
-   
+struct Positioning: Equatable {
+    var normalDriving: Conclusion
+    var laneDiscipline: Conclusion
 }
+
+extension Positioning: faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int {
+        return normalDriving.getValue(type) + laneDiscipline.getValue(type)
+    }
+}
+
 extension Positioning {
     init() {
-        normalDriving = .Perfect
-        laneDiscipline = .Perfect
+        normalDriving = .perfect
+        laneDiscipline = .perfect
     }
 }

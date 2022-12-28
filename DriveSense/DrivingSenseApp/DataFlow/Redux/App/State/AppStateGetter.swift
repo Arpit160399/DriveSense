@@ -14,7 +14,6 @@ enum Optional <T: Equatable>: Equatable {
 
 struct AppStateGetter {
     
-   
     public func getLaunchViewState(appState: AppState) -> Optional<LaunchingState> {
       switch appState {
       case .launching(let launchState):

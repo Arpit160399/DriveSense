@@ -17,14 +17,13 @@ class DriverSenseUserDataLayer: UserDataLayer {
         self.userLocalStore = instructorCache
     }
     
-    
     func signIn(user: UserAuth) -> AnyPublisher<UserSession, Error> {
         return remoteApi
             .signInRequest(for: user)
             .mapError({ $0 as Error })
             .flatMap({ (session: UserSession) -> AnyPublisher<UserSession, Error> in
                 return self.userLocalStore.create(instructor: session.user)
-                    .map { model -> UserSession in
+                    .map { _ -> UserSession in
                         return session
                     }.eraseToAnyPublisher()
             }).eraseToAnyPublisher()
@@ -36,14 +35,28 @@ class DriverSenseUserDataLayer: UserDataLayer {
             .mapError({ $0 as Error })
             .flatMap { (session: UserSession) -> AnyPublisher<UserSession,Error> in
                 return self.userLocalStore.create(instructor: session.user)
-                    .map { model -> UserSession in
+                    .map { _ -> UserSession in
                         return session
                     }.eraseToAnyPublisher()
             }.eraseToAnyPublisher()
     }
     
-    func signOut(asInstructor: InstructorModel) -> AnyPublisher<Void, Error> {
-        return userLocalStore.remove(instructor: asInstructor)
+    func signOut() -> AnyPublisher<Void, Error> {
+        return userLocalStore.find(predicated: nil)
+            .flatMap { (instructors: [InstructorModel]) -> AnyPublisher<Void,Error>  in
+                let size = instructors.count
+                guard size > 0 else {
+                    return Just(Void())
+                    .setFailureType(to: Error.self)
+                    .eraseToAnyPublisher()
+                }
+                let initial = self.userLocalStore.remove(instructor: instructors[0])
+                let task = instructors.dropFirst().reduce(initial) { combine,instructor  in
+                    combine.merge(with: self.userLocalStore.remove(instructor: instructor))
+                        .eraseToAnyPublisher()
+                }
+                return task.eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
     }
     
 }

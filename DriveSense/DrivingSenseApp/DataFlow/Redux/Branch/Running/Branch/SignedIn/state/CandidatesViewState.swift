@@ -10,5 +10,5 @@ enum CandidatesViewState: Equatable {
     case assessmentDetail(AssessmentListState)
     case candidateList
     case addCandidate(AddCandidateState)
-    case Setting(SettingsState)
+    case setting(SettingsState)
 }

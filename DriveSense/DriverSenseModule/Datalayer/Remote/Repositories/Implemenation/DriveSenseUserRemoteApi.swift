@@ -8,7 +8,7 @@ import Combine
 import Foundation
 class DriveSenseUserRemoteApi: InstructorRemoteApi {
     
-    //MARK: - properties
+    // MARK: - properties
     internal let session: Session
     private let networkSession: NetworkCall
     
@@ -22,18 +22,17 @@ class DriveSenseUserRemoteApi: InstructorRemoteApi {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .user,
                                                        auth: session.accessToken),
                                      method: .get) else {
-            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+            return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)
     }
-    
     
     func getCandidates(page: Int) -> AnyPublisher<[CandidatesModel], NetworkError> {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .candidates,
                                                 auth: session.accessToken),
                                                 method: .get,
                                                 query: ["page": "\(page)"]) else {
-            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+            return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)
     }
@@ -44,18 +43,17 @@ class DriveSenseUserRemoteApi: InstructorRemoteApi {
                                                 method: .get,
                                                 query: ["page": "\(page)",
                                                         "query": "\(name)"]) else {
-            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+            return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)
     }
-    
     
     func addNew(candidate: CandidatesModel) -> AnyPublisher<[CandidatesModel], NetworkError> {
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .candidates,
                                                        auth: session.accessToken),
                                      method: .post,
                                      payload: candidate) else {
-            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+            return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)
     }

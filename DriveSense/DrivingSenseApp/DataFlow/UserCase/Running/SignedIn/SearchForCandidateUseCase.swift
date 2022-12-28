@@ -32,7 +32,6 @@ class SearchForCandidateUseCase: UseCase {
     }
     
     func start() {
-        print(query,"came here")
         let action = SignedInAction.FetchingCandidateList(forQuery: query)
         actionDispatcher.dispatch(action)
         let page = pageNumber,query = query
@@ -40,7 +39,7 @@ class SearchForCandidateUseCase: UseCase {
             .sink { completion in
                 if case .failure(let error) = completion {
                     var errorMessage = ErrorMessage(title: "Error occured", message: "Unable to Search the candidate related to \(query)")
-                    if case NetworkError.ServerWith(let res) = error {
+                    if case NetworkError.serverWith(let res) = error {
                         errorMessage.message = res.message
                     }
                     let action = SignedInAction
@@ -48,7 +47,7 @@ class SearchForCandidateUseCase: UseCase {
                     self.actionDispatcher.dispatch(action)
                 }
             } receiveValue: { candidates in
-                let action = SignedInAction.searchForCandidateBy(name: query, candidates: candidates, pageNumber: page)
+                let action = SignedInAction.SearchForCandidateBy(name: query, candidates: candidates, pageNumber: page)
                 self.actionDispatcher.dispatch(action)
             }.store(in: &task)
     }

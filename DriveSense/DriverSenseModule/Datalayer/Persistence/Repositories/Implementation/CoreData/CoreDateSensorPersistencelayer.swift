@@ -15,14 +15,12 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
     private let contextManager: PersistentStoreCoordinator
     
     
-    //MARK: - methods
+    // MARK: - methods
     
     init(assessment: AssessmentModel) {
         self.assessment = assessment
         repositories = CoreDataRepository()
-        contextManager = PersistentStoreCoordinator(completion: { error in
-            
-        })
+        contextManager = PersistentStoreCoordinator(completion: { error in })
     }
 
     func create(sensor: SensorModel) -> AnyPublisher<SensorModel, Error> {
@@ -80,7 +78,7 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
     func update(feedback: FeedbackModel) -> AnyPublisher<FeedbackModel, Error> {
         let context = contextManager.getBackgroundContext()
         let condition = NSPredicate(format: "id == %@",
-                                    feedback.id?.uuidString ?? "")
+                                    feedback.id.uuidString)
         let relation = ["control","judgement","junctions",
                         "moveOff","positioning","progress"]
         return repositories.fetch(type: FeedbackEntity.self,
@@ -92,8 +90,7 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
             guard let object = objects.first else {
                 throw CoreDataError.objectNotFound
             }
-            object.intoObject(from: feedback,
-                                      context: context)
+            object.intoObject(from: feedback,context: context)
             try context.save()
             return object.toDomainModel()
         }.eraseToAnyPublisher()
@@ -108,7 +105,6 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
             return Fail(error: CoreDataError.objectNotFound)
                 .eraseToAnyPublisher()
         }
-        print(attribute)
         return repositories.fetchAverage(type: SensorEntity.self, predicate: condition,
                attribute: attribute, relationshipKeysToFetch: ["assessment"], groupBy: nil,
                managedObjectContext: context)
@@ -131,22 +127,25 @@ class CoreDateSensorPersistencelayer: SensorPersistenceLayer {
     
     func fetch(page: Int, limit: Int, id: UUID?) -> AnyPublisher<[SensorModel], Error> {
         let context = contextManager.getBackgroundContext()
+        var relationship = ["accelerometer","gps","gyro","linearAccelerometer"]
         if id != nil {
             let condition = NSPredicate(format: "id == %@", id?.uuidString ?? "")
             return repositories.fetch(type: SensorEntity.self, predicate: condition,
                                       sortDescriptors: [NSSortDescriptor(key: "createdAt",
                                                                          ascending: true)],
-                                      relationshipKeysToFetch: nil, managedObjectContext: context).map { object in
+                                      relationshipKeysToFetch: relationship,
+                                      managedObjectContext: context).map { object in
                   return object.map({ $0.toDomainModel() })
                  }.eraseToAnyPublisher()
         } else {
             let fetchCondition = NSPredicate(format: "assessment.id == %@", assessment.id.uuidString)
             let offset = limit * (page < 0 ? 0 : page - 1)
+            relationship.append("assessment")
             return repositories.fetch(type: SensorEntity.self,
                             predicate: fetchCondition,
                             sortDescriptors: [NSSortDescriptor(key: "createdAt",
                                                                ascending: true)],
-                            relationshipKeysToFetch: ["assessment"],
+                            relationshipKeysToFetch: relationship,
                             managedObjectContext: context,
                             limit: limit, offset: offset)
                       .map { objects -> [SensorModel] in

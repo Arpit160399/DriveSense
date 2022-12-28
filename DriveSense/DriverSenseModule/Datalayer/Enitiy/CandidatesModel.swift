@@ -24,3 +24,8 @@ struct CandidatesModel:Equatable, Identifiable , Codable  {
     }
 }
 
+extension CandidatesModel: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

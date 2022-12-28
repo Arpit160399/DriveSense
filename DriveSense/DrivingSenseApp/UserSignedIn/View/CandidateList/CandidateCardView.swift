@@ -29,7 +29,7 @@ struct CandidateCardView: View {
                         .foregroundColor(.white)
                         .font(.systemTitle2)
                         .frame(maxWidth: .infinity,alignment: .leading)
-                     Text("29 Year Old")
+                    Text("\(getYearOlds()) Year Old")
                         .foregroundColor(.white)
                         .font(.systemTitle2)
                         .frame(maxWidth: .infinity,alignment: .leading)
@@ -82,6 +82,16 @@ struct CandidateCardView: View {
             .padding(.top)
     }
     
+    func getYearOlds(_ timeZone: TimeZone = .current) -> String {
+        var calendar = Calendar.current
+        calendar.timeZone = timeZone
+        guard let dateOfBirth = model.dateOfBirth
+        else { return "" }
+        let date = Date(timeIntervalSince1970: dateOfBirth)
+        guard let diff = calendar.dateComponents([.year], from: date, to: Date()).year
+        else { return "" }
+        return "\(diff)"
+    }
 }
 
 extension TimeInterval {

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct AssessmentModel: Codable,Identifiable {
     var id: UUID
     var totalDistance: Double?
@@ -18,5 +17,16 @@ struct AssessmentModel: Codable,Identifiable {
     var feedback: FeedbackModel?
     var sensor: [SensorModel]?
     var createdAt: Double?
+    var endedAt: Double?
 }
 
+extension AssessmentModel: Hashable,Equatable {
+    
+    static func == (lhs: AssessmentModel, rhs: AssessmentModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}

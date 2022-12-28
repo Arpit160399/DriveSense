@@ -6,7 +6,7 @@
 //
 
 import Foundation
-protocol CachingCompletionHandler {
-    func cachingFinished(WithError: Error)
+protocol CachingCompletionHandler: AnyObject {
+    func cachingFinished(withError: Error)
     func cachingFinished<T : Equatable>(res: T?)
 }

@@ -7,24 +7,26 @@
 
 import SwiftUI
 import Combine
-class AssessmentDetailPresenter: ObservableObject {
+class AssessmentListPresenter: ObservableObject {
     
-    //MARK: - Property
+    // MARK: - Property
+    
     // View States
     @Published var state: AssessmentListState
     @Published var showError: Bool = false
     @Published var navigation: NavigationModel = .none
+    var assessment: [AssessmentModel]
     
     private let candidate: CandidatesModel
     private let actionDispatcher: ActionDispatcher
     
-    ///Child View
+    /// Child View
     private let testBoardViewFactory: (MockTestState) -> TestBoardView
     
-    ///Use Cases
+    /// Use Cases
     private let fetchAssessmentUseCaseFactory: FetchAssessmentUseCaseFactory
     
-    //MARK: - Methods
+    // MARK: - Methods
     init(state: AssessmentListState,
          candidate: CandidatesModel,
          actionDispatcher: ActionDispatcher,
@@ -36,6 +38,7 @@ class AssessmentDetailPresenter: ObservableObject {
         self.actionDispatcher = actionDispatcher
         self.fetchAssessmentUseCaseFactory = fetchAssessmentUseCaseFactory
         self.testBoardViewFactory = testBoardViewFactory
+        self.assessment = Array(state.assessment)
         navigateTo()
     }
     
@@ -56,7 +59,7 @@ class AssessmentDetailPresenter: ObservableObject {
     
     private func navigateTo() {
         switch state.viewState {
-         case .MockTest(let mockTestState):
+         case .mockTest(let mockTestState):
             let view = testBoardViewFactory(mockTestState)
             navigation = .init(isDisplayed: true,destination: AnyView(view))
          default:

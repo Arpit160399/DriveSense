@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Control {
+struct Control: Equatable {
  var acceleation:Conclusion
  var footBreak: Conclusion
  var steering: Conclusion
@@ -16,13 +16,23 @@ struct Control {
 
 }
 
+extension Control: faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int {
+        let total = [acceleation,footBreak,steering,parkingBreak,clutch,gear]
+                    .reduce(0) { partialResult,current  in
+                        return partialResult + current.getValue(type)
+                    }
+        return total
+    }
+}
+
 extension Control {
     init() {
-        acceleation = .Perfect
-        footBreak = .Perfect
-        steering = .Perfect
-        parkingBreak = .Perfect
-        clutch = .Perfect
-        gear = .Perfect
+        acceleation = .perfect
+        footBreak = .perfect
+        steering = .perfect
+        parkingBreak = .perfect
+        clutch = .perfect
+        gear = .perfect
     }
 }

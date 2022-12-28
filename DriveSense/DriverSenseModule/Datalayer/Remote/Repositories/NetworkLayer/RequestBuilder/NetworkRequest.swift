@@ -17,13 +17,13 @@ enum HTTPMethods: String {
 
 class NetworkRequest: RequestBuilder {
     
-    //MARK: - Properties
+    // MARK: - Properties
     var request: URLRequest
     var method: HTTPMethods
     var data: Data?
 
     
-    //MARK: - methods
+    // MARK: - methods
     /// creating a network request  without Payload Request
     /// - Parameters:
     ///   - url: The http request path in which network request need to be done
@@ -33,7 +33,7 @@ class NetworkRequest: RequestBuilder {
         var currentRequest = url.getURL()
         currentRequest.queryItems = NetworkRequest.appendQueryItems(query)
         guard let uri = currentRequest.url else {
-            throw NetworkError.InvalidURl
+            throw NetworkError.invalidURl
         }
         request = URLRequest(url: uri)
         request.addValue(url.auth, forHTTPHeaderField: "Authorization")
@@ -54,7 +54,6 @@ class NetworkRequest: RequestBuilder {
         try self.init(url: url, method: method, query: query)
         data = try encoder.encode(payload)
     }
-    
     
     fileprivate static func appendQueryItems(_ query: [String : String]?) -> [URLQueryItem]? {
         var queryList:  [URLQueryItem]?

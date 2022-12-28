@@ -16,14 +16,16 @@ enum CarDirection: Double {
         case right = -90
         case forward = 0
         case backward = 180
+    
 }
 
 
 
 
 struct RoadView: View {
+    var direction: CarDirection
     @State var moveing: CGFloat = -300
-    @State var direction: CarDirection = .left
+    @State var currentDirection: CarDirection = .forward
     var body: some View {
      ZStack {
             Trapezium()
@@ -41,21 +43,19 @@ struct RoadView: View {
              .aspectRatio(contentMode: .fit)
              .font(.system(size: 35,weight: .heavy, design: .default))
              .foregroundColor(.white)
-             .rotationEffect(.degrees(direction.rawValue), anchor: .center)
+             .rotationEffect(.degrees(currentDirection.rawValue), anchor: .center)
              .rotation3DEffect(.degrees(40), axis: (x: 1, y: 0, z: 0))
-             
-             .onTapGesture {
-                 let setdirection: [CarDirection]  = [.left , .right , .backward,.forward]
-                 withAnimation(.linear) {
-                     direction = setdirection[Int.random(in: 0..<setdirection.count)]
-                 }
-        }
+             .animation(.easeIn, value: currentDirection)
+             .onChange(of: direction) { newValue in
+                 currentDirection = newValue
+             }
+//             .onTapGesture {
+//                 let setdirection: [CarDirection]  = [.left , .right , .backward,.forward]
+//                 withAnimation(.linear) {
+//                     direction = setdirection[Int.random(in: 0..<setdirection.count)]
+//                 }
+//        }
      }
    }
 }
 
-struct RoadView_Previews: PreviewProvider {
-    static var previews: some View {
-        RoadView()
-    }
-}

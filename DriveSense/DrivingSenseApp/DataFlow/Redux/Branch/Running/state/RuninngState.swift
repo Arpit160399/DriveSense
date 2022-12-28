@@ -7,6 +7,6 @@
 
 import Foundation
 enum RunningState: Equatable {
-    case OnBoarding(OnBoardingState)
-    case SignIn(SignedInState)
+    case onBoarding(OnBoardingState)
+    case signIn(SignedInState)
 }

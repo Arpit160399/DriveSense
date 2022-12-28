@@ -8,17 +8,15 @@
 import Foundation
 class TestViewPresenter: ObservableObject {
     
-    
-    //MARK: - Property
+    // MARK: - Property
     @Published var state: MockTestState
     @Published var presentTestBoard: Bool = false
-    @Published private var showError: Bool = false
+    @Published var showError: Bool = false
     @Published var testFeedback: TestMark
     private let actionDispatcher: ActionDispatcher
     
     // Child Views Factory
-    
-    
+ 
     // Use Case Factory
     private let storeSensorCollectionUseCaseFactory: StoreSensorDataUseCaseFactory
     private let createAssessmentUseCaseFactory: CreateAssessmentUserCaseFactory
@@ -36,25 +34,30 @@ class TestViewPresenter: ObservableObject {
         self.createAssessmentUseCaseFactory = createAssessmentUseCaseFactory
         self.storeSensorCollectionUseCaseFactory = storeSensorCollectionUseCaseFactory
         self.updateFeedbackUseCaseFactory = updateFeedbackUseCaseFactory
-        self.testFeedback = .init(feedBack: state.assessment.feedback ?? .init())
+        self.testFeedback = .init(feedBack: state.assessment.feedback ?? .init(id: UUID()))
         self.manageTestBoardNavigation()
+        if state.sensorCollection == nil {
+            startSensorCollection()
+        }
     }
-    
     
     func send(_ action: Action) {
         actionDispatcher.dispatch(action)
     }
     
-    func createAssessment()  {
+    func createAssessment() {
         let useCase = createAssessmentUseCaseFactory
             .makeCreateAssessmentUseCase(forAssessment: state.assessment)
         useCase.start()
     }
     
     func startSensorCollection() {
+        
         let userCase = storeSensorCollectionUseCaseFactory
             .makeStoreSensorDateUseCase(forAssessment: state.assessment)
         userCase.start()
+        let action = MockTestAction.UpdateCurrentUserCase(sensorTask: userCase)
+        send(action)
     }
     
     func update(testFeedback: TestMark) {
@@ -64,12 +67,26 @@ class TestViewPresenter: ObservableObject {
         useCase.start()
     }
     
+    func getCurrentDirection(value: String) -> CarDirection {
+        let direction = Direction(rawValue: value) ?? .movingForward
+        switch direction {
+        case .leftTurn:
+            return CarDirection.left
+        case .rightTurn:
+            return CarDirection.right
+        case .movingForward:
+            return CarDirection.forward
+        case .movingBackward:
+            return CarDirection.backward
+        }
+    }
+    
     fileprivate func manageTestBoardNavigation() {
         switch state.viewState {
-        case .testBoard(_):
+        case .testBoard:
              self.presentTestBoard = true
         default:
-                 break
+            self.presentTestBoard = false
         }
     }
 }

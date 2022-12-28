@@ -9,8 +9,8 @@ import Foundation
 
 /// Error Cases
 enum NetworkError: Error {
-    case NetworkFailure
-    case ServerWith(ErrorResponse)
-    case InvalidResponse(Error)
-    case InvalidURl
+    case networkFailure
+    case serverWith(ErrorResponse)
+    case invalidResponse(Error)
+    case invalidURl
 }

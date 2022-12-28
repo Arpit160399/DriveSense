@@ -40,7 +40,7 @@ extension FeedbackEntity : Identifiable {
 extension FeedbackEntity : DomainModel {
     
     func toDomainModel() -> FeedbackModel {
-        return .init(control: control?.toDomainModel(), judgement: judgement?.toDomainModel(),
+        return .init(id: id ?? UUID(), control: control?.toDomainModel(), judgement: judgement?.toDomainModel(),
                      junctions: junctions?.toDomainModel(), positioning: positioning?.toDomainModel(),
                      progress: progress?.toDomainModel(), useofSpeed: useofSpeed,
                      followingDistance: followingDistance,

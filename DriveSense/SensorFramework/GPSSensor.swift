@@ -14,14 +14,14 @@ class GPSSensor: NSObject {
     
     enum GPSError: Swift.Error {
         case notAuthorized
-        case InvalidDataFormate
+        case invalidDataFormate
         case unknown
         
         var description: String {
             switch self {
             case .notAuthorized:
                 return "The Application was given the permission to access the location services please enable this from the settings"
-            case .InvalidDataFormate:
+            case .invalidDataFormate:
                 return "The given data has been corrupted or is invalid formate"
             case .unknown:
                 return "an unexpected Error Occurred"
@@ -50,10 +50,27 @@ class GPSSensor: NSObject {
                 manager.authorizationStatus == .authorizedAlways else {
             throw GPSError.notAuthorized
         }
-        guard let direction = manager.location?.course as? Double else {
-            throw GPSError.InvalidDataFormate
+        guard let direction = manager.heading?.magneticHeading as? Double else {
+            throw GPSError.invalidDataFormate
         }
+//        guard let direction = manager.location?.course as? Double else {
+//            throw GPSError.invalidDataFormate
+//        }
+
         return direction
+    }
+    
+    func getVehicleCourse() throws -> Double {
+        guard manager.authorizationStatus == .authorizedWhenInUse ||
+                manager.authorizationStatus == .authorizedAlways else {
+            throw GPSError.notAuthorized
+        }
+
+        guard let course = manager.location?.course as? Double else {
+            throw GPSError.invalidDataFormate
+        }
+
+        return course
     }
     
     func getSpeed() throws -> Double {
@@ -61,8 +78,8 @@ class GPSSensor: NSObject {
                 manager.authorizationStatus == .authorizedAlways else {
             throw GPSError.notAuthorized
         }
-        guard let speed = manager.location?.speedAccuracy as? Double else {
-            throw GPSError.InvalidDataFormate
+        guard let speed = manager.location?.speed as? Double else {
+            throw GPSError.invalidDataFormate
         }
         return speed
     }
@@ -75,7 +92,7 @@ class GPSSensor: NSObject {
         let clPrev = CLLocation(latitude: CLLocationDegrees(previous.latitude),
                                       longitude: CLLocationDegrees(previous.longitude))
         guard let distance = manager.location?.distance(from: clPrev) as? Double else {
-            throw GPSError.InvalidDataFormate
+            throw GPSError.invalidDataFormate
         }
         return distance
     }

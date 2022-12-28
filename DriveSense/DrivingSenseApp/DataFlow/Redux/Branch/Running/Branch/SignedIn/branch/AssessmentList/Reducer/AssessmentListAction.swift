@@ -7,7 +7,6 @@
 
 import Foundation
 struct AssessmentListAction: Action {
-    
     struct PresentedError: Action {
         var error: ErrorMessage
     }
@@ -23,9 +22,10 @@ struct AssessmentListAction: Action {
         var error: ErrorMessage
     }
     
-    struct PresentSensorData: Action {
-        
-    }
+    struct PresentSensorData: Action {}
+    
+    struct AssessmentListDismissView: Action {}
+    
     struct PresentMockTesting: Action {
         var candidate: CandidatesModel
     }

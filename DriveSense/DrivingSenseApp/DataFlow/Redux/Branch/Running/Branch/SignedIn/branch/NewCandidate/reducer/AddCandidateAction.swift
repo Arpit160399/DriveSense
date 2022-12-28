@@ -12,7 +12,7 @@ struct AddCandidateAction: Action {
         var candidate: CandidatesModel
     }
     
-    struct successFullEnrolled: Action {
+    struct SuccessFullEnrolled: Action {
         var candidateList: [CandidatesModel]
     }
     

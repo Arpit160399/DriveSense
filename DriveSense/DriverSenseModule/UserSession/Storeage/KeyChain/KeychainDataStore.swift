@@ -38,14 +38,18 @@ public class KeychainUserSessionDataStore: UserSessionManager {
         guard let data = userSession.encode(userSession: user) else {
             return Fail(error: KeyChainManager.KeyChainErrors.undefined).eraseToAnyPublisher()
         }
-        let item = KeyChainForData(data: data)
-        return getUser().tryMap { userSession in
-            if userSession != nil {
-                 try KeyChainManager.update(value: item)
-             } else {
-                 try KeyChainManager.save(value: item)
-             }
-            return user
+       return clearSession()
+            .flatMap { () -> AnyPublisher<UserSession,Error> in
+            let item = KeyChainForData(data: data)
+                return self.getUser()
+                .tryMap { userSession  in
+                if userSession != nil {
+                     try KeyChainManager.update(value: item)
+                 } else {
+                     try KeyChainManager.save(value: item)
+                 }
+                return user
+            }.eraseToAnyPublisher()
         }.eraseToAnyPublisher()
     }
 

@@ -8,7 +8,7 @@ import Combine
 import Foundation
 class DriveSenseRemoteAuth: AuthRemoteAPI {
     
-    //MARK: - properties
+    // MARK: - properties
     private var networkSession: NetworkCall
     private var sessionCoder: UserSessionCoding
     
@@ -17,19 +17,19 @@ class DriveSenseRemoteAuth: AuthRemoteAPI {
         sessionCoder = UserSessionPropertyListCoding()
     }
     
-    //MARK: - method
+    // MARK: - method
 
     func signInRequest(for user: UserAuth) -> AnyPublisher<UserSession, NetworkError> {
        let sessionManager = KeychainUserSessionDataStore(coder: sessionCoder)
        guard let request = try? NetworkRequest(url: Route(.login),
                                                method: .post,
                                                payload: user) else {
-           return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+           return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
        }
         return networkSession.fetch(request).flatMap { session in
             return sessionManager.createSessionFor(user: session)
                 .mapError { error in
-                    return NetworkError.InvalidResponse(error)
+                    return NetworkError.invalidResponse(error)
                 }
         }.eraseToAnyPublisher()
     }
@@ -39,12 +39,12 @@ class DriveSenseRemoteAuth: AuthRemoteAPI {
         guard let request = try? NetworkRequest(url: Route(.registration),
                                                 method: .post,
                                                 payload: instructor) else {
-            return Fail(error: NetworkError.InvalidURl).eraseToAnyPublisher()
+            return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request).flatMap { session in
             return sessionManager.createSessionFor(user: session)
                 .mapError { error in
-                    return NetworkError.InvalidResponse(error)
+                    return NetworkError.invalidResponse(error)
                 }
         }.eraseToAnyPublisher()
     }

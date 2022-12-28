@@ -26,7 +26,7 @@ class CoreDataAssessmentPersistencelayer: AssessmentPersistenceLayer {
     }
     
     func create(assessment: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> {
-        let context = contextManager.getBackgroundContext()
+        let context = contextManager.viewContext
         let condition = NSPredicate(format: "id == %@",
                                     candidate.id.uuidString)
         return Publishers.Zip(repositories.fetch(type: CandidatesEntity.self,

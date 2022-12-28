@@ -21,9 +21,9 @@ class SignUpUseCase: UseCase {
         self.actionDispatcher = dispatcher
     }
 
-    
     func start() {
         let action = RegisterAction.RegisterInProgress()
+        newInstructor.createdAt = Date().timeIntervalSince1970
         actionDispatcher.dispatch(action)
              userDataLayer
             .register(asInstructor: newInstructor)
@@ -31,8 +31,7 @@ class SignUpUseCase: UseCase {
                 if case .failure(let error) = completion {
                     var errorMessage = ErrorMessage(title: "Failed to Register",
                                                     message: "Please check your enter the correct \n details in below field")
-                    if case NetworkError.ServerWith(let repose) = error {
-                        print(repose)
+                    if case NetworkError.serverWith(let repose) = error {
                         errorMessage.message = repose.message
                     }
                     self.present(error: errorMessage)

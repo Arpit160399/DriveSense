@@ -12,9 +12,9 @@ extension ReducerCollection {
     static let OnboardingReducer: Reducer<OnBoardingState> = { state , action  in
         var state = state
         switch action {
-          case _ as OnBoardingActions.goToSignIn:
+          case _ as OnBoardingActions.GoToSignIn:
             state = .login(LoginState())
-          case _ as OnBoardingActions.goToSignUp:
+          case _ as OnBoardingActions.GoToSignUp:
             state = .register(RegisterState())
          default:
             break

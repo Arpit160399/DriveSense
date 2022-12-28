@@ -6,20 +6,24 @@
 //
 
 import Foundation
-enum Conclusion: String {
-  case Minor = "Minor Fault"
-  case Major = "Major Fault"
-  case Perfect = "Perfect"
+enum Conclusion: String,Equatable {
+  case minor = "Minor Fault"
+  case major = "Major Fault"
+  case perfect = "Perfect"
 }
 
 extension Conclusion {
     
     static func get(_ value: String?) -> Conclusion {
         if let value = value {
-            return Conclusion(rawValue: value) ?? .Perfect
+            return Conclusion(rawValue: value) ?? .perfect
         } else {
-            return .Perfect
+            return .perfect
         }
+    }
+    
+    func getValue(_ by: Conclusion) -> Int{
+        return self == by ? 1 : 0
     }
     
 }

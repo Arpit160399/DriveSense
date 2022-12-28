@@ -20,6 +20,7 @@ struct SecuredRoute: ResourcePath {
     
     func getURL() -> URLComponents {
         var components = URLComponents()
+        components.scheme = "https"
         components.host = env.baseURL
         let stringPath = id == nil ? path.rawValue : path.rawValue + "/\(id ?? "")"
         components.path = stringPath

@@ -7,8 +7,7 @@
 
 import Foundation
 extension ReducerCollection {
-    
-    static let AddCandidateReducer: Reducer<AddCandidateState> = { state , action in
+    static let AddCandidateReducer: Reducer<AddCandidateState> = { state, action in
         var state = state
         switch action {
         case let action as AddCandidateAction.EnrollInProgress:
@@ -18,10 +17,9 @@ extension ReducerCollection {
             state.errorToPresent.insert(action.error)
         case let action as AddCandidateAction.PresentedError:
             state.errorToPresent.remove(action.error)
-         default:
-              break
+        default:
+            break
         }
         return state
     }
-
 }

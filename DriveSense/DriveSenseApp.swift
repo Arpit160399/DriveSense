@@ -13,8 +13,9 @@ struct DriveSenseApp: App {
     var body: some Scene {
         WindowGroup {
 //            ContentView {
-            mainContainer.makeMainView()
-           .environment(\.colorScheme, .light)
+            mainContainer
+            .makeMainView()
+            .environment(\.colorScheme, .light)
        }
    }
 }

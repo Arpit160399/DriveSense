@@ -18,24 +18,28 @@ class NetworkCall: NetworkManager {
     func fetch<T: Codable>(_ request: RequestBuilder) -> AnyPublisher<T,NetworkError> {
         let task = request.getRequest()
         let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
         decoder.keyDecodingStrategy = .convertFromSnakeCase
+        print(task,String(data:task.httpBody ?? Data(),encoding: .utf8))
         return session.dataTaskPublisher(for: task)
             .tryMap { output -> T in
                 guard let reps = output.response as? HTTPURLResponse else {
-                    throw NetworkError.NetworkFailure
+                    throw NetworkError.networkFailure
                 }
+                print(String(data: output.data,encoding: .utf8))
                 if reps.statusCode == 200 {
-                    let data = try decoder.decode(T.self,
-                                              from: output.data)
+                    let data = try decoder.decode(DataBinder<T>.self,
+                                                  from: output.data).data
                     return data
                 } else {
                     let data = try decoder.decode(ErrorResponse.self,
                                               from: output.data)
-                    throw NetworkError.ServerWith(data)
+                    throw NetworkError.serverWith(data)
                }
             }.mapError({ error in
                 guard let err = error as? NetworkError else {
-                    return NetworkError.InvalidResponse(error)
+                    print(error)
+                    return NetworkError.invalidResponse(error)
                 }
                  return err
             }).eraseToAnyPublisher()

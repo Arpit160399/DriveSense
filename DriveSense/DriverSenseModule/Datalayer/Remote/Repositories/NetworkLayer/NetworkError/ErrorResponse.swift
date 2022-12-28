@@ -9,5 +9,5 @@ import Foundation
 /// Modelling server error response into Entity
 struct ErrorResponse: Codable {
     var message: String
-    var error: String
+    var status: String
 }

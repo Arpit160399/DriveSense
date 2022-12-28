@@ -6,15 +6,20 @@
 //
 
 import Foundation
-struct Progress {
+struct Progress: Equatable {
  var appropriatedSpeed: Conclusion
  var undueHesitation: Conclusion
-   
+}
+
+extension Progress: faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int {
+        return appropriatedSpeed.getValue(type) + undueHesitation.getValue(type)
+    }
 }
 
 extension Progress {
     init() {
-        appropriatedSpeed = .Perfect
-        undueHesitation = .Perfect
+        appropriatedSpeed = .perfect
+        undueHesitation = .perfect
     }
 }

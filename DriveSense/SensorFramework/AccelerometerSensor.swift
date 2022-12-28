@@ -21,20 +21,20 @@ class AccelerometerSensor {
         }
     }
     
- 
     init(_ manager: CMMotionManager = CMMotionManager()) throws {
         guard manager.isAccelerometerAvailable else {
             throw AccelerometerError.noAccelerometerSensor
         }
             motion = manager
             motion.startAccelerometerUpdates()
+            motion.startDeviceMotionUpdates()
     }
     
     deinit {
         motion.stopAccelerometerUpdates()
+        motion.stopDeviceMotionUpdates()
     }
  
-    
     func getLinearAccelerometer() -> AxisValue {
         guard motion.isAccelerometerActive else {
             return .none
@@ -45,7 +45,7 @@ class AccelerometerSensor {
         return .none
     }
     
-    func getAccelerometer() ->  AxisValue {
+    func getAccelerometer() -> AxisValue {
         guard motion.isAccelerometerActive else {
             return .none
         }

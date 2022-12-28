@@ -8,45 +8,91 @@
 import SwiftUI
 
 struct TestBoardView: View {
-    
     @ObservedObject var store: TestViewPresenter
-    var model: AssessmentModel { store.state.assessment }
+    @State var showPopup = false
     
     var body: some View {
         VStack {
-            HStack {
-            Button  {
-                
-            } label: {
-              Image(systemName:  "chevron.left")
-                    .resizable()
-                    .font(.systemTitle)
-                    .aspectRatio(contentMode: .fit)
-                    .foregroundColor(.white)
-                    .frame(width: 25, height: 25, alignment: .center)
-            }
-             Text("Driving Mock Test")
-                .foregroundColor(.white)
-                .font(.system(size: 24, weight: .heavy,
-                              design: .default))
-             
-                .padding(.horizontal)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }.padding(.horizontal)
-            HStack {
-             SpeedOMeter(currentSpeed: Int(model.avgSpeed ?? 0))
-             .frame(width: 230, height: 230, alignment: .center)
-             .overlay(
+            switch store.state.viewState {
+            case .initial:
+                initial
+            case .consentForm:
                 VStack {
-                    Spacer()
-                    Text("Speed").font(.system(size: 23, weight: .heavy, design: .default))
-                    HStack(spacing: 0) {
-                        RollingMeter(value: String(model.avgSpeed ?? 0) ,color: .white)
-                     Text(" (mph)").font(.system(size: 13, weight: .heavy, design: .default))
+                    headerView("Drive Sense App") {
+                        dismiss()
                     }
-                }.foregroundColor(.white)
-                    .padding(.bottom,25)
-               )
+                    ConsentForm {
+                        let action = MockTestAction.AcceptedPolicy()
+                        store.send(action)
+                    } decline: {
+                        dismiss()
+                    }
+                }
+            default:
+                ZStack {
+                    mainTestBoard
+                    if showPopup {
+                        Group {
+                            Rectangle()
+                                .fill(Color.black.opacity(0.5))
+                                .edgesIgnoringSafeArea(.all)
+                            waringPopup
+                                .padding(.horizontal)
+                        }
+                    }
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+        .background(Color.appOrangeLevel.edgesIgnoringSafeArea(.all))
+        .sheet(isPresented: $store.presentTestBoard) {
+            DrivingAssessmentForm(testMark: $store.testFeedback) { feedback in
+                let action = MockTestAction.DismissTestBoard(feedback: feedback.convertToFeedbackModel())
+                store.send(action)
+                store.update(testFeedback: feedback)
+            } onChange: { testMark in
+                let action = MockTestAction.UpdateFeedBackLocal(feedback: testMark.convertToFeedbackModel())
+                store.send(action)
+           }
+        }
+        .alert(isPresented: $store.showError, content: {
+            let errorMessage = store.state.errorToPresent.first
+            return Alert(title: Text(errorMessage?.title ?? ""),
+                         message: Text(errorMessage?.message ?? ""),
+                         dismissButton: Alert.Button.cancel(Text("ok"), action: {
+                             if let error = errorMessage {
+                                 let action = MockTestAction.PresentedError(error: error)
+                                 store.send(action)
+                             }
+                         }))
+        })
+        .onAppear {}
+        .navigationBarBackButtonHidden()
+    }
+    
+    var initial: some View {
+        VStack {
+            headerView("Mock Test") {
+                dismiss()
+            }
+            Spacer()
+            Button {
+                store.createAssessment()
+            } label: {
+                Text("Start Test")
+            }.buttonStyle(PrimaryButton(loading: $store.state.loading))
+                .padding()
+            Spacer()
+        }
+    }
+    
+    var mainTestBoard: some View {
+        VStack {
+            headerView("Driving Mock Test") {
+                showPopup = true
+            }
+            HStack {
+                SpeedMeasurement(currentSpeed: store.state.currentSpeed)
             }
             .padding()
             .background(Color.appOrange)
@@ -54,52 +100,117 @@ struct TestBoardView: View {
             .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: -3)
             .padding(.horizontal)
             HStack(alignment: .center) {
-            RoadView()
-            .frame(width: 300,height: 200, alignment: .center)
-            .overlay(
-                VStack {
-                    Spacer()
-                    DisplayValue
-                }
-              )
+                RoadView(direction: store.getCurrentDirection(value:   store.state.currentDirection))
+                    .frame(width: 300, height: 200, alignment: .center)
+                    .overlay(
+                        VStack {
+                            Spacer()
+                            displayValue
+                        }
+                    )
             }.padding()
             Spacer()
             Button {
                 let action = MockTestAction.PresentTestBoard()
                 store.send(action)
             } label: {
-               Text("Test Sheet")
+                Text("Test Sheet")
             }.buttonStyle(PrimaryButton(loading: .constant(false),
-                image: "doc.plaintext.fill"))
-            .padding()
-            
-        }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .background(Color.appOrangeLevel.edgesIgnoringSafeArea(.all))
-        .sheet(isPresented: $store.presentTestBoard) {
-            DrivingAssessmentForm(testMark: $store.testFeedback) { feedback in
-                store.update(testFeedback: feedback)
-            }
-        }
-        .onAppear {
-           if model.ofCandidate == nil {
-                store.createAssessment()
-            }
+                                        image: "doc.plaintext.fill"))
+                .padding()
         }
     }
     
-    var DisplayValue: some View {
+    var waringPopup: some View {
+        VStack {
+            Text("Are you sure you want end the current Mock test ?")
+                .font(.systemCaption2)
+                .foregroundColor(.black)
+                .padding(.vertical)
+            HStack {
+                Button {
+                    let action = AssessmentListAction.AssessmentListDismissView()
+                    store.send(action)
+                } label: {
+                    Text("Yes")
+                }.buttonStyle(PrimaryButton(loading: .constant(false), color: .appPeach))
+                Spacer()
+                Button {
+                    showPopup = false
+                } label: {
+                    Text("No")
+                }.buttonStyle(PrimaryButton(loading: .constant(false)))
+            }
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(8)
+    }
+    
+    var displayValue: some View {
         VStack {
             VStack {
                 Text("Trip").font(.system(size: 23, weight: .heavy, design: .default))
                 HStack(spacing: 0) {
-                    RollingMeter(value: String(model.totalDistance ?? 0),color: .white)
-                Text(" (Miles)").font(.system(size: 13, weight: .heavy, design: .default))
+                    RollingMeter(value: $store.state.currentDistance, color: .white)
+                    Text("(Miles)").font(.system(size: 13, weight: .heavy, design: .default))
                 }
             }
         }
-        .padding([.horizontal,.bottom])
+        .padding([.horizontal, .bottom])
         .foregroundColor(.white)
+    }
+    
+    fileprivate func headerView(_ title: String, _ action: @escaping () -> Void) -> some View {
+        return HStack {
+            Button {
+                action()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .resizable()
+                    .font(.systemTitle)
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
+                    .frame(width: 25, height: 25, alignment: .center)
+            }
+            Text(title)
+                .foregroundColor(.white)
+                .font(.system(size: 24, weight: .heavy,
+                              design: .default))
+            
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }.padding(.horizontal)
+    }
+    
+    fileprivate func dismiss() {
+        let action = AssessmentListAction.AssessmentListDismissView()
+        store.send(action)
     }
 }
 
+struct SpeedMeasurement: View {
+    
+    var currentSpeed: Double
+    @State var prevSpeed: Double = 0
+    
+    var body: some View {
+        SpeedOMeter(speed: $prevSpeed)
+            .frame(width: 230, height: 230, alignment: .center)
+            .overlay(
+                VStack {
+                    Spacer()
+                    Text("Speed").font(.system(size: 23, weight: .heavy, design: .default))
+                    HStack(spacing: 0) {
+                        RollingMeter(value: $prevSpeed,color: .white)
+                        Text(" (mph)").font(.system(size: 13, weight: .heavy, design: .default))
+                    }
+                }.foregroundColor(.white)
+                    .padding(.bottom, 25)
+            )
+            .onChange(of: currentSpeed) { newValue in
+                  prevSpeed = newValue
+            }
+     }
+
+}

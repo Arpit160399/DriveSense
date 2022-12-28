@@ -25,8 +25,7 @@ class UserVerification: UseCase {
     func start() {
         remoteApi.getUser().sink(receiveCompletion: { completion in
             if case .failure(let error) = completion {
-                self.finishedVerifying(user: .init(id: UUID()))
-//                self.present(error: error)
+                self.present(error: error)
             }
          },receiveValue: finishedVerifying(user:))
             .store(in: &task)

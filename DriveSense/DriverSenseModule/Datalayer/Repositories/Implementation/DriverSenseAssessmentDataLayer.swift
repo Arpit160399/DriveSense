@@ -8,13 +8,13 @@ import Combine
 import Foundation
 class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     
-    //MARK: - property
+    // MARK: - property
     private let remoteApi: AssessmentRemoteApi
     private let candidateLocalStore: CandidatePersistenceLayer
     private let assessmentLocalStore: AssessmentPersistenceLayer
     private let candidate: CandidatesModel
     
-    //MARK: - methods
+    // MARK: - methods
     init(candidate: CandidatesModel,
          candidateCache: CandidatePersistenceLayer,
          assessmentCache: AssessmentPersistenceLayer,
@@ -34,16 +34,23 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                 } else {
                     // TODO: - separate the synchronisation operation
                     // uploading if there is any unsynchronised data
+                    let task = self.getAssessmentFromRemote(page: page)
                     return self.upload(assessments: assessments)
                         .flatMap { (_: [AssessmentModel]) -> AnyPublisher<[AssessmentModel], Error> in
                             // fetching new assessment list from server
-                            self.getAssessmentFromRemote(page: page)
-                        }.eraseToAnyPublisher()
+                            return  self.clearCandidateCache()
+                                  .flatMap { () -> AnyPublisher<[AssessmentModel], Error> in
+                                      return task
+                                  }.eraseToAnyPublisher()
+                        }.tryCatch({ error -> AnyPublisher<[AssessmentModel], Error> in
+                            print(error)
+                            return task
+                        }).eraseToAnyPublisher()
                 }
             }.eraseToAnyPublisher()
     }
     
-    //TODO: improve performance of given function
+    // TODO: improve performance of given function
     private func upload(assessments: [AssessmentModel]) -> AnyPublisher<[AssessmentModel], Error> {
         let initial = remoteApi.upload(assessment: assessments[0])
         let remaining = Array(assessments.dropFirst())
@@ -54,12 +61,12 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
             publishers.merge(with: remoteApi.upload(assessment: assessment))
                 .eraseToAnyPublisher()
         }
+        
         return task
             // For safety placing an limit to buffer size
             .collect(bufferSize)
             .mapError { $0 as Error }
             .flatMap { (assessments: [AssessmentModel]) -> AnyPublisher<[AssessmentModel], Error> in
-              
                 let initial = self.uploadSensor(forAssessment: assessments[0])
                 let remaining = Array(assessments.dropFirst())
                 // creating pipeline stream for uploading every sensor values for given assessment
@@ -69,16 +76,18 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                 
                 return task
                      // setting up buffer size limit
-                    .collect(bufferSize)
-                    .flatMap { (model: [AssessmentModel]) -> AnyPublisher<[AssessmentModel], Error> in
+
+                    .flatMap { (model: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> in
                         // clearing assessment model from cache
-                        self.clearCandidateCache().map { () -> [AssessmentModel] in
-                            return model
-                        }.eraseToAnyPublisher()
-                    }.eraseToAnyPublisher()
+                      return  self.clearAssessmentCache(model)
+                            .map { () -> AssessmentModel in
+                                    return model
+                            }.eraseToAnyPublisher()
+                    }
+                    .collect(bufferSize)
+                    .eraseToAnyPublisher()
                 
-            }
-            .eraseToAnyPublisher()
+            }.eraseToAnyPublisher()
     }
     
     fileprivate func manageCacheFor(sensor: [SensorModel],assessment: AssessmentModel)
@@ -97,18 +106,26 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     }
     
     private func uploadSensor(forAssessment: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> {
-        let limit = 40
         let sensorLocalStore = CoreDateSensorPersistencelayer(assessment: forAssessment)
-        
         let task = sensorLocalStore.count()
             .flatMap { (size: Int) -> AnyPublisher<AssessmentModel, Error> in
                 guard size > 0 else {
-                    let error = CoreDataError.objectNotFound as Error
-                    return Fail<AssessmentModel, Error>(error: error).eraseToAnyPublisher()
+                    // TODO: find any approach to handle case of object not found
+//                    let error = CoreDataError.objectNotFound as Error
+                    return Just<AssessmentModel>(forAssessment)
+                        .setFailureType(to: Error.self).eraseToAnyPublisher()
                 }
+                let limit = min(40,size),range = Int(size / limit)
                 // Fetching all sensor value in batch from the cache
                 let initial = sensorLocalStore.fetch(page: 1, limit: limit, id: nil)
-                let task = (2 ..< (size / limit)).reduce(initial) { combine, page in
+                guard range > 2 else {
+                    return initial
+                        .flatMap { (sensorData: [SensorModel]) -> AnyPublisher<AssessmentModel, Error> in
+                            // uploading sensor value to the server and clearing the cache
+                            self.manageCacheFor(sensor: sensorData,assessment: forAssessment)
+                        }.eraseToAnyPublisher()
+                }
+                let task = (2 ..< range).reduce(initial) { combine, page in
                     combine.merge(with: sensorLocalStore
                         .fetch(page: page, limit: limit, id: nil)).eraseToAnyPublisher()
                 }
@@ -132,11 +149,11 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
         return sensorLocalStore.update(feedback: feedback)
     }
     
-    func collect(sensor: [SensorModel], forAssessment: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> {
+    func collect(sensor: SensorModel, forAssessment: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> {
         let sensorLocalStore = CoreDateSensorPersistencelayer(assessment: forAssessment)
         return sensorLocalStore
-            .createBatch(sensors: sensor)
-            .flatMap { (_: [SensorModel]) -> AnyPublisher<AssessmentModel, Error> in
+            .create(sensor: sensor)
+            .flatMap { (_: SensorModel) -> AnyPublisher<AssessmentModel, Error> in
                 Publishers
                 // fetching computation value from cache
                     .Zip(sensorLocalStore.getAvgSpeed(),
@@ -146,6 +163,7 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                         var assessment = forAssessment
                         assessment.avgSpeed = avgSpeed
                         assessment.totalDistance = totalDistance
+                        assessment.endedAt = sensor.time
                         return self.assessmentLocalStore.update(assessment: assessment)
                     }.eraseToAnyPublisher()
             }.eraseToAnyPublisher()
@@ -154,6 +172,7 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     func create(assessment: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> {
         let (limit,page) = (10,1)
         // fetching one candidate with given ID
+//        var assessment = assessment
         return candidateLocalStore
             .fetch(page: page, limit: limit, id: candidate.id)
             .flatMap { (candidates: [CandidatesModel]) -> AnyPublisher<AssessmentModel, Error> in
@@ -174,13 +193,19 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     }
     
     private func getCacheAssessment() -> AnyPublisher<[AssessmentModel], Error> {
-        return assessmentLocalStore.fetch(page: 1, limit: 10, id: nil)
+        let page = 1 , limit = 10
+        return assessmentLocalStore.fetch(page: page, limit: limit, id: nil)
     }
     
     private func clearCache(sensor: [SensorModel],
                             forAssessment: AssessmentModel) -> AnyPublisher<Void,Error> {
         let sensorLocalStore = CoreDateSensorPersistencelayer(assessment: forAssessment)
         return sensorLocalStore.remove(sensor: sensor)
+    }
+    
+    private func clearAssessmentCache(_ asssessment: AssessmentModel) -> AnyPublisher<Void,Error> {
+        let assessmentLocalStore = assessmentLocalStore.remove(assessment: asssessment)
+        return assessmentLocalStore
     }
     
     private func clearCandidateCache() -> AnyPublisher<Void, Error> {

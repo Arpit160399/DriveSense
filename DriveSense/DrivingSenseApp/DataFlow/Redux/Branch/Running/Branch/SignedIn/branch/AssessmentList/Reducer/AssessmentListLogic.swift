@@ -14,10 +14,9 @@ struct AssessmentListLogic {
         case let action as AssessmentListAction.FetchedList:
             state.page = action.page
             if state.assessment.count < listLimit {
-                state.assessment.append(contentsOf: action.list)
+                action.list.forEach({ state.assessment.insert($0) })
             }
             state.loading = false
-
         case _ as AssessmentListAction.FetchingList:
             state.loading = true
 

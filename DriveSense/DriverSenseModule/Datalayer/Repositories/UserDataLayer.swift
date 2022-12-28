@@ -7,7 +7,10 @@
 import Combine
 import Foundation
 protocol UserDataLayer {
+    
     func signIn(user: UserAuth) -> AnyPublisher<UserSession,Error>
+    
     func register(asInstructor: InstructorModel) -> AnyPublisher<UserSession,Error>
-    func signOut(asInstructor: InstructorModel) -> AnyPublisher<Void,Error>
+    
+    func signOut() -> AnyPublisher<Void,Error>
 }

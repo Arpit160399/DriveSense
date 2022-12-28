@@ -13,19 +13,19 @@ extension ReducerCollection {
         
         switch action {
           case _ as AppRunningAction.SignOut:
-            state = .OnBoarding(.login(LoginState()))
+            state = .onBoarding(.login(LoginState()))
           case let action as OnBoardingCompeted:
-            state = RunningState.SignIn(SignedInState(userSession: action.user,
+            state = RunningState.signIn(SignedInState(userSession: action.user,
                                                       candidatesViewState: .candidateList))
           default:
                break
          }
         
         switch state {
-             case .OnBoarding(let onBoardingState):
-             state = .OnBoarding(ReducerCollection.OnboardingReducer(onBoardingState,action))
-             case .SignIn(let signState):
-             state = .SignIn(ReducerCollection.SignInReducer(signState, action))
+             case .onBoarding(let onBoardingState):
+             state = .onBoarding(ReducerCollection.OnboardingReducer(onBoardingState,action))
+             case .signIn(let signState):
+             state = .signIn(ReducerCollection.SignInReducer(signState, action))
          }
         
         return state

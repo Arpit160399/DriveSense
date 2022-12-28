@@ -27,8 +27,8 @@ protocol InstructorPersistenceLayer {
     /// Finding a particular instructor model into database.
     /// - Parameter predicated: the query according to which the result will presented.
     /// - Returns: a publisher which notifies once the fetch operation is completed
-    /// with response value respected object model.
-    func find(predicated: NSPredicate) -> AnyPublisher<InstructorModel?,Error>
+    /// with response value respected object models.
+    func find(predicated: NSPredicate?) -> AnyPublisher<[InstructorModel],Error>
     
     /// Remove the particular instructor model from database.
     /// - Parameter instructor: instructor model that need to be removed from the database.

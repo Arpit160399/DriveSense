@@ -7,14 +7,19 @@
 
 import Foundation
 struct MockTestState {
-     var candidate: CandidatesModel
      var assessment: AssessmentModel
      var errorToPresent: Set<ErrorMessage>
-     var sensorData: [SensorModel]
+     var sensorCollection: UseCase?
      var viewState: MockTestViewState
+     var currentSpeed: Double = 0
+     var currentDirection: String = "Moving Forward"
+     var currentDistance: Double = 0
+     var loading = false
 }
 
 enum MockTestViewState {
     case mainBoard
-    case testBoard(TestBoardState)
+    case consentForm
+    case initial
+    case testBoard
 }

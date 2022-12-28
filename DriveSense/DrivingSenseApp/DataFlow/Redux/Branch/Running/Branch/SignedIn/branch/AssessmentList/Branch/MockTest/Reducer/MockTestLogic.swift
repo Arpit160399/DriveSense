@@ -7,29 +7,47 @@
 
 import Foundation
 struct MockTestLogic {
-    
-    static func setState(currentState: MockTestState,action:  Action) -> MockTestState {
+    static func setState(currentState: MockTestState, action: Action) -> MockTestState {
         var state = currentState
         
         switch action {
+        case let action as MockTestAction.UpdateCurrentUserCase:
+            state.sensorCollection = action.sensorTask
             
-            case let action as MockTestAction.MockTestError:
-             state.errorToPresent.insert(action.error)
+        case let action as MockTestAction.UpdatedDrivingState:
+            state.currentSpeed = action.speed 
+            state.currentDistance += action.distance
+            state.currentDirection = action.direction
             
-            case let action as MockTestAction.PresentedError:
+        case let action as MockTestAction.MockTestError:
+            state.errorToPresent.insert(action.error)
+            state.loading = false
+            
+        case let action as MockTestAction.PresentedError:
             state.errorToPresent.remove(action.error)
-              
-            case let action as MockTestAction.updateAssessment:
-            state.assessment = action.assessment
+            state.loading = false
             
-            case let action as MockTestAction.DismissTestBoard:
+        case let action as MockTestAction.UpdateAssessment:
+            state.assessment = action.assessment
+            state.loading = false
+            state.viewState = .mainBoard
+            
+        case let action as MockTestAction.UpdateFeedBackLocal:
             state.assessment.feedback = action.feedback
             
-            default:
-                break
+        case let action as MockTestAction.DismissTestBoard:
+            state.assessment.feedback = action.feedback
+            state.viewState = .mainBoard
+            
+        case _ as MockTestAction.GeneratingAssessment:
+            state.loading = true
+             
+        case _ as MockTestAction.AcceptedPolicy:
+            state.viewState = .initial
+            
+        default:
+            break
         }
-        
         return state
     }
-    
 }

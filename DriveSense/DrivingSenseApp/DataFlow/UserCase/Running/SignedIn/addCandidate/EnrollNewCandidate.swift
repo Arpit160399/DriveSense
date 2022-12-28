@@ -29,7 +29,7 @@ class EnrollNewCandidates: UseCase {
             .sink { completion in
                 if case .failure(let error) = completion {
                     var errorMessage = ErrorMessage(title: "Error", message: "Failed To enrol New candidate at the moment")
-                    if case NetworkError.ServerWith(let res)  = error {
+                    if case NetworkError.serverWith(let res)  = error {
                         errorMessage.message = res.message
                     }
                     let action = AddCandidateAction
@@ -38,7 +38,7 @@ class EnrollNewCandidates: UseCase {
                 }
            } receiveValue: { candidateList in
                let action = AddCandidateAction
-                   .successFullEnrolled(candidateList: candidateList)
+                   .SuccessFullEnrolled(candidateList: candidateList)
                self.actionDispatcher.dispatch(action)
            }.store(in: &task)
     }

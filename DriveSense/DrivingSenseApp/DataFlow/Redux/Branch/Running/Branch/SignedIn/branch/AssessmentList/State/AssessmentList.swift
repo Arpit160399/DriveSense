@@ -11,7 +11,7 @@ struct AssessmentListState {
     var loading: Bool
     var page: Int
     var candidate: CandidatesModel
-    var assessment: [AssessmentModel]
+    var assessment: Set<AssessmentModel>
     var viewState: AssessmentViewState
     var errorPresenter = Set<ErrorMessage>()
      
@@ -19,7 +19,7 @@ struct AssessmentListState {
         self.loading = false
         self.page = 0
         self.candidate = candidate
-        self.assessment = [AssessmentModel]()
+        self.assessment = Set<AssessmentModel>()
         self.viewState = .list
         self.errorPresenter = errorPresenter
     }
@@ -36,6 +36,6 @@ extension AssessmentListState: Equatable {
 
 enum AssessmentViewState {
     case list
-    case MockTest(MockTestState)
-    case SensorData(SensorListState)
+    case mockTest(MockTestState)
+    case sensorData(SensorListState)
 }

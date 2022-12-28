@@ -8,4 +8,5 @@
 import Foundation
 struct DataBinder<T : Codable>: Codable {
     var data: T
+    var status: String?
 }

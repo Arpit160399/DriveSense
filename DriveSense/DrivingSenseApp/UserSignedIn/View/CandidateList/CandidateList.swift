@@ -75,8 +75,8 @@ struct CandidateList: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack {
-                        ForEach(state.candidates.indices,id: \.self) { index in
-                            let candidate = state.candidates[index]
+                        ForEach(store.candidates.indices,id: \.self) { index in
+                            let candidate = store.candidates[index]
                             CandidateCardView(model: candidate)
                                 .onTapGesture {
                                     let action = SignedInAction.PresentAssessmentDetail(forCandidate: candidate)
@@ -114,18 +114,17 @@ struct CandidateList: View {
                     message: Text(errorMessage?.message ?? ""),
                     dismissButton: Alert.Button.cancel(Text("ok"), action: {
                   if let error = errorMessage {
-                      let action = AddCandidateAction.PresentedError(error: error)
+                      let action = SignedInAction.PresentedCandiateFetchingError(error: error)
                       store.send(action)
                   }
               }))
       }
       .onAppear {
-          if state.currentPage == 0 {
+          if state.currentPage == 0 ,
+             state.candidates.isEmpty {
               store.getCandidatesList(fromPage: 0)
         }
       }
     }
     
-    
-
 }

@@ -12,13 +12,10 @@ extension ReducerCollection {
         var state = state
         switch action {
         case is MockTestAction.PresentTestBoard:
-            if let feedback = state.assessment.feedback {
-                state.viewState = .testBoard(.init(feedback: feedback))
-            }
+                state.viewState = .testBoard
         default:
             state = MockTestLogic.setState(currentState: state, action: action)
         }
-        
         //Later if to expand the reducer for Test Board
         
         return state

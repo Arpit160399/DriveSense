@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension SensorEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<SensorEntity> {
@@ -22,6 +21,9 @@ extension SensorEntity {
     @NSManaged public var time: Double
     @NSManaged public var verdict: String
     @NSManaged public var distance: Double
+    @NSManaged public var pressure: Double
+    @NSManaged public var course: Double
+    @NSManaged public var compass: Double
     @NSManaged public var accelerometer: AxisValueEntity?
     @NSManaged public var assessment: AssessmentEntity?
     @NSManaged public var gps: GPSEntity?
@@ -42,27 +44,36 @@ extension SensorEntity : DomainModel {
         verdict = from.verdict ?? ""
         speed = from.speed ?? 0
         direction = from.direction ?? ""
-        time = from.time ?? 0
+        course = from.course ?? 0
+        pressure = from.pressure ?? 0
+        time = from.time ?? Date().timeIntervalSince1970
         distance = from.distance ?? 0
-        createdAt = from.createdAt ?? Date().timeIntervalSince1970
-        
+        createdAt = from.time ?? Date().timeIntervalSince1970
+        compass = from.compass ?? 0
         if let gpsSet = from.gps {
-        gps = setGps(context: context, value: gpsSet)
+            gps = setGps(context: context, value: gpsSet)
         }
         if let linear = from.linearAccelerometer {
            linearAccelerometer = setAxisValue(context: context,
-                                accelerometerValue: linear)
+                                              axisValue: linear)
         }
+        
         if let accelerationValue = from.accelerometer {
             accelerometer = setAxisValue(context: context,
-                            accelerometerValue: accelerationValue)
+                                         axisValue: accelerationValue)
         }
+        
+        if let gyroValue = from.gyro {
+            gyro = setAxisValue(context: context,
+                                axisValue: gyroValue)
+        }
+        
     }
     
     private func setAxisValue(context: NSManagedObjectContext,
-                                  accelerometerValue: AxisValueModel) -> AxisValueEntity {
+                              axisValue: AxisValueModel) -> AxisValueEntity {
         let object = AxisValueEntity(context: context)
-        object.intoObject(from: accelerometerValue, context: context)
+        object.intoObject(from: axisValue, context: context)
         return object
     }
     
@@ -75,9 +86,8 @@ extension SensorEntity : DomainModel {
     
     func toDomainModel() -> SensorModel {
         return .init(id: id, verdict: verdict, speed: speed, time: time,
-            distance: distance,
-            createdAt: createdAt,
-            accelerometer: accelerometer?.toDomainModel(),
+            distance: distance, pressure: pressure,course: course,
+            compass: compass, accelerometer: accelerometer?.toDomainModel(),
             gps: gps?.toDomainModel(),
             gyro: gyro?.toDomainModel(),
             linearAccelerometer: linearAccelerometer?.toDomainModel())

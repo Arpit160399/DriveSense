@@ -8,9 +8,9 @@
 import Foundation
 struct OnBoardingActions: Action {
     
-    struct goToSignIn: Action {}
+    struct GoToSignIn: Action {}
     
-    struct goToSignUp: Action {}
+    struct GoToSignUp: Action {}
 }
 
 protocol OnBoardingCompeted: Action {

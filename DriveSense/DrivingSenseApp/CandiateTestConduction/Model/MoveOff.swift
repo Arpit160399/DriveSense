@@ -6,14 +6,20 @@
 //
 
 import Foundation
-struct MoveOff {
+struct MoveOff: Equatable {
 var safety: Conclusion
 var control: Conclusion
 }
 
 extension MoveOff {
     init() {
-        safety = .Perfect
-        control = .Perfect
+        safety = .perfect
+        control = .perfect
+    }
+}
+
+extension MoveOff: faultNum {
+    func totalFaultby(_ type: Conclusion) -> Int {
+        return safety.getValue(type) + control.getValue(type)
     }
 }

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct SensorModel:Identifiable , Codable {
     var id: UUID
     var verdict: String?
@@ -16,11 +15,11 @@ struct SensorModel:Identifiable , Codable {
     var time: Double?
     var direction: String?
     var distance: Double?
-    var createdAt: Double?
+    var pressure:Double?
+    var course: Double?
+    var compass: Double?
     var accelerometer: AxisValueModel?
     var gps: GPSModel?
     var gyro: AxisValueModel?
     var linearAccelerometer: AxisValueModel?
 }
-
-

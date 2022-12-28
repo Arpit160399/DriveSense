@@ -7,7 +7,7 @@
 
 import Foundation
 struct FeedbackModel: Codable  {
-    var id: UUID?
+    var id: UUID
     var control: ControlModel?
     var judgement: JudgementModel?
     var junctions: JunctionsModel?

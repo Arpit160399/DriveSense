@@ -81,7 +81,7 @@ struct Login: View {
     var bottomSection: some View {
         HStack {
             Button {
-                let action = OnBoardingActions.goToSignUp()
+                let action = OnBoardingActions.GoToSignUp()
                 store.send(action: action)
             } label: {
                 Text("Wanna Sign Up ?")

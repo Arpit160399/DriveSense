@@ -15,5 +15,8 @@ public struct Sensor {
     var speed: Double
     var time: TimeInterval
     var distance: Double
+    var pressure: Double
+    var course : Double
+    var compass: Double
     var direction: Direction
 }

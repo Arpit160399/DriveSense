@@ -45,5 +45,5 @@ protocol DataHelperProtocol {
     func delete<T: NSManagedObject>(type: T.Type,
                                     predicate: NSPredicate,
                                     managedObjectContext: NSManagedObjectContext) -> AnyPublisher<Void, Error>
-    func saveIfNeed(context: NSManagedObjectContext) throws -> Void
+    func saveIfNeed(context: NSManagedObjectContext) throws 
 }

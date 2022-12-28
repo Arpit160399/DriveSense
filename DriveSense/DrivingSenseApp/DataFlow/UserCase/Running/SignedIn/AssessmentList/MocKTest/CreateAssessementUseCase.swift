@@ -23,9 +23,10 @@ class CreateAssessmentUseCase: UseCase {
     }
     
     func start() {
-        let action = MockTestAction.generatingAssessment()
+        let action = MockTestAction.GeneratingAssessment()
         actionDispatcher.dispatch(action)
-        assessmentDataLayer.create(assessment: assessment)
+        assessmentDataLayer
+            .create(assessment: assessment)
             .sink { completion in
                 if case .failure(_ ) = completion {
                     let errorMessage = ErrorMessage(title: "Error Occurred",
@@ -34,7 +35,7 @@ class CreateAssessmentUseCase: UseCase {
                     self.actionDispatcher.dispatch(action)
                 }
             } receiveValue: { model in
-                let action = MockTestAction.updateAssessment(assessment: model)
+                let action = MockTestAction.UpdateAssessment(assessment: model)
                 self.actionDispatcher.dispatch(action)
             }.store(in: &task)
     }

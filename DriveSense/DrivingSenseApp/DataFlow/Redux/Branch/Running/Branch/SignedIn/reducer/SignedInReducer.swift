@@ -12,8 +12,8 @@ extension ReducerCollection {
         var state = state
         switch action {
             
-         case let action as AddCandidateAction.successFullEnrolled:
-            state.candidates = action.candidateList
+         case let action as AddCandidateAction.SuccessFullEnrolled:
+            state.candidates = Set(action.candidateList)
             state.currentPage = 0
             state.candidatesViewState = .candidateList
             
@@ -26,8 +26,8 @@ extension ReducerCollection {
         
         switch state.candidatesViewState {
             
-        case .Setting(let settingState):
-            state.candidatesViewState = .Setting(ReducerCollection.SettingReducer(settingState,action))
+        case .setting(let settingState):
+            state.candidatesViewState = .setting(ReducerCollection.SettingReducer(settingState,action))
             
          case  .addCandidate(let addCandidateState):
             state.candidatesViewState = .addCandidate(ReducerCollection.AddCandidateReducer(addCandidateState,action))

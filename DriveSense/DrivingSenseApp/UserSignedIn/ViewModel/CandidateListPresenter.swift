@@ -47,7 +47,7 @@ class CandidateListPresenter: ObservableObject {
         self.addCandidateFactory = addCandidateFactory
         self.assessmentDetailFactory = assessmentDetailFactory
         self.searchCandidateUserCaseFactory = searchCandidateUserCaseFactory
-        self.candidates = state.candidates
+        self.candidates = Array(state.candidates)
         self.showError = !state.errorToPresent.isEmpty
         self.settingsViewFactory = settingsViewFactory
         self.query = state.searchText
@@ -102,7 +102,7 @@ class CandidateListPresenter: ObservableObject {
             navigationMode = .init(isDisplayed: false,
                                    destination: AnyView(addCandidateFactory(addCandidateState)),
                                    showModel: true)
-        case .Setting(let settingsState):
+        case .setting(let settingsState):
             navigationMode = .init(isDisplayed: true,
                                    destination: AnyView(settingsViewFactory(settingsState)))
         default:

@@ -81,10 +81,10 @@ class MainViewPresenter: ObservableObject {
         switch store.state {
           case .running(let runningState):
             switch runningState {
-                case .OnBoarding(let state):
+                case .onBoarding(let state):
                 navigation = .init(isDisplayed: true,
                                    destination: AnyView(onBoardingFactory(state)))
-                case .SignIn(let state):
+                case .signIn(let state):
                 navigation = .init(isDisplayed: true,
                                    destination: AnyView(signedInFactory(state)))
              }

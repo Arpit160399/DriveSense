@@ -25,8 +25,8 @@ class RegistrationPresenter : ObservableObject {
         showError = !state.errorToPresent.isEmpty
     }
     
-    //MARK: perfrom Registertion Action
-    func RegisterNewUser() {
+    // MARK: perfrom Registertion Action
+    func registerNewUser() {
         var model = instructor.convertToModel()
         model.password = password
         let useCase = makeSignUpUseCaseFactor

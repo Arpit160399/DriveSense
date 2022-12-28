@@ -7,9 +7,12 @@
 
 import SwiftUI
 struct AssessmentListView: View {
-    @ObservedObject var store: AssessmentDetailPresenter
+    @ObservedObject var store: AssessmentListPresenter
     var body: some View {
         VStack {
+            NavigationLink(isActive: $store.navigation.isDisplayed, destination: {
+                store.navigation.destination
+            }, label: {}).hidden()
             HStack(spacing: 7) {
                 Button {
                     let action = SignedInAction.DismissCurrentView()
@@ -31,7 +34,20 @@ struct AssessmentListView: View {
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        
+                        ForEach(store.assessment.indices,id: \.self) { index in
+                            let assessment = store.assessment[index]
+                            AssessmentCard(assessment: assessment)
+                                .onAppear {
+                                    if index == store.assessment.count - 1 {
+                                        store
+                                        .getAssessmentFor(page: store.state.page + 1)
+                                    }
+                                }
+                        }
+                    }.padding(.vertical)
+                    if store.state.loading {
+                        ActivityLoader(color: .white)
+                            .frame(width: 55,height: 55)
                     }
                 }
                 VStack {
@@ -56,7 +72,22 @@ struct AssessmentListView: View {
             }
         }
         .background(Color.appOrangeLevel.edgesIgnoringSafeArea(.all))
+        .alert(isPresented: $store.showError, content: {
+            let errorMessage = store.state.errorPresenter.first
+            return Alert(title: Text(errorMessage?.title ?? ""),
+                      message: Text(errorMessage?.message ?? ""),
+                      dismissButton: Alert.Button.cancel(Text("ok"), action: {
+                    if let error = errorMessage {
+                        let action = AssessmentListAction.PresentedError(error: error)
+                        store.send(action)
+                    }
+            }))
+        })
         .navigationBarBackButtonHidden()
+        .onAppear {
+            if store.state.assessment.isEmpty {
+                store.getAssessmentFor(page: 0)
+            }
+        }
     }
 }
-

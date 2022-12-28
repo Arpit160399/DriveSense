@@ -23,7 +23,7 @@ class CoreDataStack {
     undueHesitation: "perfect"),useofSpeed: "perfect", followingDistance: "perfect",
     reversePark: "perfect", moveOff: .init(safety: "minor", control: "minor"),
     totalFaults: 6, totalMajorFault: 0, totalMinorFault: 6)
-      private lazy var testAssessment = AssessmentModel(id: UUID(), totalDistance: 23, avgSpeed: 120, conductedBy: testInstuctor, ofCandidate: testCandidates, feedback: testFeedback, sensor: [], timeStamp: 123450)
+      private lazy var testAssessment = AssessmentModel(id: UUID(), totalDistance: 23, avgSpeed: 120, conductedBy: testInstuctor, ofCandidate: testCandidates, feedback: testFeedback, sensor: [], createdAt:  123450)
     
       private var testSensor: SensorModel = .init(id: UUID(), verdict: "straight driving", speed: 20, time: 800, direction: "forward", distance: 300, accelerometer: .init(x: 60, y: 45, z: 0), gps: .init(longitude: 3440, latitude: 4550), gyro: .init(x: 50, y: 60, z: 0),
         linearAccelerometer: .init(x: 40, y: 20, z: 0))
@@ -41,7 +41,7 @@ class CoreDataStack {
         var newValue = testInstuctor
         let context = contextManager.viewContext
         let object = InstructorEntity(context: context)
-        if id != nil {
+        if let id = id {
           newValue.id = id
         }
          object.intoObject(from: newValue, context: context)
@@ -98,7 +98,7 @@ class CoreDataStack {
     
     
     func getInstructorID() throws -> UUID {
-        let id = try createInstuctorObject(id: UUID()).id
+        guard let id = try createInstuctorObject(id: UUID()).id else { return UUID() }
         return id
      }
     

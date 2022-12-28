@@ -38,7 +38,7 @@ class DriverSenseOnBoardingContainer {
 
 extension DriverSenseOnBoardingContainer: SignInUseCaseFactory {
     func makeSignInUseCaseFactory(email: String, password: Secret) -> UseCase {
-        let remoteApi = DriveSenseRemoteAuth()
+        let remoteApi = DataManager().getUserDataLayer()
         let userCase = SignInUseCase(email: email, password: password,
                                      dispatcher: store, remoteApi: remoteApi)
         return userCase

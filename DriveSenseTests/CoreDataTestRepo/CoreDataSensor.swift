@@ -25,7 +25,7 @@ class CoreDataSensor: XCTestCase {
     func testCreateSensorObjectIntoCoreData() throws {
         let exp = expectation(description: "Successfully created Sensor object.")
         let createModel = sensorTestResource.sensor
-        sensorTestResource.repo.create(sensorEntity: createModel)
+        sensorTestResource.repo.create(sensor: createModel)
             .sink { completion in
                 if case .failure(_ ) = completion {
                     XCTFail("failed to create Sensor Object into core data")
@@ -68,7 +68,6 @@ class CoreDataSensor: XCTestCase {
                 exp.fulfill()
             }
         } receiveValue: { models in
-            print(models)
             XCTAssertTrue(models.count >= 4,"incorrect result of fetch operation")
             exp.fulfill()
         }.store(in: &task)
@@ -86,7 +85,6 @@ class CoreDataSensor: XCTestCase {
                 exp.fulfill()
             }
         } receiveValue: { avg in
-            print(avg,correctResult)
             XCTAssertTrue(correctResult == avg,"incorrect result of average operation")
             exp.fulfill()
         }

@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension AssessmentEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<AssessmentEntity> {
@@ -20,6 +19,7 @@ extension AssessmentEntity {
     @NSManaged public var avgSpeed: Double
     @NSManaged public var totalDistance: Double
     @NSManaged public var createdAt: Double
+    @NSManaged public var endedAt: Double
     @NSManaged public var forCandidate: CandidatesEntity?
     @NSManaged public var byInstuctor: InstructorEntity?
     @NSManaged public var sensor: NSSet?
@@ -55,6 +55,7 @@ extension AssessmentEntity : DomainModel {
         id = from.id
         totalDistance = from.totalDistance ?? 0
         avgSpeed = from.avgSpeed ?? 0
+        endedAt = from.endedAt ?? 0
         totalDistance = from.totalDistance ?? 0
         createdAt = from.createdAt ?? Date().timeIntervalSince1970
         if let testResult = from.feedback {
@@ -70,7 +71,7 @@ extension AssessmentEntity : DomainModel {
                      conductedBy: byInstuctor?.toDomainModel(),
                      ofCandidate: forCandidate?.toDomainModel(),
                      feedback: feedback?.toDomainModel(),
-                     createdAt: createdAt
+                     createdAt: createdAt,endedAt: endedAt
                     )
     }
     

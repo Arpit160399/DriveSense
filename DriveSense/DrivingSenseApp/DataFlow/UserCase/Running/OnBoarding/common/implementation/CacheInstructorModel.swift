@@ -11,7 +11,7 @@ class CacheInstructorModel: InstructorCaching {
     
     private var task = Set<AnyCancellable>()
     private let localStore: InstructorPersistenceLayer
-    private var delegate: (any CachingCompletionHandler)?
+    private weak var delegate: (any CachingCompletionHandler)?
     
     init(localStore: InstructorPersistenceLayer,
          delegate: any CachingCompletionHandler) {
@@ -32,7 +32,7 @@ class CacheInstructorModel: InstructorCaching {
                 updateInstructor(model: model)
             } catch {
                 // TODO :- handle error
-                delegate?.cachingFinished(WithError: error)
+                delegate?.cachingFinished(withError: error)
             }
         }
     }
@@ -41,7 +41,7 @@ class CacheInstructorModel: InstructorCaching {
         localStore.update(instructor: model)
             .sink { completion in
                 if case .failure(let error) = completion {
-                    self.delegate?.cachingFinished(WithError: error)
+                    self.delegate?.cachingFinished(withError: error)
                 }
             } receiveValue: { model in
                 self.delegate?.cachingFinished(res: model)
@@ -52,7 +52,7 @@ class CacheInstructorModel: InstructorCaching {
         localStore.create(instructor: model)
             .sink { completion in
                 if case .failure(let error) = completion {
-                    self.delegate?.cachingFinished(WithError: error)
+                    self.delegate?.cachingFinished(withError: error)
                 }
             } receiveValue: { model in
                 self.delegate?.cachingFinished(res: model)
@@ -67,7 +67,7 @@ class CacheInstructorModel: InstructorCaching {
                        continuation.resume(throwing: error)
                    }
                } receiveValue: { model in
-                   continuation.resume(with: .success(model))
+                   continuation.resume(with: .success(model.first))
             }.store(in: &task)
         })
     }
@@ -76,7 +76,7 @@ class CacheInstructorModel: InstructorCaching {
         localStore.remove(instructor: model)
             .sink { completion in
                 if case .failure(let error) = completion {
-                    self.delegate?.cachingFinished(WithError: error)
+                    self.delegate?.cachingFinished(withError: error)
                 }
             } receiveValue: {
                 self.delegate?.cachingFinished(res: model)

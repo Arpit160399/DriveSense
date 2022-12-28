@@ -17,9 +17,10 @@ struct Route: ResourcePath {
     
     func getURL() -> URLComponents {
         var component = URLComponents()
+        component.scheme = "https"
         component.host = env.baseURL
         let stringPath = id == nil ? path.rawValue : path.rawValue + "/\(id ?? "")"
-        component.path = path.rawValue + stringPath
+        component.path = stringPath
         return component
     }
 }

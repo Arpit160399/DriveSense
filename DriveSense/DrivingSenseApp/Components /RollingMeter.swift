@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RollingMeter: View {
-    var value: String 
+    @Binding var value: Double
     @State var range: [NSString] = []
     var font: Font = Font.system(size: 25, weight: .heavy, design: .default)
     var color: Color = .black
@@ -43,13 +43,13 @@ struct RollingMeter: View {
                }
             }
         }.onAppear {
-            range = Array(repeating: "0", count: String(value).count)
+            range = Array(repeating: "0", count: String(format: "%.1f",value).count)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.06) {
                 updateCounter()
             }
         }
         .onChange(of: value) { _ in
-            let extra = String(value).count - range.count
+            let extra = String(format: "%.1f",value).count - range.count
             withAnimation(.easeIn(duration: 0.04)) {
               for _ in 0..<abs(extra) {
                     if extra > 0 {
@@ -66,7 +66,7 @@ struct RollingMeter: View {
     }
 
     func updateCounter() {
-        let stringNumber = value
+        let stringNumber = String(format: "%.1f",value)
         for (index, char) in stringNumber.enumerated() {
             withAnimation(.spring(response: 1, dampingFraction: 1, blendDuration: 1)) {
                 range[index] = ("\(char)" as NSString)
@@ -77,6 +77,6 @@ struct RollingMeter: View {
 
 struct RollingMeter_Previews: PreviewProvider {
     static var previews: some View {
-        RollingMeter(value: "42")
+        RollingMeter(value: .constant(Double(45.8)))
     }
 }

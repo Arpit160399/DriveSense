@@ -88,9 +88,12 @@ class CoreDataRepository: DataHelperProtocol {
         return fetch(type: type, predicate: predicate,sortDescriptors: nil,
                      relationshipKeysToFetch: nil
                      ,managedObjectContext: managedObjectContext)
-               .map { values in
+               .tryMap { values in
                    values.forEach { value in
                       managedObjectContext.delete(value)
+                   }
+                   if managedObjectContext.hasChanges {
+                       try managedObjectContext.save()
                    }
                }.eraseToAnyPublisher()
     }
@@ -137,7 +140,6 @@ extension CoreDataRepository {
                         promise(.failure(CoreDataError.invalidManagedObjectType))
                     }
                 } catch {
-                    print("error",error.localizedDescription)
                     promise(.failure(CoreDataError.invalidFetchRequest))
                 }
             }

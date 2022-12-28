@@ -31,9 +31,3 @@ struct ActivityLoader: View {
 //        }
     }
 }
-
-struct Preview_ActivityLoader: PreviewProvider {
-    static var previews: some View {
-        ActivityLoader()
-    }
-}
