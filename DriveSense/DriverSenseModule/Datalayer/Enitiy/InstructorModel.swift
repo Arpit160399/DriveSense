@@ -19,8 +19,4 @@ public struct InstructorModel: Identifiable, Codable, Equatable {
     var password: String?
     var createdAt: Double?
     
-    public static func == (lhs: InstructorModel, rhs: InstructorModel) -> Bool {
-        return lhs.id == rhs.id
-    }
 }
-

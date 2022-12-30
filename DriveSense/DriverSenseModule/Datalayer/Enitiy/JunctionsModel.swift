@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct JunctionsModel: Codable {
+struct JunctionsModel: Codable , Equatable {
     var approachingSpeed: String?
     var observation: String?
     var turingRight: String?

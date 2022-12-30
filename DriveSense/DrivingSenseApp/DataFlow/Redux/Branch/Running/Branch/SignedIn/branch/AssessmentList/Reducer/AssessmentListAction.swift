@@ -22,7 +22,9 @@ struct AssessmentListAction: Action {
         var error: ErrorMessage
     }
     
-    struct PresentSensorData: Action {}
+    struct PresentAssessmentDetail: Action {
+        var assessment: AssessmentModel
+    }
     
     struct AssessmentListDismissView: Action {}
     

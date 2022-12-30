@@ -15,11 +15,11 @@
 		830D3E9428F6276F00B5B34F /* AssessmentListLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D3E9328F6276F00B5B34F /* AssessmentListLogic.swift */; };
 		831724C728F80FFB00A88B7B /* SettingsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724C628F80FFB00A88B7B /* SettingsReducer.swift */; };
 		831724C928F8101000A88B7B /* SettingsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724C828F8101000A88B7B /* SettingsState.swift */; };
-		831724CB28F8BB3E00A88B7B /* SensorListState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724CA28F8BB3E00A88B7B /* SensorListState.swift */; };
-		831724CD28F8BB5200A88B7B /* SensorListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724CC28F8BB5200A88B7B /* SensorListReducer.swift */; };
+		831724CB28F8BB3E00A88B7B /* AssessmentDetailState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724CA28F8BB3E00A88B7B /* AssessmentDetailState.swift */; };
+		831724CD28F8BB5200A88B7B /* AssessmentDetailReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724CC28F8BB5200A88B7B /* AssessmentDetailReducer.swift */; };
 		831724CF28F8BBB600A88B7B /* MockTestState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724CE28F8BBB600A88B7B /* MockTestState.swift */; };
 		831724D128F8BBC600A88B7B /* MockTestReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724D028F8BBC600A88B7B /* MockTestReducer.swift */; };
-		831724D328F8CA5500A88B7B /* SensorListAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724D228F8CA5500A88B7B /* SensorListAction.swift */; };
+		831724D328F8CA5500A88B7B /* AssessmentDetailAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724D228F8CA5500A88B7B /* AssessmentDetailAction.swift */; };
 		831724D528F8CAB000A88B7B /* SettingsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724D428F8CAB000A88B7B /* SettingsAction.swift */; };
 		831724D728F8CB7100A88B7B /* MockTestAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831724D628F8CB7100A88B7B /* MockTestAction.swift */; };
 		831A1B6928C0926500E8092C /* DriveSenseRemoteAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 831A1B6828C0926500E8092C /* DriveSenseRemoteAuth.swift */; };
@@ -120,6 +120,10 @@
 		8395B82128CF5EC60044C6B3 /* DriveSenseUserRemoteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395B82028CF5EC60044C6B3 /* DriveSenseUserRemoteApi.swift */; };
 		8395B82528CFF3F90044C6B3 /* SignUpUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395B82428CFF3F90044C6B3 /* SignUpUseCase.swift */; };
 		8395B82728CFF40B0044C6B3 /* SignInUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8395B82628CFF40B0044C6B3 /* SignInUseCase.swift */; };
+		839E4F69295DB89A0036281F /* AssessmentDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839E4F68295DB89A0036281F /* AssessmentDetailPresenter.swift */; };
+		839E4F6B295DC6BA0036281F /* FetchSensorDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839E4F6A295DC6BA0036281F /* FetchSensorDataUseCase.swift */; };
+		839E4F6D295DCCA90036281F /* SensorDatalayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839E4F6C295DCCA90036281F /* SensorDatalayer.swift */; };
+		83A2C6BA295DD02400247A24 /* DriveSenseSensorDataLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A2C6B9295DD02400247A24 /* DriveSenseSensorDataLayer.swift */; };
 		83A9DA91288EE9E000D1485A /* RollingMeter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A9DA90288EE9E000D1485A /* RollingMeter.swift */; };
 		83B32B7428C8B3DF004517CF /* CoreDataSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B32B7328C8B3DF004517CF /* CoreDataSensor.swift */; };
 		83B32B7628C8B3F5004517CF /* CoreDataAssessement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B32B7528C8B3F5004517CF /* CoreDataAssessement.swift */; };
@@ -255,11 +259,11 @@
 		830D3E9328F6276F00B5B34F /* AssessmentListLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListLogic.swift; sourceTree = "<group>"; };
 		831724C628F80FFB00A88B7B /* SettingsReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsReducer.swift; sourceTree = "<group>"; };
 		831724C828F8101000A88B7B /* SettingsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsState.swift; sourceTree = "<group>"; };
-		831724CA28F8BB3E00A88B7B /* SensorListState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorListState.swift; sourceTree = "<group>"; };
-		831724CC28F8BB5200A88B7B /* SensorListReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorListReducer.swift; sourceTree = "<group>"; };
+		831724CA28F8BB3E00A88B7B /* AssessmentDetailState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentDetailState.swift; sourceTree = "<group>"; };
+		831724CC28F8BB5200A88B7B /* AssessmentDetailReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentDetailReducer.swift; sourceTree = "<group>"; };
 		831724CE28F8BBB600A88B7B /* MockTestState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestState.swift; sourceTree = "<group>"; };
 		831724D028F8BBC600A88B7B /* MockTestReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestReducer.swift; sourceTree = "<group>"; };
-		831724D228F8CA5500A88B7B /* SensorListAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorListAction.swift; sourceTree = "<group>"; };
+		831724D228F8CA5500A88B7B /* AssessmentDetailAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentDetailAction.swift; sourceTree = "<group>"; };
 		831724D428F8CAB000A88B7B /* SettingsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAction.swift; sourceTree = "<group>"; };
 		831724D628F8CB7100A88B7B /* MockTestAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTestAction.swift; sourceTree = "<group>"; };
 		831A1B6828C0926500E8092C /* DriveSenseRemoteAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseRemoteAuth.swift; sourceTree = "<group>"; };
@@ -364,6 +368,10 @@
 		8395B82028CF5EC60044C6B3 /* DriveSenseUserRemoteApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseUserRemoteApi.swift; sourceTree = "<group>"; };
 		8395B82428CFF3F90044C6B3 /* SignUpUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpUseCase.swift; sourceTree = "<group>"; };
 		8395B82628CFF40B0044C6B3 /* SignInUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInUseCase.swift; sourceTree = "<group>"; };
+		839E4F68295DB89A0036281F /* AssessmentDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentDetailPresenter.swift; sourceTree = "<group>"; };
+		839E4F6A295DC6BA0036281F /* FetchSensorDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchSensorDataUseCase.swift; sourceTree = "<group>"; };
+		839E4F6C295DCCA90036281F /* SensorDatalayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDatalayer.swift; sourceTree = "<group>"; };
+		83A2C6B9295DD02400247A24 /* DriveSenseSensorDataLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DriveSenseSensorDataLayer.swift; sourceTree = "<group>"; };
 		83A9DA90288EE9E000D1485A /* RollingMeter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollingMeter.swift; sourceTree = "<group>"; };
 		83B32B7328C8B3DF004517CF /* CoreDataSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSensor.swift; sourceTree = "<group>"; };
 		83B32B7528C8B3F5004517CF /* CoreDataAssessement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataAssessement.swift; sourceTree = "<group>"; };
@@ -555,13 +563,13 @@
 			path = MockTest;
 			sourceTree = "<group>";
 		};
-		831724BE28F80F6200A88B7B /* SensorList */ = {
+		831724BE28F80F6200A88B7B /* AssessmentDetail */ = {
 			isa = PBXGroup;
 			children = (
 				831724C428F80FC100A88B7B /* State */,
 				831724C228F80FAA00A88B7B /* Reducer */,
 			);
-			path = SensorList;
+			path = AssessmentDetail;
 			sourceTree = "<group>";
 		};
 		831724BF28F80F8D00A88B7B /* Settings */ = {
@@ -593,8 +601,8 @@
 		831724C228F80FAA00A88B7B /* Reducer */ = {
 			isa = PBXGroup;
 			children = (
-				831724CC28F8BB5200A88B7B /* SensorListReducer.swift */,
-				831724D228F8CA5500A88B7B /* SensorListAction.swift */,
+				831724CC28F8BB5200A88B7B /* AssessmentDetailReducer.swift */,
+				831724D228F8CA5500A88B7B /* AssessmentDetailAction.swift */,
 			);
 			path = Reducer;
 			sourceTree = "<group>";
@@ -612,7 +620,7 @@
 		831724C428F80FC100A88B7B /* State */ = {
 			isa = PBXGroup;
 			children = (
-				831724CA28F8BB3E00A88B7B /* SensorListState.swift */,
+				831724CA28F8BB3E00A88B7B /* AssessmentDetailState.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -628,17 +636,18 @@
 		831724D828F8CC0E00A88B7B /* AssessmentList */ = {
 			isa = PBXGroup;
 			children = (
-				831724D928F8CC6700A88B7B /* SensorList */,
+				831724D928F8CC6700A88B7B /* AsessementDetail */,
 				831724DA28F8CCE300A88B7B /* MocKTest */,
 			);
 			path = AssessmentList;
 			sourceTree = "<group>";
 		};
-		831724D928F8CC6700A88B7B /* SensorList */ = {
+		831724D928F8CC6700A88B7B /* AsessementDetail */ = {
 			isa = PBXGroup;
 			children = (
+				839E4F6A295DC6BA0036281F /* FetchSensorDataUseCase.swift */,
 			);
-			path = SensorList;
+			path = AsessementDetail;
 			sourceTree = "<group>";
 		};
 		831724DA28F8CCE300A88B7B /* MocKTest */ = {
@@ -716,6 +725,7 @@
 				83F596822918929C004B4E82 /* Implementation */,
 				83F596802917CB4D004B4E82 /* AssessementDataLayer.swift */,
 				8372E1DB2919AD0900B91740 /* UserDataLayer.swift */,
+				839E4F6C295DCCA90036281F /* SensorDatalayer.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -758,7 +768,7 @@
 		834C6DF228DB91790078220D /* Branch */ = {
 			isa = PBXGroup;
 			children = (
-				831724BE28F80F6200A88B7B /* SensorList */,
+				831724BE28F80F6200A88B7B /* AssessmentDetail */,
 				831724BD28F80F5700A88B7B /* MockTest */,
 			);
 			path = Branch;
@@ -1444,6 +1454,7 @@
 			children = (
 				83CBE76129049D220031C531 /* TestViewPresenter.swift */,
 				83CBE76329049D600031C531 /* AssessmentListPresenter.swift */,
+				839E4F68295DB89A0036281F /* AssessmentDetailPresenter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1622,6 +1633,7 @@
 			children = (
 				834BC7732916A489002E4767 /* DriverSenseAssessmentDataLayer.swift */,
 				8372E1DD2919B08400B91740 /* DriverSenseUserDataLayer.swift */,
+				83A2C6B9295DD02400247A24 /* DriveSenseSensorDataLayer.swift */,
 			);
 			path = Implementation;
 			sourceTree = "<group>";
@@ -1795,6 +1807,7 @@
 				83ED45A6289581E600F57334 /* ButtonStyle.swift in Sources */,
 				834C6E1128DE20460078220D /* FetchCandidateUseCase.swift in Sources */,
 				834C6DFA28DB94030078220D /* AddCandidateReducer.swift in Sources */,
+				83A2C6BA295DD02400247A24 /* DriveSenseSensorDataLayer.swift in Sources */,
 				835F432828C000C800F66C36 /* JudgementModel.swift in Sources */,
 				835F42FC28BFD62F00F66C36 /* Route.swift in Sources */,
 				83ED45AF2896D40C00F57334 /* RegistrationPresenter.swift in Sources */,
@@ -1827,7 +1840,7 @@
 				83BF6DBC28C2290B002BB627 /* AxisValueEntity+CoreDataClass.swift in Sources */,
 				83B32B8428CBA164004517CF /* AppReducer.swift in Sources */,
 				83A9DA91288EE9E000D1485A /* RollingMeter.swift in Sources */,
-				831724CD28F8BB5200A88B7B /* SensorListReducer.swift in Sources */,
+				831724CD28F8BB5200A88B7B /* AssessmentDetailReducer.swift in Sources */,
 				834C6DFC28DBD1850078220D /* SignedInAction.swift in Sources */,
 				83BF6E6C28C3B9A7002BB627 /* CoreData + NSExpression .swift in Sources */,
 				83E8BCBC28AF0D150089491C /* AxisValue.swift in Sources */,
@@ -1844,6 +1857,7 @@
 				83BF6DCB28C2290B002BB627 /* ProgressEntity+CoreDataProperties.swift in Sources */,
 				830D3E9428F6276F00B5B34F /* AssessmentListLogic.swift in Sources */,
 				831A1B6928C0926500E8092C /* DriveSenseRemoteAuth.swift in Sources */,
+				839E4F6B295DC6BA0036281F /* FetchSensorDataUseCase.swift in Sources */,
 				835F432A28C000C800F66C36 /* ControlModel.swift in Sources */,
 				835F42E428BEB3CB00F66C36 /* localDB.xcdatamodeld in Sources */,
 				83C1723C28B3C4DA00698C9B /* DriverSenseContainer.swift in Sources */,
@@ -1868,6 +1882,7 @@
 				834BC77029169D1B002E4767 /* DataManager.swift in Sources */,
 				835F432628C000C800F66C36 /* SensorModel.swift in Sources */,
 				835F42FE28BFD64800F66C36 /* CustomRoutes.swift in Sources */,
+				839E4F69295DB89A0036281F /* AssessmentDetailPresenter.swift in Sources */,
 				83B32B9928CBBEFC004517CF /* LauchingAction.swift in Sources */,
 				835F432C28C000C800F66C36 /* ADIModel.swift in Sources */,
 				835F433428C000C800F66C36 /* MoveOffEntityModel.swift in Sources */,
@@ -1893,7 +1908,8 @@
 				83F596812917CB4D004B4E82 /* AssessementDataLayer.swift in Sources */,
 				834C6E0E28DE1D740078220D /* CandidateCardView.swift in Sources */,
 				8372E1E3291EC7AF00B91740 /* TestBoard.swift in Sources */,
-				831724CB28F8BB3E00A88B7B /* SensorListState.swift in Sources */,
+				831724CB28F8BB3E00A88B7B /* AssessmentDetailState.swift in Sources */,
+				839E4F6D295DCCA90036281F /* SensorDatalayer.swift in Sources */,
 				83ED45B62896E8FC00F57334 /* CandidateList.swift in Sources */,
 				8395B81928CF58CE0044C6B3 /* OnBoardingActions.swift in Sources */,
 				83BF6DBB28C2290B002BB627 /* JunctionsEntity+CoreDataProperties.swift in Sources */,
@@ -1937,7 +1953,7 @@
 				83BF6DC228C2290B002BB627 /* CandidatesEntity+CoreDataClass.swift in Sources */,
 				835F432E28C000C800F66C36 /* AxisValueModel.swift in Sources */,
 				83BF6D9528C22387002BB627 /* AssessmentPersistenceLayer.swift in Sources */,
-				831724D328F8CA5500A88B7B /* SensorListAction.swift in Sources */,
+				831724D328F8CA5500A88B7B /* AssessmentDetailAction.swift in Sources */,
 				83BF6DC828C2290B002BB627 /* MoveOffEntity+CoreDataClass.swift in Sources */,
 				837BAF0E28B91C1D00760799 /* KeychainDataStore.swift in Sources */,
 				83BF76BC2954778600063A5F /* AssessmentDetailView.swift in Sources */,

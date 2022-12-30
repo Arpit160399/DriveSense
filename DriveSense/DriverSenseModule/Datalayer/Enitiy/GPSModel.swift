@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GPSModel : Codable {
+struct GPSModel : Codable,Equatable {
     var longitude: Double?
     var latitude: Double?
 }

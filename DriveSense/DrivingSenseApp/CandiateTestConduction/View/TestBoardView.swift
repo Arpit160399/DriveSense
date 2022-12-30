@@ -214,3 +214,28 @@ struct SpeedMeasurement: View {
      }
 
 }
+struct HeaderView: View {
+    var title: String
+    var action: () -> Void
+    var body: some View {
+        HStack {
+            Button {
+                action()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .resizable()
+                    .font(.systemTitle)
+                    .aspectRatio(contentMode: .fit)
+                    .foregroundColor(.white)
+                    .frame(width: 25, height: 25, alignment: .center)
+            }
+            Text(title)
+                .foregroundColor(.white)
+                .font(.system(size: 24, weight: .heavy,
+                              design: .default))
+            
+                .padding(.horizontal)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }.padding(.horizontal)
+    }
+}

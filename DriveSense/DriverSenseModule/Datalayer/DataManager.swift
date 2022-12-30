@@ -8,9 +8,7 @@
 import Foundation
 class DataManager {
      
-    
     init() {}
-    
     
     func getAssessmentDataLayer(session: UserSession,candidate: CandidatesModel) -> AssessmentDataLayer {
         let candidateCache = CoreDataCandidatesPersistenceLayer(instructor: session.user)
@@ -26,6 +24,14 @@ class DataManager {
     func getInstructorDataLayer(session: UserSession) -> InstructorRemoteApi {
         let remoteApi = DriveSenseUserRemoteApi(userSession: session)
         return remoteApi
+    }
+    
+    func getSensorDataLayer(session: UserSession,
+                            assessment: AssessmentModel) -> SensorDataLayer {
+        let remoteApi = DriveSenseAssessmentRemoteApi(userSession: session)
+        let sensorDataLayer = DriverSenseSensorDataLayer(remoteApi: remoteApi,
+                                                assessment: assessment)
+        return sensorDataLayer
     }
     
     func getUserDataLayer() -> UserDataLayer {

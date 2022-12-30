@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SensorModel:Identifiable , Codable {
+struct SensorModel:Identifiable , Codable, Equatable {
     var id: UUID
     var verdict: String?
     var speed: Double?

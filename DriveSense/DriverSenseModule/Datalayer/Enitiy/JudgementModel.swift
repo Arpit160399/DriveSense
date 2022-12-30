@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct JudgementModel: Codable {
+public struct JudgementModel: Codable , Equatable {
    var overtaking: String?
    var meeting: String?
    var crossing: String? 

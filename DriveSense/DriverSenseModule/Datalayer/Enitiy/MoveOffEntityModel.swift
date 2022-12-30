@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MoveOffModel: Codable {
+struct MoveOffModel: Codable, Equatable {
      var safety: String?
      var control: String?
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Arpit Singh on 14/10/22.
 //
-
 import Foundation
 class DriverSenseCandidateContainer {
     
@@ -36,8 +35,11 @@ class DriverSenseCandidateContainer {
         return view
     }
     
-    func sensorDetailView() {
-        
+    func makeAssessmentDetailView(state: AssessmentDetailState) -> AssessmentDetailView {
+        let presenter = AssessmentDetailPresenter(dispatcher: store,
+                                                  state: state,
+                                                  fetchSensorDataUserCaseFactory: self)
+        return AssessmentDetailView(store: presenter)
     }
     
     func makeAssessmentListView(state: AssessmentListState) -> AssessmentListView {
@@ -45,10 +47,15 @@ class DriverSenseCandidateContainer {
             return self.makeMockTestView(state: state)
         }
         
+        let assessmentDetailViewFactory = { state in
+            return self.makeAssessmentDetailView(state: state)
+        }
+        
         let presenter = AssessmentListPresenter(state: state,
                                                   candidate: candidate,
                                                   actionDispatcher: store,
                                                   testBoardViewFactory: testBoardFactory,
+                                                assessmentDetailViewFactory: assessmentDetailViewFactory,
                                                   fetchAssessmentUseCaseFactory: self)
         let view = AssessmentListView(store: presenter)
         
@@ -99,6 +106,18 @@ extension DriverSenseCandidateContainer: CreateAssessmentUserCaseFactory {
         let useCase = CreateAssessmentUseCase(assessmentDataLayer: dataLayer,
                                               assessment: forAssessment,
                                               actionDispatcher: store)
+        return useCase
+    }
+    
+}
+
+extension DriverSenseCandidateContainer: FetchSensorDataUseCaseFactory {
+    
+    func makeFetchSensorDataUseCase(forAssessment: AssessmentModel) -> UseCase {
+        let remoteApi = DataManager().getSensorDataLayer(session: userSession,
+                                                         assessment: forAssessment)
+        let useCase = FetchSensorDataUseCase(dispatcher: store,
+                                             remoteApi: remoteApi)
         return useCase
     }
     

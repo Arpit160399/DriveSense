@@ -25,47 +25,52 @@ struct AssessmentListView: View {
                         .font(.systemCaption)
                         .frame(width: 25, height: 25, alignment: .center)
                 }
-               Text("Assessments")
+                Text("Assessments")
                     .font(.system(size: 22, weight: .heavy,
                                   design: .default))
                     .foregroundColor(.white)
-               Spacer()
+                Spacer()
             }.padding(.horizontal)
             ZStack {
                 ScrollView {
                     LazyVStack {
-                        ForEach(store.assessment.indices,id: \.self) { index in
+                        ForEach(store.assessment.indices, id: \.self) { index in
                             let assessment = store.assessment[index]
-                            AssessmentCard(assessment: assessment)
-                                .onAppear {
-                                    if index == store.assessment.count - 1 {
-                                        store
+                            Button {
+                                let action = AssessmentListAction
+                                    .PresentAssessmentDetail(assessment: assessment)
+                                store.send(action)
+                            } label: {
+                                AssessmentCard(assessment: assessment)
+                            }.onAppear {
+                                if index == store.assessment.count - 1 {
+                                    store
                                         .getAssessmentFor(page: store.state.page + 1)
-                                    }
                                 }
+                            }
                         }
                     }.padding(.vertical)
                     if store.state.loading {
                         ActivityLoader(color: .white)
-                            .frame(width: 55,height: 55)
+                            .frame(width: 55, height: 55)
                     }
                 }
                 VStack {
                     Spacer()
                     HStack {
-                       Spacer()
+                        Spacer()
                         Button {
                             store.conductMockTest()
                         } label: {
                             Circle()
-                            .fill(Color.appCyan)
-                            .shadow(color: Color.appCyan.opacity(0.4),radius: 5,x: -0.5 ,y: 0.4)
-                            .overlay {
-                                Image(systemName: "chart.bar.doc.horizontal.fill")
-                                    .foregroundColor(.white)
-                                    .imageScale(.medium)
-                            }
-                            .frame(width: 50)
+                                .fill(Color.appCyan)
+                                .shadow(color: Color.appCyan.opacity(0.4), radius: 5, x: -0.5, y: 0.4)
+                                .overlay {
+                                    Image(systemName: "chart.bar.doc.horizontal.fill")
+                                        .foregroundColor(.white)
+                                        .imageScale(.medium)
+                                }
+                                .frame(width: 50)
                         }
                     }
                 }.padding()
@@ -75,13 +80,13 @@ struct AssessmentListView: View {
         .alert(isPresented: $store.showError, content: {
             let errorMessage = store.state.errorPresenter.first
             return Alert(title: Text(errorMessage?.title ?? ""),
-                      message: Text(errorMessage?.message ?? ""),
-                      dismissButton: Alert.Button.cancel(Text("ok"), action: {
-                    if let error = errorMessage {
-                        let action = AssessmentListAction.PresentedError(error: error)
-                        store.send(action)
-                    }
-            }))
+                         message: Text(errorMessage?.message ?? ""),
+                         dismissButton: Alert.Button.cancel(Text("ok"), action: {
+                             if let error = errorMessage {
+                                 let action = AssessmentListAction.PresentedError(error: error)
+                                 store.send(action)
+                             }
+                         }))
         })
         .navigationBarBackButtonHidden()
         .onAppear {

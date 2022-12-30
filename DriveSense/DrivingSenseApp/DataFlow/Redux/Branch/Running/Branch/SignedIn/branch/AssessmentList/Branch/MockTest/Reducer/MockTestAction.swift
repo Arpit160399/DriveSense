@@ -23,7 +23,7 @@ struct MockTestAction: Action {
     }
     
     struct UpdateCurrentUserCase: Action {
-        var sensorTask: UseCase
+        var sensorTask: any UseCase
     }
     
     struct UpdatedDrivingState: Action {

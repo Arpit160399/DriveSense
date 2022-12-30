@@ -11,3 +11,6 @@ struct ErrorMessage:Identifiable,Hashable,Error {
     var title: String
     var message: String
 }
+extension ErrorMessage : Equatable {
+     
+}

@@ -53,4 +53,15 @@ class DriveSenseAssessmentRemoteApi: AssessmentRemoteApi {
         }
         return networkSession.fetch(request)
     }
+    
+    func getSensor(for assessment: AssessmentModel, page: Int) -> AnyPublisher<[SensorModel], NetworkError> {
+        guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .sensor,
+                                                auth: session.accessToken,
+                                                id: assessment.id.uuidString),
+                                                method: .get,
+                                                query: ["page": String(page)]) else {
+            return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
+        }
+        return networkSession.fetch(request)
+    }
 }

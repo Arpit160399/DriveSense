@@ -6,15 +6,16 @@
 //
 import Combine
 import Foundation
+//TODO: - reduce few responsibility from this class 
 class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     
-    // MARK: - property
+    // MARK: - Property
     private let remoteApi: AssessmentRemoteApi
     private let candidateLocalStore: CandidatePersistenceLayer
     private let assessmentLocalStore: AssessmentPersistenceLayer
     private let candidate: CandidatesModel
     
-    // MARK: - methods
+    // MARK: - Methods
     init(candidate: CandidatesModel,
          candidateCache: CandidatePersistenceLayer,
          assessmentCache: AssessmentPersistenceLayer,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ADIModel: Codable {
+struct ADIModel: Codable , Equatable {
     var no: String
     var expiryDate: String
 }

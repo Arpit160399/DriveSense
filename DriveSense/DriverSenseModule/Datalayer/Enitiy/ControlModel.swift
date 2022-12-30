@@ -8,7 +8,7 @@
 
 
 import Foundation
-struct ControlModel: Codable {
+struct ControlModel: Codable, Equatable {
     var acceleration: String
     var footBreak: String
     var steering: String

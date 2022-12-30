@@ -8,9 +8,8 @@
 
 import Foundation
 
-struct CandidatesModel:Equatable, Identifiable , Codable  {
+struct CandidatesModel:Equatable, Identifiable , Codable {
  
-    
     var id: UUID
     var name: String?
     var dateOfBirth: Double?
@@ -19,9 +18,6 @@ struct CandidatesModel:Equatable, Identifiable , Codable  {
     var instructor: InstructorModel?
     var assessment: [AssessmentModel]?
     
-    static func == (lhs: CandidatesModel, rhs: CandidatesModel) -> Bool {
-        return lhs.id == rhs.id
-    }
 }
 
 extension CandidatesModel: Hashable {

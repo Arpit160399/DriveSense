@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct AxisValueModel:Codable {
+struct AxisValueModel:Codable,Equatable {
     var x: Float?
     var y: Float?
     var z: Float?

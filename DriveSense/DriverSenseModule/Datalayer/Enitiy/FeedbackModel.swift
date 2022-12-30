@@ -6,7 +6,8 @@
 //
 
 import Foundation
-struct FeedbackModel: Codable  {
+
+struct FeedbackModel: Codable , Equatable {
     var id: UUID
     var control: ControlModel?
     var judgement: JudgementModel?

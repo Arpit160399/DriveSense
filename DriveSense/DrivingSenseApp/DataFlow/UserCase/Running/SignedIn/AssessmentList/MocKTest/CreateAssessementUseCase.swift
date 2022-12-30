@@ -43,5 +43,7 @@ class CreateAssessmentUseCase: UseCase {
 }
 
 protocol CreateAssessmentUserCaseFactory {
+    
     func makeCreateAssessmentUseCase(forAssessment: AssessmentModel) -> UseCase
+    
 }

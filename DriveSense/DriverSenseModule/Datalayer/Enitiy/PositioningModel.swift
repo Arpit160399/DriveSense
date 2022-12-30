@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PositioningModel: Codable {
+struct PositioningModel: Codable , Equatable {
     var normalDriving: String?
     var laneDiscipline: String?
 }

@@ -44,5 +44,7 @@ class UpdateFeedBackUseCase: UseCase {
 }
 
 protocol UpdateFeedbackUseCaseFactory {
+    
     func makeUpdateFeedbackUseCase(feedback: FeedbackModel,forAssessment: AssessmentModel) -> UseCase
+    
 }

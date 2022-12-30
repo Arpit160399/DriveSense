@@ -90,6 +90,7 @@ struct AssessmentCard: View {
         .cornerRadius(6)
         .shadow(radius: 4)
         .padding(.horizontal)
+        .foregroundColor(.black)
     }
     
     

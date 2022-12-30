@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProgressModel: Codable {
+struct ProgressModel: Codable , Equatable {
     var appropriatedSpeed: String?
     var undueHesitation: String?
 }

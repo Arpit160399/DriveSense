@@ -8,8 +8,9 @@ import Combine
 import Foundation
 
 class NetworkCall: NetworkManager {
+   
     /// default session
-    var session: URLSession
+    private let session: URLSession
     
     init(session:URLSession = URLSession.shared) {
         self.session = session

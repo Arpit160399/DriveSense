@@ -33,4 +33,12 @@ protocol AssessmentRemoteApi {
     /// - Returns: a publisher notifies once the operation is completed with either
     ///  new collection of sensor model or an error if any occurred.
     func sendSensor(values: [SensorModel],for assessment: AssessmentModel) -> AnyPublisher<[SensorModel],NetworkError>
+    
+    /// To get sensor values for given assessment that was collected during the mock test.
+    /// - Parameters:
+    ///   - assessment: the assessment for which the sensor values need to be fetched for.
+    ///   - page: indicated the page number of list to show
+    /// - Returns: a publisher notifies once the operation is completed with either
+    ///  collection of sensor model for that assessment or an error if any occurred.
+    func getSensor(for assessment: AssessmentModel,page: Int) -> AnyPublisher<[SensorModel],NetworkError>
 }

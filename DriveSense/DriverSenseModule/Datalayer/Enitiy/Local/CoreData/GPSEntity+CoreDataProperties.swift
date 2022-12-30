@@ -33,9 +33,8 @@ extension GPSEntity : DomainModel {
         longitude = from.longitude ?? 0
     }
     
-    
     func toDomainModel() -> GPSModel {
-        return GPSModel(longitude: latitude, latitude: longitude)
+        return GPSModel(longitude: longitude, latitude: latitude)
     }
     
 }

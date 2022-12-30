@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AssessmentListState {
+struct AssessmentListState: Equatable {
     var loading: Bool
     var page: Int
     var candidate: CandidatesModel
@@ -26,16 +26,8 @@ struct AssessmentListState {
     
 }
 
-extension AssessmentListState: Equatable {
-    
-    static func == (lhs: AssessmentListState, rhs: AssessmentListState) -> Bool {
-        return lhs.candidate == rhs.candidate
-    }
-    
-}
-
-enum AssessmentViewState {
+enum AssessmentViewState: Equatable {
     case list
     case mockTest(MockTestState)
-    case sensorData(SensorListState)
+    case assessmentDetail(AssessmentDetailState)
 }

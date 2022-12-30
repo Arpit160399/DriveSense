@@ -22,10 +22,6 @@ struct AssessmentModel: Codable,Identifiable {
 
 extension AssessmentModel: Hashable,Equatable {
     
-    static func == (lhs: AssessmentModel, rhs: AssessmentModel) -> Bool {
-        lhs.id == rhs.id
-    }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
