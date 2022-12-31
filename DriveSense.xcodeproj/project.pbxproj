@@ -203,6 +203,8 @@
 		83CBE76A290F0C800031C531 /* CreateAssessementUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE769290F0C800031C531 /* CreateAssessementUseCase.swift */; };
 		83CBE76C290F11450031C531 /* StoreSensorDataUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE76B290F11450031C531 /* StoreSensorDataUseCase.swift */; };
 		83CBE76E290F15230031C531 /* UpdateAssesmentValueUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CBE76D290F15230031C531 /* UpdateAssesmentValueUseCase.swift */; };
+		83CE6140295F1B1900179A45 /* DrivingStateTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE613F295F1B1900179A45 /* DrivingStateTest.swift */; };
+		83CE6143295F1BCB00179A45 /* DrivingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CE6141295F1BC600179A45 /* DrivingState.swift */; };
 		83DE541528902D7800ACF792 /* DrivingAssisgmentForme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE541428902D7800ACF792 /* DrivingAssisgmentForme.swift */; };
 		83DE541A2890607900ACF792 /* Conclusion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE54192890607900ACF792 /* Conclusion.swift */; };
 		83DE541C2890609400ACF792 /* TestMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE541B2890609400ACF792 /* TestMark.swift */; };
@@ -451,6 +453,8 @@
 		83CBE769290F0C800031C531 /* CreateAssessementUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAssessementUseCase.swift; sourceTree = "<group>"; };
 		83CBE76B290F11450031C531 /* StoreSensorDataUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreSensorDataUseCase.swift; sourceTree = "<group>"; };
 		83CBE76D290F15230031C531 /* UpdateAssesmentValueUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAssesmentValueUseCase.swift; sourceTree = "<group>"; };
+		83CE613F295F1B1900179A45 /* DrivingStateTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingStateTest.swift; sourceTree = "<group>"; };
+		83CE6141295F1BC600179A45 /* DrivingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingState.swift; sourceTree = "<group>"; };
 		83DE541428902D7800ACF792 /* DrivingAssisgmentForme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrivingAssisgmentForme.swift; sourceTree = "<group>"; };
 		83DE54192890607900ACF792 /* Conclusion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conclusion.swift; sourceTree = "<group>"; };
 		83DE541B2890609400ACF792 /* TestMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestMark.swift; sourceTree = "<group>"; };
@@ -866,6 +870,7 @@
 		835D8C2A286EE7A800961878 /* DriveSenseTests */ = {
 			isa = PBXGroup;
 			children = (
+				83CE613D295F1ACE00179A45 /* SensorDataTest */,
 				83BF6E7528C790EC002BB627 /* CoreDataTestRepo */,
 				835D8C2B286EE7A800961878 /* DriveSenseTests.swift */,
 			);
@@ -1424,6 +1429,14 @@
 			path = SignedIn;
 			sourceTree = "<group>";
 		};
+		83CE613D295F1ACE00179A45 /* SensorDataTest */ = {
+			isa = PBXGroup;
+			children = (
+				83CE613F295F1B1900179A45 /* DrivingStateTest.swift */,
+			);
+			path = SensorDataTest;
+			sourceTree = "<group>";
+		};
 		83DE541628905FAB00ACF792 /* DrivingSenseApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1523,6 +1536,7 @@
 				83E8BCBA28AF0CBC0089491C /* Enitiy */,
 				83E8FEF128A5807A00E9B458 /* AccelerometerSensor.swift */,
 				83E8FEF328A5808800E9B458 /* GPSSensor.swift */,
+				83CE6141295F1BC600179A45 /* DrivingState.swift */,
 				8381882428A972B800017978 /* GyroscopeSensor.swift */,
 				8381882628AACF1E00017978 /* SensorHandler.swift */,
 			);
@@ -1868,6 +1882,7 @@
 				83BF6DB228C2290B002BB627 /* ControlEntity+CoreDataClass.swift in Sources */,
 				835F432428C000C800F66C36 /* InstructorModel.swift in Sources */,
 				83BF6DB528C2290B002BB627 /* JudgementEntity+CoreDataProperties.swift in Sources */,
+				83CE6143295F1BCB00179A45 /* DrivingState.swift in Sources */,
 				83BF6E5F28C35C3F002BB627 /* CoreDateCandidatesPersistencelayer.swift in Sources */,
 				837BAF0628B91B3600760799 /* Session.swift in Sources */,
 				83BF6E6E28C7747A002BB627 /* CoreDateSensorPersistencelayer.swift in Sources */,
@@ -2012,6 +2027,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B32B7428C8B3DF004517CF /* CoreDataSensor.swift in Sources */,
+				83CE6140295F1B1900179A45 /* DrivingStateTest.swift in Sources */,
 				835D8C2C286EE7A800961878 /* DriveSenseTests.swift in Sources */,
 				83B32B7828C8B410004517CF /* CoredataCandidates.swift in Sources */,
 				83B32B7A28C8B938004517CF /* CoreDataStack.swift in Sources */,

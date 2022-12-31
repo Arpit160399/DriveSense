@@ -102,7 +102,7 @@ struct AssessmentDetailView: View {
                 }
                        
                 HStack(spacing: 5) {
-                    Text("\(Image(systemName: "speedometer")) Candidate maintaining an average speed of")
+                    Text("\(Image(systemName: "speedometer")) Candidate maintained an average speed of")
                         + Text(" \(String(format: "%.1f", store.assessment.avgSpeed ?? 0)) mph")
                         .foregroundColor(.black)
                     Spacer()

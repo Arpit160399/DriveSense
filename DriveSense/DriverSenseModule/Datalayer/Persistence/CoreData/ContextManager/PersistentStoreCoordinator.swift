@@ -17,7 +17,6 @@ class PersistentStoreCoordinator {
     
     private var persistentContainer: NSPersistentContainer
     
-    
     // MARK: - Methods
     init(completion: @escaping (Error?) -> Void )  {
         persistentContainer = NSPersistentContainer(name: "localDB")

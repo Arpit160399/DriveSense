@@ -11,10 +11,9 @@ struct MockTestLogic {
         var state = currentState
         
         switch action {
-        case let action as MockTestAction.UpdateCurrentUserCase:
-            state.sensorCollection = action.sensorTask
-            
+
         case let action as MockTestAction.UpdatedDrivingState:
+            state.startSensorCollection = false
             state.currentSpeed = action.speed 
             state.currentDistance += action.distance
             state.currentDirection = action.direction
@@ -29,6 +28,7 @@ struct MockTestLogic {
             
         case let action as MockTestAction.UpdateAssessment:
             state.assessment = action.assessment
+            state.startSensorCollection = true
             state.loading = false
             state.viewState = .mainBoard
             

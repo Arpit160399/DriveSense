@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TestBoardView: View {
+    
     @ObservedObject var store: TestViewPresenter
     @State var showPopup = false
     
@@ -129,6 +130,7 @@ struct TestBoardView: View {
                 .padding(.vertical)
             HStack {
                 Button {
+                    store.endTest()
                     let action = AssessmentListAction.AssessmentListDismissView()
                     store.send(action)
                 } label: {

@@ -12,8 +12,8 @@ enum CarDirection: Double {
 //    case right = "arrow.right"
 //    case forward = "arrow.up"
 //    case backward = "arrow.down"
-        case left = 90
-        case right = -90
+        case left = -90
+        case right = 90
         case forward = 0
         case backward = 180
     

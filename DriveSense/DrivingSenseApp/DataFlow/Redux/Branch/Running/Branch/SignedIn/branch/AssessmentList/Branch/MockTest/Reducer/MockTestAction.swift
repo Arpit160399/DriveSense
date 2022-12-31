@@ -22,10 +22,6 @@ struct MockTestAction: Action {
         var feedback: FeedbackModel
     }
     
-    struct UpdateCurrentUserCase: Action {
-        var sensorTask: any UseCase
-    }
-    
     struct UpdatedDrivingState: Action {
         var speed: Double
         var distance: Double

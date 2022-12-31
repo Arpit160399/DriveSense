@@ -19,7 +19,6 @@ extension ReducerCollection {
             state.viewState = .mockTest(.init(assessment: .init(id: UUID(),
                                                                 feedback: TestMark().convertToFeedbackModel()),
                                               errorToPresent: Set<ErrorMessage>(),
-                                              sensorCollection: nil,
                                               viewState: .consentForm))
         default:
             state = AssessmentListLogic.setState(current: state, action: action)

@@ -15,28 +15,29 @@ class TestViewPresenter: ObservableObject {
     @Published var testFeedback: TestMark
     private let actionDispatcher: ActionDispatcher
     
-    // Child Views Factory
- 
     // Use Case Factory
     private let storeSensorCollectionUseCaseFactory: StoreSensorDataUseCaseFactory
     private let createAssessmentUseCaseFactory: CreateAssessmentUserCaseFactory
     private let updateFeedbackUseCaseFactory: UpdateFeedbackUseCaseFactory
+    private let endTestCleanUpFactory: () -> Void
     
-    // MARK: -  Methods
+    // MARK: - Methods
     init(state: MockTestState,
          actionDispatcher: ActionDispatcher,
          storeSensorCollectionUseCaseFactory: StoreSensorDataUseCaseFactory,
          createAssessmentUseCaseFactory: CreateAssessmentUserCaseFactory,
-         updateFeedbackUseCaseFactory: UpdateFeedbackUseCaseFactory ) {
+         updateFeedbackUseCaseFactory: UpdateFeedbackUseCaseFactory,
+         endTestCleanUpFactory: @escaping () -> Void) {
         self.state = state
         self.actionDispatcher = actionDispatcher
         self.showError = !state.errorToPresent.isEmpty
         self.createAssessmentUseCaseFactory = createAssessmentUseCaseFactory
         self.storeSensorCollectionUseCaseFactory = storeSensorCollectionUseCaseFactory
         self.updateFeedbackUseCaseFactory = updateFeedbackUseCaseFactory
+        self.endTestCleanUpFactory = endTestCleanUpFactory
         self.testFeedback = .init(feedBack: state.assessment.feedback ?? .init(id: UUID()))
         self.manageTestBoardNavigation()
-        if state.sensorCollection == nil {
+        if state.startSensorCollection {
             startSensorCollection()
         }
     }
@@ -50,14 +51,16 @@ class TestViewPresenter: ObservableObject {
             .makeCreateAssessmentUseCase(forAssessment: state.assessment)
         useCase.start()
     }
-    
+    func endTest() {
+        endTestCleanUpFactory()
+    }
     func startSensorCollection() {
         
         let userCase = storeSensorCollectionUseCaseFactory
             .makeStoreSensorDateUseCase(forAssessment: state.assessment)
         userCase.start()
-        let action = MockTestAction.UpdateCurrentUserCase(sensorTask: userCase)
-        send(action)
+//        let action = MockTestAction.UpdateCurrentUserCase(sensorTask: userCase)
+//        send(action)
     }
     
     func update(testFeedback: TestMark) {

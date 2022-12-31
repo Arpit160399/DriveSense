@@ -13,7 +13,6 @@ class DriverSenseCandidateContainer {
     private let userSession: UserSession
     private let candidate: CandidatesModel
     private let sensorDataProvider: SensorHandler
-    private let dataLayer: AssessmentDataLayer
     
     // MARK: - Methods
     
@@ -22,15 +21,19 @@ class DriverSenseCandidateContainer {
         self.userSession = container.useSession
         self.candidate = candidate
         self.sensorDataProvider = container.sensorHandler
-        self.dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
-                                                             candidate: candidate)
     }
      
     func makeMockTestView(state: MockTestState) -> TestBoardView {
+        let mockTestDataCleanUpFactory = {
+            self.sensorDataProvider.stopCollection()
+        }
+        
         let presenter = TestViewPresenter(state: state,
-            actionDispatcher: store, storeSensorCollectionUseCaseFactory: self,
+            actionDispatcher: store,
+            storeSensorCollectionUseCaseFactory: self,
             createAssessmentUseCaseFactory: self,
-            updateFeedbackUseCaseFactory: self)
+            updateFeedbackUseCaseFactory: self,
+            endTestCleanUpFactory: mockTestDataCleanUpFactory)
         let view  = TestBoardView(store: presenter)
         return view
     }
@@ -67,7 +70,8 @@ class DriverSenseCandidateContainer {
 extension DriverSenseCandidateContainer: FetchAssessmentUseCaseFactory {
     
     func makeFetchAssessmentUseCase(candidate: CandidatesModel, page: Int) -> UseCase {
-
+        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
+                                                             candidate: candidate)
          let useCase = FetchAssessmentUseCase(assessmentDataLayer: dataLayer,
                                               candidate: candidate, page: page,
                                               actionDispatcher: store)
@@ -79,11 +83,12 @@ extension DriverSenseCandidateContainer: FetchAssessmentUseCaseFactory {
 extension DriverSenseCandidateContainer: StoreSensorDataUseCaseFactory {
     
     func makeStoreSensorDateUseCase(forAssessment: AssessmentModel) -> UseCase {
-       
+        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
+                                                             candidate: candidate)
         let useCase = StoreSensorDataUseCase(assessmentDataLayer: dataLayer,
                                              forAssessment: forAssessment,
                                              actionDispatcher: store,
-                                             sensorDataProvider: sensorDataProvider)
+                                             sensorDataProvider: self.sensorDataProvider)
         return useCase
     }
     
@@ -93,6 +98,8 @@ extension DriverSenseCandidateContainer: UpdateFeedbackUseCaseFactory {
     
     func makeUpdateFeedbackUseCase(feedback: FeedbackModel,
                                    forAssessment: AssessmentModel) -> UseCase {
+        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
+                                                             candidate: candidate)
         let userCase =  UpdateFeedBackUseCase(assessmentDataLayer: dataLayer, feedback: feedback,
                                               assessment: forAssessment, actionDispatcher: store)
         return userCase
@@ -103,6 +110,8 @@ extension DriverSenseCandidateContainer: UpdateFeedbackUseCaseFactory {
 extension DriverSenseCandidateContainer: CreateAssessmentUserCaseFactory {
     
     func makeCreateAssessmentUseCase(forAssessment: AssessmentModel) -> UseCase {
+        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
+                                                             candidate: candidate)
         let useCase = CreateAssessmentUseCase(assessmentDataLayer: dataLayer,
                                               assessment: forAssessment,
                                               actionDispatcher: store)

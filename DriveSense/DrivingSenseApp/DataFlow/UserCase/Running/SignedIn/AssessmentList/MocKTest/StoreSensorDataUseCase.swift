@@ -31,17 +31,22 @@ class StoreSensorDataUseCase: UseCase {
         self.interval = interval
     }
     
+//  deinit {
+//      sensorDataProvider.stopCollection()
+//      task.forEach({ $0.cancel() })
+//  }
+    
   func start() {
          sensorDataProvider
         .collectSensorData(interval)
         .map({ $0.toSensorModel() })
-        .sink { completion in
+        .sink {  completion in
             if case .failure(let error) = completion {
                 let error = ErrorMessage(title: "Error Occurred", message: error.localizedDescription)
                 let action = MockTestAction.MockTestError(error: error)
                 self.actionDispatcher.dispatch(action)
             }
-        } receiveValue: { sensor in
+        } receiveValue: {  sensor in
             let action = MockTestAction.UpdatedDrivingState(speed: sensor.speed ?? 0,
                                                             distance: sensor.distance ?? 0,
                                                             direction: sensor.direction ?? "")
@@ -55,13 +60,14 @@ class StoreSensorDataUseCase: UseCase {
         .collect(sensor: sensors,forAssessment: forAssessment)
         .subscribe(on: DispatchQueue.global())
         .receive(on: DispatchQueue.main)
-        .sink { completion in
-            if case .failure(let error) = completion {
+        .sink {  completion in
+            if case .failure(_) = completion {
                 let errorMg = ErrorMessage(title: "Error Occurred", message: "Unable to Gather data from sensor at the moment.")
                 let action = MockTestAction.MockTestError(error: errorMg)
                 self.actionDispatcher.dispatch(action)
             }
         } receiveValue: { _ in
+  //          self.sensorDataProvider.stopCollection()
 //            let action = MockTestAction.UpdateAssessment(assessment: model)
 //            self.actionDispatcher.dispatch(action)
         }.store(in: &task)
