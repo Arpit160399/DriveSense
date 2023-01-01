@@ -38,11 +38,11 @@ class DriveSenseUserRemoteApi: InstructorRemoteApi {
     }
     
     func searchCandidateBy(name: String, page: Int) -> AnyPublisher<[CandidatesModel], NetworkError> {
+        let query = name != "" ? [ "query" : name ] : ["page": "\(page)"]
         guard let request = try? NetworkRequest(url: SecuredRoute(endpoint: .candidates,
                                                 auth: session.accessToken),
                                                 method: .get,
-                                                query: ["page": "\(page)",
-                                                        "query": "\(name)"]) else {
+                                                query: query) else {
             return Fail(error: NetworkError.invalidURl).eraseToAnyPublisher()
         }
         return networkSession.fetch(request)

@@ -37,7 +37,7 @@ class TestViewPresenter: ObservableObject {
         self.endTestCleanUpFactory = endTestCleanUpFactory
         self.testFeedback = .init(feedBack: state.assessment.feedback ?? .init(id: UUID()))
         self.manageTestBoardNavigation()
-        if state.startSensorCollection {
+        if case .startSensorCollection = state.testOperation {
             startSensorCollection()
         }
     }

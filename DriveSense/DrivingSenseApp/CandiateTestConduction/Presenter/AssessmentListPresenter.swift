@@ -25,6 +25,7 @@ class AssessmentListPresenter: ObservableObject {
     
     /// Use Cases
     private let fetchAssessmentUseCaseFactory: FetchAssessmentUseCaseFactory
+    private let cloudSyncAssessmentUseCaseFactory: CloudSyncAssessmentUseCaseFactory
     
     // MARK: - Methods
 
@@ -33,7 +34,8 @@ class AssessmentListPresenter: ObservableObject {
          actionDispatcher: ActionDispatcher,
          testBoardViewFactory: @escaping (MockTestState) -> TestBoardView,
          assessmentDetailViewFactory: @escaping (AssessmentDetailState) -> AssessmentDetailView,
-         fetchAssessmentUseCaseFactory: FetchAssessmentUseCaseFactory)
+         fetchAssessmentUseCaseFactory: FetchAssessmentUseCaseFactory,
+         cloudSyncAssessmentUseCaseFactory: CloudSyncAssessmentUseCaseFactory)
     {
         self.state = state
         self.showError = !state.errorPresenter.isEmpty
@@ -43,12 +45,22 @@ class AssessmentListPresenter: ObservableObject {
         self.testBoardViewFactory = testBoardViewFactory
         self.assessmentDetailViewFactory = assessmentDetailViewFactory
         self.assessment = Array(state.assessment)
+        self.cloudSyncAssessmentUseCaseFactory = cloudSyncAssessmentUseCaseFactory
         navigateTo()
+        if state.cloudSyncState == .begin {
+            cloudSyncAssessment()
+        }
     }
     
     func conductMockTest() {
         let action = AssessmentListAction.PresentMockTesting(candidate: candidate)
         send(action)
+    }
+    
+    func cloudSyncAssessment() {
+        let useCase = cloudSyncAssessmentUseCaseFactory
+            .makeCloudSyncAssessmentUseCase(candidate: candidate)
+        useCase.start()
     }
     
     func getAssessmentFor(page: Int) {

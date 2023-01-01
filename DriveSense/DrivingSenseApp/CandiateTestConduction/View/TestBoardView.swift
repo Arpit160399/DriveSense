@@ -48,11 +48,11 @@ struct TestBoardView: View {
         .background(Color.appOrangeLevel.edgesIgnoringSafeArea(.all))
         .sheet(isPresented: $store.presentTestBoard) {
             DrivingAssessmentForm(testMark: $store.testFeedback) { feedback in
+                store.update(testFeedback: feedback)
                 let action = MockTestAction.DismissTestBoard(feedback: feedback.convertToFeedbackModel())
                 store.send(action)
-                store.update(testFeedback: feedback)
             } onChange: { testMark in
-                let action = MockTestAction.UpdateFeedBackLocal(feedback: testMark.convertToFeedbackModel())
+                let action = MockTestAction.UpdateFeedBackState(feedback: testMark.convertToFeedbackModel())
                 store.send(action)
            }
         }
@@ -124,24 +124,33 @@ struct TestBoardView: View {
     
     var waringPopup: some View {
         VStack {
-            Text("Are you sure you want end the current Mock test ?")
-                .font(.systemCaption2)
-                .foregroundColor(.black)
-                .padding(.vertical)
-            HStack {
-                Button {
-                    store.endTest()
-                    let action = AssessmentListAction.AssessmentListDismissView()
-                    store.send(action)
-                } label: {
-                    Text("Yes")
-                }.buttonStyle(PrimaryButton(loading: .constant(false), color: .appPeach))
-                Spacer()
-                Button {
-                    showPopup = false
-                } label: {
-                    Text("No")
-                }.buttonStyle(PrimaryButton(loading: .constant(false)))
+            if case .none  = store.state.testOperation {
+                Text("Are you sure you want end the current Mock test ?")
+                    .font(.systemCaption2)
+                    .foregroundColor(.black)
+                    .padding(.vertical)
+                HStack {
+                    Button {
+                        store.endTest()
+                        let action = AssessmentListAction.AssessmentListDismissView()
+                        store.send(action)
+                    } label: {
+                        Text("Yes")
+                    }.buttonStyle(PrimaryButton(loading: .constant(false), color: .appPeach))
+                    Spacer()
+                    Button {
+                        showPopup = false
+                    } label: {
+                        Text("No")
+                    }.buttonStyle(PrimaryButton(loading: .constant(false)))
+                }
+            } else {
+                Text("Please wait saving the current mock test..")
+                    .font(.systemCaption2)
+                    .foregroundColor(.black)
+                    .padding(.vertical)
+                ActivityLoader(color: .black)
+                    .frame(width: 50)
             }
         }
         .padding()

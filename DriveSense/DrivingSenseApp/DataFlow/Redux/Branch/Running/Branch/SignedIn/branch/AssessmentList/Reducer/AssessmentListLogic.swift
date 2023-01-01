@@ -11,6 +11,17 @@ struct AssessmentListLogic {
         var state = current
         let listLimit = 200
         switch action {
+            
+        case _ as AssessmentListAction.SyncingBegin:
+            state.cloudSyncState = .inProgress
+            
+        case let action as AssessmentListAction.SyncingEnded:
+            if !action.newList.isEmpty {
+                state.cloudSyncState = .end
+                state.assessment = Set(action.newList)
+                state.page = 0
+            }
+            
         case let action as AssessmentListAction.FetchedList:
             state.page = action.page
             if state.assessment.count < listLimit {

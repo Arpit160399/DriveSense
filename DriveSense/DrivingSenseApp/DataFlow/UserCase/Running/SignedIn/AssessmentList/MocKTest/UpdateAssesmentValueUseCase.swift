@@ -26,17 +26,19 @@ class UpdateFeedBackUseCase: UseCase {
     }
     
     func start() {
+        let action = MockTestAction.UpdatingFeedbackLocal()
+        actionDispatcher.dispatch(action)
         assessmentDataLayer
             .update(feedback: feedback,forAssessment: assessment)
             .sink(receiveCompletion: { completion in
-                if case .failure(let error) = completion {
+                if case .failure(_) = completion {
                     let errorMessage = ErrorMessage(title: "Error Occurred",
                                                     message: "Unable to cache the feedback at the moment.")
                     let action = MockTestAction.MockTestError(error: errorMessage)
                     self.actionDispatcher.dispatch(action)
                 }
             }, receiveValue: { feedback in
-                let action = MockTestAction.DismissTestBoard(feedback: feedback)
+                let action = MockTestAction.UpdatedFeedBackLocal(feedback: feedback)
                 self.actionDispatcher.dispatch(action)
             }).store(in: &task)
     }

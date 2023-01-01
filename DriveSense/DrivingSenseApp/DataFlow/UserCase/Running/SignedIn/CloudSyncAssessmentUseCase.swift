@@ -1,38 +1,37 @@
 //
-//  FetchAssessmentUseCase.swift
+//  CloudSyncAssessmentUseCase.swift
 //  DriveSense
 //
-//  Created by Arpit Singh on 23/10/22.
+//  Created by Arpit Singh on 01/01/23.
 //
 import Combine
 import Foundation
-class FetchAssessmentUseCase: UseCase {
+class CloudSyncAssessmentUseCase: UseCase {
     
     // MARK: - property
     
     private var task: Set<AnyCancellable>
     private let assessmentDataLayer: AssessmentDataLayer
     private let candidate: CandidatesModel
-    private let page: Int
     private let actionDispatcher: ActionDispatcher
     
     // MARK: - method
     init(assessmentDataLayer: AssessmentDataLayer,
          candidate: CandidatesModel,
-         page: Int,
          actionDispatcher: ActionDispatcher) {
         self.task = Set<AnyCancellable>()
         self.assessmentDataLayer = assessmentDataLayer
         self.candidate = candidate
-        self.page = page
         self.actionDispatcher = actionDispatcher
     }
     
     func start() {
-        let action = AssessmentListAction.FetchingList()
+        let action = AssessmentListAction.SyncingBegin()
         actionDispatcher.dispatch(action)
-        let page = page
-        assessmentDataLayer.getAssessment(page: page)
+        assessmentDataLayer
+            .syncAssessment()
+            .subscribe(on: DispatchQueue.global())
+            .receive(on: DispatchQueue.main)
             .sink(receiveCompletion: { completion in
                 if case .failure(let error) = completion {
                     var errorMg = ErrorMessage(title: "Error Occurred", message: "unable fetch the assessment list at current moment.")
@@ -43,12 +42,12 @@ class FetchAssessmentUseCase: UseCase {
                     self.actionDispatcher.dispatch(action)
                 }
             }, receiveValue: { assessments in
-                let action = AssessmentListAction.FetchedList(list: assessments, page: page)
+                let action = AssessmentListAction.SyncingEnded(newList: assessments)
                 self.actionDispatcher.dispatch(action)
             }).store(in: &task)
     }
     
 }
-protocol FetchAssessmentUseCaseFactory {
-    func makeFetchAssessmentUseCase(candidate: CandidatesModel,page: Int) -> UseCase
+protocol CloudSyncAssessmentUseCaseFactory {
+    func makeCloudSyncAssessmentUseCase(candidate: CandidatesModel) -> UseCase
 }

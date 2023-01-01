@@ -10,13 +10,19 @@ struct MockTestState: Equatable {
     
      var assessment: AssessmentModel
      var errorToPresent: Set<ErrorMessage>
-     var startSensorCollection: Bool = false
+     var testOperation: TestOperation = .none
      var viewState: MockTestViewState
      var currentSpeed: Double = 0
      var currentDirection: String = "Moving Forward"
      var currentDistance: Double = 0
      var loading = false
     
+}
+
+enum TestOperation: Equatable {
+    case none
+    case startSensorCollection
+    case savingFeedback
 }
 
 enum MockTestViewState: Equatable {

@@ -59,7 +59,8 @@ class DriverSenseCandidateContainer {
                                                   actionDispatcher: store,
                                                   testBoardViewFactory: testBoardFactory,
                                                 assessmentDetailViewFactory: assessmentDetailViewFactory,
-                                                  fetchAssessmentUseCaseFactory: self)
+                                                fetchAssessmentUseCaseFactory: self,
+                                                cloudSyncAssessmentUseCaseFactory: self)
         let view = AssessmentListView(store: presenter)
         
         return view
@@ -78,6 +79,18 @@ extension DriverSenseCandidateContainer: FetchAssessmentUseCaseFactory {
         return useCase
     }
     
+}
+
+extension DriverSenseCandidateContainer: CloudSyncAssessmentUseCaseFactory {
+    
+    func makeCloudSyncAssessmentUseCase(candidate: CandidatesModel) -> UseCase {
+        let dataLayer = DataManager().getAssessmentDataLayer(session: userSession,
+                                                             candidate: candidate)
+         let useCase = CloudSyncAssessmentUseCase(assessmentDataLayer: dataLayer,
+                                              candidate: candidate,
+                                              actionDispatcher: store)
+        return useCase
+    }
 }
 
 extension DriverSenseCandidateContainer: StoreSensorDataUseCaseFactory {

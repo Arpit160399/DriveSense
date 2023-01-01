@@ -11,6 +11,12 @@ struct AssessmentListAction: Action {
         var error: ErrorMessage
     }
     
+    struct SyncingBegin: Action {}
+    
+    struct SyncingEnded: Action {
+        var newList: [AssessmentModel]
+    }
+    
     struct FetchingList: Action {}
     
     struct FetchedList: Action {

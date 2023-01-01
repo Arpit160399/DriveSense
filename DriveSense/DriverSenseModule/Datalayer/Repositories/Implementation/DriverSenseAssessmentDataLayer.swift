@@ -19,8 +19,7 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     init(candidate: CandidatesModel,
          candidateCache: CandidatePersistenceLayer,
          assessmentCache: AssessmentPersistenceLayer,
-         remoteApi: AssessmentRemoteApi)
-    {
+         remoteApi: AssessmentRemoteApi) {
         self.candidate = candidate
         self.candidateLocalStore = candidateCache
         self.assessmentLocalStore = assessmentCache
@@ -28,14 +27,16 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     }
     
     func getAssessment(page: Int) -> AnyPublisher<[AssessmentModel], Error> {
+        return self.getAssessmentFromRemote(page: page)
+    }
+    
+    func syncAssessment() -> AnyPublisher<[AssessmentModel], Error> {
         getCacheAssessment()
             .flatMap { (assessments: [AssessmentModel]) in
-                if assessments.isEmpty {
-                    return self.getAssessmentFromRemote(page: page)
-                } else {
+                if !assessments.isEmpty {
                     // TODO: - separate the synchronisation operation
                     // uploading if there is any unsynchronised data
-                    let task = self.getAssessmentFromRemote(page: page)
+                    let task = self.getAssessmentFromRemote()
                     return self.upload(assessments: assessments)
                         .flatMap { (_: [AssessmentModel]) -> AnyPublisher<[AssessmentModel], Error> in
                             // fetching new assessment list from server
@@ -47,6 +48,10 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                             print(error)
                             return task
                         }).eraseToAnyPublisher()
+                } else {
+                    return Just([AssessmentModel]())
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
                 }
             }.eraseToAnyPublisher()
     }
@@ -55,7 +60,7 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
     private func upload(assessments: [AssessmentModel]) -> AnyPublisher<[AssessmentModel], Error> {
         let initial = remoteApi.upload(assessment: assessments[0])
         let remaining = Array(assessments.dropFirst())
-        let limit = 100
+        let limit = 5
         let bufferSize = assessments.count % limit
         // creating pipeline stream for uploading every assessment
         let task = remaining.reduce(initial) { publishers, assessment in
@@ -77,7 +82,6 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                 
                 return task
                      // setting up buffer size limit
-
                     .flatMap { (model: AssessmentModel) -> AnyPublisher<AssessmentModel, Error> in
                         // clearing assessment model from cache
                       return  self.clearAssessmentCache(model)
@@ -116,7 +120,13 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                     return Just<AssessmentModel>(forAssessment)
                         .setFailureType(to: Error.self).eraseToAnyPublisher()
                 }
-                let limit = min(40,size),range = Int(size / limit)
+                let minLimit = 40
+                var limit = min(minLimit,size)
+                var currentCount = size , range = Int(size / limit)
+                // handling the case of some result set cannot be presented into a single page
+                if size % limit != 0 {
+                    range += (size % limit)
+                }
                 // Fetching all sensor value in batch from the cache
                 let initial = sensorLocalStore.fetch(page: 1, limit: limit, id: nil)
                 guard range > 2 else {
@@ -127,19 +137,25 @@ class DriverSenseAssessmentDataLayer: AssessmentDataLayer {
                         }.eraseToAnyPublisher()
                 }
                 let task = (2 ..< range).reduce(initial) { combine, page in
-                    combine.merge(with: sensorLocalStore
-                        .fetch(page: page, limit: limit, id: nil)).eraseToAnyPublisher()
+                    currentCount >= limit ? (currentCount = currentCount - limit) : (limit = abs(currentCount - limit))
+                     return  combine
+                            .merge(with: sensorLocalStore
+                                .fetch(page: page, limit: limit, id: nil))
+                            .eraseToAnyPublisher()
                 }
                 return task
                     .flatMap { (sensorData: [SensorModel]) -> AnyPublisher<AssessmentModel, Error> in
                         // uploading sensor value to the server and clearing the cache
                         self.manageCacheFor(sensor: sensorData,assessment: forAssessment)
-                    }.eraseToAnyPublisher()
+                    }
+                    // dropping all response except for last one
+                    .dropFirst(range - 1)
+                    .eraseToAnyPublisher()
             }.eraseToAnyPublisher()
         return task
     }
     
-    private func getAssessmentFromRemote(page: Int) -> AnyPublisher<[AssessmentModel], Error> {
+    private func getAssessmentFromRemote(page: Int = 0) -> AnyPublisher<[AssessmentModel], Error> {
         return remoteApi.getAssessmentFor(candidate: candidate, page: page)
             .mapError { $0 as Error }
             .eraseToAnyPublisher()

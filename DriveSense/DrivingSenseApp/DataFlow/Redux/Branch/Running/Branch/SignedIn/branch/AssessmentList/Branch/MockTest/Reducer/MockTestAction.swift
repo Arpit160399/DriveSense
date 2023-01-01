@@ -18,7 +18,13 @@ struct MockTestAction: Action {
         var feedback: FeedbackModel
     }
     
-    struct UpdateFeedBackLocal: Action {
+    struct UpdatingFeedbackLocal: Action {}
+    
+    struct UpdateFeedBackState: Action {
+        var feedback: FeedbackModel
+    }
+    
+    struct UpdatedFeedBackLocal: Action {
         var feedback: FeedbackModel
     }
     

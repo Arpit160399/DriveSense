@@ -9,6 +9,8 @@ import Foundation
 protocol AssessmentDataLayer {
     
     func getAssessment(page: Int) -> AnyPublisher<[AssessmentModel],Error>
+    
+    func syncAssessment() -> AnyPublisher<[AssessmentModel],Error>
    
     func update(feedback: FeedbackModel,forAssessment: AssessmentModel) -> AnyPublisher<FeedbackModel,Error>
     func collect(sensor: SensorModel,

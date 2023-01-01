@@ -13,7 +13,7 @@ struct MockTestLogic {
         switch action {
 
         case let action as MockTestAction.UpdatedDrivingState:
-            state.startSensorCollection = false
+            state.testOperation = .none
             state.currentSpeed = action.speed 
             state.currentDistance += action.distance
             state.currentDirection = action.direction
@@ -25,15 +25,22 @@ struct MockTestLogic {
         case let action as MockTestAction.PresentedError:
             state.errorToPresent.remove(action.error)
             state.loading = false
+        
+        case _ as MockTestAction.UpdatingFeedbackLocal:
+            state.testOperation = .savingFeedback
             
         case let action as MockTestAction.UpdateAssessment:
             state.assessment = action.assessment
-            state.startSensorCollection = true
+            state.testOperation = .startSensorCollection
             state.loading = false
             state.viewState = .mainBoard
             
-        case let action as MockTestAction.UpdateFeedBackLocal:
+        case let action as MockTestAction.UpdateFeedBackState:
             state.assessment.feedback = action.feedback
+        
+        case let action as MockTestAction.UpdatedFeedBackLocal:
+            state.assessment.feedback = action.feedback
+            state.testOperation = .none
             
         case let action as MockTestAction.DismissTestBoard:
             state.assessment.feedback = action.feedback

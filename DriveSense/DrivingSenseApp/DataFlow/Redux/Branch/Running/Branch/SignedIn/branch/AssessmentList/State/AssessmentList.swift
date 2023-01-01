@@ -10,6 +10,7 @@ import Foundation
 struct AssessmentListState: Equatable {
     var loading: Bool
     var page: Int
+    var cloudSyncState: AssessmentSyncOperation = .begin
     var candidate: CandidatesModel
     var assessment: Set<AssessmentModel>
     var viewState: AssessmentViewState
@@ -24,6 +25,12 @@ struct AssessmentListState: Equatable {
         self.errorPresenter = errorPresenter
     }
     
+}
+
+enum AssessmentSyncOperation: Equatable {
+    case begin
+    case inProgress
+    case end
 }
 
 enum AssessmentViewState: Equatable {

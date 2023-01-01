@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8304F33A296227E600748CF5 /* CloudSyncAssessmentUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8304F339296227E600748CF5 /* CloudSyncAssessmentUseCase.swift */; };
 		830BF33128CBC4AA00918C21 /* OnBoardingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830BF33028CBC4AA00918C21 /* OnBoardingState.swift */; };
 		830D3E8A28F4756800B5B34F /* SearchForCandidateUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D3E8928F4756800B5B34F /* SearchForCandidateUseCase.swift */; };
 		830D3E8E28F48EE800B5B34F /* AssessmentListReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830D3E8D28F48EE800B5B34F /* AssessmentListReducer.swift */; };
@@ -253,6 +254,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8304F339296227E600748CF5 /* CloudSyncAssessmentUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudSyncAssessmentUseCase.swift; sourceTree = "<group>"; };
 		830BF33028CBC4AA00918C21 /* OnBoardingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingState.swift; sourceTree = "<group>"; };
 		830D3E8928F4756800B5B34F /* SearchForCandidateUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchForCandidateUseCase.swift; sourceTree = "<group>"; };
 		830D3E8D28F48EE800B5B34F /* AssessmentListReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssessmentListReducer.swift; sourceTree = "<group>"; };
@@ -1421,6 +1423,7 @@
 				83DEEC6B28FA1202005DFCBA /* Settings */,
 				831724D828F8CC0E00A88B7B /* AssessmentList */,
 				83CBE7652905F87B0031C531 /* FetchAssessmentUseCase.swift */,
+				8304F339296227E600748CF5 /* CloudSyncAssessmentUseCase.swift */,
 				834C6E0F28DE20050078220D /* addCandidate */,
 				834C6DEB28D9AFC90078220D /* common */,
 				834C6E1028DE20460078220D /* FetchCandidateUseCase.swift */,
@@ -1462,14 +1465,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		83DE54182890602000ACF792 /* ViewModel */ = {
+		83DE54182890602000ACF792 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
 				83CBE76129049D220031C531 /* TestViewPresenter.swift */,
 				83CBE76329049D600031C531 /* AssessmentListPresenter.swift */,
 				839E4F68295DB89A0036281F /* AssessmentDetailPresenter.swift */,
 			);
-			path = ViewModel;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		83DEEC6328F9DB27005DFCBA /* UserSignedIn */ = {
@@ -1636,7 +1639,7 @@
 			children = (
 				83DEEC5F28F9C467005DFCBA /* DriverSenseCandidateContainer.swift */,
 				83DE54172890600900ACF792 /* View */,
-				83DE54182890602000ACF792 /* ViewModel */,
+				83DE54182890602000ACF792 /* Presenter */,
 				837E7B57289C45E8009D9079 /* Model */,
 			);
 			path = CandiateTestConduction;
@@ -1808,6 +1811,7 @@
 				83CBE76A290F0C800031C531 /* CreateAssessementUseCase.swift in Sources */,
 				83BF6E6628C37C57002BB627 /* FeedbackEntity+CoreDataClass.swift in Sources */,
 				831724D128F8BBC600A88B7B /* MockTestReducer.swift in Sources */,
+				8304F33A296227E600748CF5 /* CloudSyncAssessmentUseCase.swift in Sources */,
 				83E98AF628D0D762007583A1 /* OnboardingReducer.swift in Sources */,
 				834C6DEA28D9AFA10078220D /* CacheCompletionHandler.swift in Sources */,
 				835F433C28C000C800F66C36 /* JunctionsModel.swift in Sources */,

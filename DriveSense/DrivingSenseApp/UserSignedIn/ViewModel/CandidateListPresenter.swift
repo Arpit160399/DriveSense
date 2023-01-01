@@ -76,7 +76,7 @@ class CandidateListPresenter: ObservableObject {
     }
     
     fileprivate func searchForCandidateBy(_ name: String,_ page: Int) {
-        guard name != "" else {return}
+        guard name != "",name != state.searchText else {return}
         let useCase = searchCandidateUserCaseFactory
             .makeSearchForCandidateUserCase(query: name, page: page)
         useCase.start()
