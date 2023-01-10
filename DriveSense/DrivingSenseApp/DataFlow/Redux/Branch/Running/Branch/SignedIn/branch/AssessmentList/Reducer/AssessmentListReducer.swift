@@ -12,6 +12,7 @@ extension ReducerCollection {
         switch action {
         case _ as AssessmentListAction.AssessmentListDismissView:
             state.viewState = .list
+            state.cloudSyncState = .begin
         case let action as AssessmentListAction.PresentAssessmentDetail:
             state.viewState = .assessmentDetail(.init(assessment: action.assessment, places: [],
                                                       errorToPresent: Set<ErrorMessage>()))

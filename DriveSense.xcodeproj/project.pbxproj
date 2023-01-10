@@ -1347,7 +1347,7 @@
 			isa = PBXGroup;
 			children = (
 				83E98B0428D0FFCA007583A1 /* DriverSenseOnBoardingContainer.swift */,
-				83BF710F2895522C00ABBE57 /* ViewModel */,
+				83BF710F2895522C00ABBE57 /* Presenter */,
 				83BF710E2895522200ABBE57 /* Views */,
 			);
 			path = UserOnBoarding;
@@ -1363,14 +1363,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		83BF710F2895522C00ABBE57 /* ViewModel */ = {
+		83BF710F2895522C00ABBE57 /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
 				83BF71102895525900ABBE57 /* LoginViewPresenter.swift */,
 				83ED45AE2896D40C00F57334 /* RegistrationPresenter.swift */,
 				83C01B4A28D2B08F0003A5A2 /* UserOnBoardingPresenter.swift */,
 			);
-			path = ViewModel;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		83BF76BF2955243700063A5F /* AssessmentList */ = {
@@ -1478,7 +1478,7 @@
 		83DEEC6328F9DB27005DFCBA /* UserSignedIn */ = {
 			isa = PBXGroup;
 			children = (
-				83DEEC6528F9DB5F005DFCBA /* ViewModel */,
+				83DEEC6528F9DB5F005DFCBA /* Presenter */,
 				83DEEC6428F9DB54005DFCBA /* View */,
 				834C6E0928DE13260078220D /* DriverSenseSignedInContainer.swift */,
 			);
@@ -1495,14 +1495,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		83DEEC6528F9DB5F005DFCBA /* ViewModel */ = {
+		83DEEC6528F9DB5F005DFCBA /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
 				83874D9328EB398400AC9D56 /* AddCandidatePresenter.swift */,
 				834C6E0B28DE15D60078220D /* CandidateListPresenter.swift */,
 				83DEEC6728F9DBC6005DFCBA /* SettingsPresenter.swift */,
 			);
-			path = ViewModel;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		83DEEC6628F9DB8D005DFCBA /* CandidateList */ = {

@@ -20,7 +20,7 @@ struct Candidate: Equatable {
     
     init() {
         name = ""
-        dob = Date()
+        dob = Date(timeIntervalSince1970: ConstantValue.defaultDateOfBrith)
         postcode = ""
         address1 = ""
         address2 = ""
@@ -28,7 +28,7 @@ struct Candidate: Equatable {
     
     init(model: CandidatesModel) {
         self.name = model.name ?? ""
-        self.dob = Date(timeIntervalSince1970: model.dateOfBirth ?? Date().timeIntervalSince1970)
+        self.dob = Date(timeIntervalSince1970: model.dateOfBirth ?? ConstantValue.defaultDateOfBrith)
         if let address = model.address?.split(separator: "\n") {
         self.postcode = String(address[address.count - 1])
         self.address1 = String(address[0])

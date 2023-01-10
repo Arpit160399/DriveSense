@@ -92,11 +92,11 @@ class DrivingState {
     }
     
    func getAccelerationState(bySpeed: Double) -> String {
-        let speedOffset: Double = 30
+        let speedOffset: Double = 5
         defer {
             prevSpeed = bySpeed
         }
-        if bySpeed > (prevSpeed - speedOffset), bySpeed < (prevSpeed + speedOffset) {
+        if bySpeed > min(prevSpeed - speedOffset,0), bySpeed < (prevSpeed + speedOffset) {
             return "constant acceleration"
         } else if bySpeed > prevSpeed {
             return "increased acceleration"

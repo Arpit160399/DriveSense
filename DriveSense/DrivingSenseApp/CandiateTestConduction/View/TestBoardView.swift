@@ -48,7 +48,6 @@ struct TestBoardView: View {
         .background(Color.appOrangeLevel.edgesIgnoringSafeArea(.all))
         .sheet(isPresented: $store.presentTestBoard) {
             DrivingAssessmentForm(testMark: $store.testFeedback) { feedback in
-                store.update(testFeedback: feedback)
                 let action = MockTestAction.DismissTestBoard(feedback: feedback.convertToFeedbackModel())
                 store.send(action)
             } onChange: { testMark in
@@ -124,16 +123,14 @@ struct TestBoardView: View {
     
     var waringPopup: some View {
         VStack {
-            if case .none  = store.state.testOperation {
+            if case .none = store.state.testOperation {
                 Text("Are you sure you want end the current Mock test ?")
                     .font(.systemCaption2)
                     .foregroundColor(.black)
                     .padding(.vertical)
                 HStack {
                     Button {
-                        store.endTest()
-                        let action = AssessmentListAction.AssessmentListDismissView()
-                        store.send(action)
+                        store.update()
                     } label: {
                         Text("Yes")
                     }.buttonStyle(PrimaryButton(loading: .constant(false), color: .appPeach))

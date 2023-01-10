@@ -38,7 +38,7 @@ class UpdateFeedBackUseCase: UseCase {
                     self.actionDispatcher.dispatch(action)
                 }
             }, receiveValue: { feedback in
-                let action = MockTestAction.UpdatedFeedBackLocal(feedback: feedback)
+                let action = AssessmentListAction.AssessmentListDismissView()
                 self.actionDispatcher.dispatch(action)
             }).store(in: &task)
     }

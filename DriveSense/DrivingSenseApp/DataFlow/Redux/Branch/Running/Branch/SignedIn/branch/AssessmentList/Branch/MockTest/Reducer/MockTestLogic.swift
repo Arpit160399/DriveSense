@@ -13,10 +13,12 @@ struct MockTestLogic {
         switch action {
 
         case let action as MockTestAction.UpdatedDrivingState:
-            state.testOperation = .none
-            state.currentSpeed = action.speed 
-            state.currentDistance += action.distance
-            state.currentDirection = action.direction
+            if state.viewState != .testBoard {
+                state.testOperation = .none
+                state.currentSpeed = action.speed
+                state.currentDistance += action.distance
+                state.currentDirection = action.direction
+            }
             
         case let action as MockTestAction.MockTestError:
             state.errorToPresent.insert(action.error)
@@ -40,10 +42,10 @@ struct MockTestLogic {
         
         case let action as MockTestAction.UpdatedFeedBackLocal:
             state.assessment.feedback = action.feedback
+            print("update completed")
             state.testOperation = .none
             
-        case let action as MockTestAction.DismissTestBoard:
-            state.assessment.feedback = action.feedback
+        case _ as MockTestAction.DismissTestBoard:
             state.viewState = .mainBoard
             
         case _ as MockTestAction.GeneratingAssessment:

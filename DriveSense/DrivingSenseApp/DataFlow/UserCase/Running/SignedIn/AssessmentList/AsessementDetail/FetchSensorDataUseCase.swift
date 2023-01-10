@@ -21,8 +21,14 @@ class FetchSensorDataUseCase: UseCase {
     func start() {
         let action = AssessmentDetailAction.FetchingDataStarted()
         dispatcher.dispatch(action)
-        remoteApi.getSensorData(page: 0)
-            .sink { completion in
+        let initial = remoteApi
+            .getSensorData(page: 0)
+        let batchOp = (1..<2).reduce(initial, { combine, page in
+            combine.merge(with: remoteApi.getSensorData(page: page))
+                .eraseToAnyPublisher()
+        })
+        batchOp
+        .sink { completion in
                 if case .failure(let error)  = completion {
                     var errorMg = ErrorMessage(title: "Error Occurred", message: "Unable To Fetch Sensor At Moment.")
                     if case NetworkError.serverWith(let error) = error {

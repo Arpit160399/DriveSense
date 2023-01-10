@@ -55,17 +55,16 @@ class TestViewPresenter: ObservableObject {
         endTestCleanUpFactory()
     }
     func startSensorCollection() {
-        
         let userCase = storeSensorCollectionUseCaseFactory
             .makeStoreSensorDateUseCase(forAssessment: state.assessment)
         userCase.start()
-//        let action = MockTestAction.UpdateCurrentUserCase(sensorTask: userCase)
-//        send(action)
     }
     
-    func update(testFeedback: TestMark) {
+    func update() {
+        guard let feedback = state.assessment.feedback else { return }
+        endTest()
         let useCase = updateFeedbackUseCaseFactory
-            .makeUpdateFeedbackUseCase(feedback: testFeedback.convertToFeedbackModel(),
+            .makeUpdateFeedbackUseCase(feedback: feedback,
                                        forAssessment: state.assessment)
         useCase.start()
     }
