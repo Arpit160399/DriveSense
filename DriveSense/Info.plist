@@ -2,8 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string></string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string></string>
 	<key>Base_URL_Pro</key>
-	<string>uploaddata.com</string>
+	<string>us-central1-drivesense-8de18.cloudfunctions.net</string>
+    <key>UIUserInterfaceStyle</key>
+    <string>Light</string>
 	<key>Base_URL_Staging</key>
 	<string>dev.uploaddata.com</string>
 </dict>

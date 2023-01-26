@@ -12,7 +12,6 @@ class GyroscopeSensor {
     private let motion: CMMotionManager
     private let barometer: CMAltimeter
     private var currentPressure :Double = 0
-    private let operationQueue = DispatchQueue(label: "pressure.sensor")
     private let lock = NSLock()
     
     enum GyroError: Swift.Error {
